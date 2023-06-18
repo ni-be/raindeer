@@ -1,0 +1,24 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: Raindeer
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Nikolas
+    family-names: Bertrand
+    email: nbertrand@uni-potsdam.de
+    orcid: 'https://orcid.org/0000-0001-7259-2111'
+  - given-names: 'Julian '
+    family-names: Bruns
+  - given-names: Josephine
+    family-names: Funken
+  - given-names: Timo
+    family-names: Wedding
+repository-code: 'https://gitup.uni-potsdam.de/jubruns/raindeer/'
+abstract: Precipitation analysis in Germany
+license: MIT
+date-released: '2023-07-18'
