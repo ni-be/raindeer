@@ -9,8 +9,8 @@ This project is done as part of the Research Software Engineering course Group P
 * [Running the Program](#running-the-program)
   * [CLI](#cli)
 * [Dataset](#dataset)
-* [Contributing](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CONTRIBUTING.md)
-* [Code of Conduct](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CONDUCT.md)
+* [Contributing](https://gitup.uni-potsdam.de/jubruns/raindeer/-/blob/main/CONTRIBUTING.md)
+* [Code of Conduct](https://gitup.uni-potsdam.de/jubruns/raindeer/-/blob/main/code_of_conduct.md)
 * [Licencse](https://gitup.uni-potsdam.de/jubruns/raindeer/main/LICENSE) 
 * [Citation](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CITATION.cff)
 
