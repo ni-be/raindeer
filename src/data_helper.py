@@ -61,6 +61,10 @@ def merge_files_to_dataframe(filenames, skip_rows):
     df = pd.DataFrame(data)
     df.columns = [row_headers]
 
+    # Remove ; from all cells
+    for col in df.columns:
+        df[col] = df[col].str.replace(';', '')
+
     return df
 
 
@@ -78,5 +82,4 @@ row_headers = ['Jahr;Monat', 'Brandenburg/Berlin',
 if merge is True:
     skip_rows = 3
     df = merge_files_to_dataframe(txt_files, skip_rows)
-    print(df)
     df.to_csv("../data/regional_averages_tm_all.csv")
