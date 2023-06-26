@@ -8,7 +8,7 @@ Created on Mon Jun 19 15:02:04 2023
 import requests
 import pandas as pd
 
-download = False
+download = True
 merge = True
 
 
@@ -28,8 +28,7 @@ def download_txt_files(url_template, destination_folder, months):
 
 
 # Example usage, please replace later when used as a helper:
-url_template = "https://opendata.dwd.de/climate_environment/CDC/regional_\
-    averages_DE/monthly/air_temperature_mean/regional_averages_tm_{}.txt"
+url_template = "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/monthly/air_temperature_mean/regional_averages_tm_{}.txt"
 destination_folder = "../data"
 months = {'01', '02', '03', '04', '05', '06', '07', '08',
           '09', '10', '11', '12'}
