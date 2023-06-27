@@ -4,38 +4,11 @@ Created on Mon Jun 19 15:02:04 2023
 
 @author: timow
 """
-
-import requests
+from global_var import MONTHS
 import pandas as pd
 
-download = True
+
 merge = True
-
-
-def download_txt_files(url_template, destination_folder, months):
-    for number in months:
-        url = url_template.format(number)
-        response = requests.get(url)
-        if response.status_code == 200:
-            content = response.text
-            filename = url.split("/")[-1]
-            destination_path = f"{destination_folder}/{filename}"
-            with open(destination_path, "w") as file:
-                file.write(content)
-            print(f"Downloaded '{filename}' to '{destination_path}'.")
-        else:
-            print(f"Failed to download the file for URL: {url}.")
-
-
-# Example usage, please replace later when used as a helper:
-url_template = "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/monthly/air_temperature_mean/regional_averages_tm_{}.txt"
-destination_folder = "../data"
-months = {'01', '02', '03', '04', '05', '06', '07', '08',
-          '09', '10', '11', '12'}
-
-if download is True:
-    download_txt_files(url_template, destination_folder, months)
-
 
 def generate_txt_names(base_name, iterator):
     txt_names = set()
@@ -69,7 +42,7 @@ def merge_files_to_dataframe(filenames, skip_rows):
 
 # Example usage:
 # Generate txt files
-txt_files = generate_txt_names('../data/regional_averages_tm_', months)
+txt_files = generate_txt_names('../data/regional_averages_tm_', MONTHS)
 row_headers = ['Jahr;Monat', 'Brandenburg/Berlin',
                'Brandenburg', 'Baden-Wuerttemberg', 'Bayern', 'Hessen',
                'Mecklenburg-Vorpommern', 'Niedersachsen',
