@@ -4,7 +4,7 @@ Created on Mon Jun 19 15:02:04 2023
 
 @author: timow
 """
-from global_var import MONTHS
+from global_var import MONTHS, HEADERS
 import pandas as pd
 
 
@@ -31,7 +31,7 @@ def merge_files_to_dataframe(filenames, skip_rows):
 
     # Create DataFrame from the data
     df = pd.DataFrame(data)
-    df.columns = [row_headers]
+    df.columns = [HEADERS]
 
     # Remove ; from all cells
     for col in df.columns:
@@ -43,13 +43,6 @@ def merge_files_to_dataframe(filenames, skip_rows):
 # Example usage:
 # Generate txt files
 txt_files = generate_txt_names('../data/regional_averages_tm_', MONTHS)
-row_headers = ['Jahr;Monat', 'Brandenburg/Berlin',
-               'Brandenburg', 'Baden-Wuerttemberg', 'Bayern', 'Hessen',
-               'Mecklenburg-Vorpommern', 'Niedersachsen',
-               'Niedersachsen/Hamburg/Bremen', 'Nordrhein-Westfalen',
-               'Rheinland-Pfalz', 'Schleswig-Holstein', 'Saarland', 'Sachsen',
-               'Sachsen-Anhalt', 'Thueringen/Sachsen-Anhalt', 'Thueringen',
-               'Deutschland']
 
 if merge is True:
     skip_rows = 3
