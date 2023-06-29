@@ -13,7 +13,7 @@ merge = True
 def generate_txt_names(base_name, iterator):
     txt_names = set()
     for i in iterator:
-        txt_name = f"{base_name}{i}.txt"
+        txt_name = f"{base_name}.txt"
         txt_names.add(txt_name)
     return txt_names
 
@@ -42,9 +42,10 @@ def merge_files_to_dataframe(filenames, skip_rows):
 
 # Example usage:
 # Generate txt files
-txt_files = generate_txt_names('../data/regional_averages_tm_', MONTHS)
+txt_files = generate_txt_names('../data/annual/precipitation/regional_averages_rr_year', MONTHS)
+
 
 if merge is True:
     skip_rows = 3
     df = merge_files_to_dataframe(txt_files, skip_rows)
-    df.to_csv("../data/regional_averages_tm_all.csv")
+    df.to_csv("../data/annual/precipitation/regional_averages_rr_all.csv")
