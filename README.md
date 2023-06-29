@@ -26,6 +26,10 @@ This project is done as part of the Research Software Engineering course Group P
 5)
 
 ## How to get Started
+To install all necessary packages, run: 
+```
+pip install -r requirements.txt
+```
 
 ## Running the Program
 
