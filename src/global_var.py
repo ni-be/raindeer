@@ -1,4 +1,6 @@
 # TODO added into a single list. just for testing seperated!
+DWD_BASE_URL = "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/"
+
 URLS =["https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/annual/air_temperature_mean/regional_averages_tm_year.txt",
        "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/annual/precipitation/regional_averages_rr_year.txt",
        "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/annual/sunshine_duration/regional_averages_sd_year.txt",

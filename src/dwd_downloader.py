@@ -1,9 +1,10 @@
 import requests
 from pathlib import Path
-
+from bs4 import BeautifulSoup
+import urllib.parse
 
 # download files from url_list YEARLY
-def downloader(url_list, months, dir):
+def dwd_downloader(url_list, months, dir):
     ## convert url_list or month into lists if necessary
     url_list, months = input_checker(url_list, months)
     # iterate over the url_list
