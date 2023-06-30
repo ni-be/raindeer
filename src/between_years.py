@@ -11,12 +11,6 @@ import matplotlib.pyplot as plt
 df = pd.read_csv('../data/monthly/precipitation/regional_averages_tm_all.csv')
 
 def plot_between_years(df, yearsmonths, state, case):
-
-    # Assertion of valid inputs
-    df_test = pd.DataFrame([0])
-    assert type(df) == type(df_test)
-    assert case in ['rain', 'sun', 'temp']
-
     # Sort the dates
     df_sorted = df.sort_values('Jahr;Monat')
     cut_values = []
@@ -31,15 +25,11 @@ def plot_between_years(df, yearsmonths, state, case):
     if case == 'temp':
         variable = ['Temperature', 'Celsius']
 
-    try:
-        for yearmonth, value in zip(df_sorted['Jahr;Monat'], df_sorted[state]):
-            if yearmonth > yearsmonths[0] and yearmonth < yearsmonths[1]:
-            
-                cut_years.append(yearmonth)
-                cut_values.append(value)
 
-    except TypeError:
-        print('A value in the time data is not a number value')
+    for yearmonth, value in zip(df_sorted['Jahr;Monat'], df_sorted[state]):
+        if yearmonth > yearsmonths[0] and yearmonth < yearsmonths[1]:
+            cut_years.append(yearmonth)
+            cut_values.append(value)
 
     # Plot the results
     plt.figure()
@@ -50,4 +40,4 @@ def plot_between_years(df, yearsmonths, state, case):
     plt.grid(True)
     plt.show()
 
-plot_between_years(df, [177001, 202001], 'Deutschland', 'rain')
+plot_between_years(df, [199001, 202001], 'Deutschland', 'rain')

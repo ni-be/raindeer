@@ -13,12 +13,6 @@ df = pd.read_csv('../data/monthly/precipitation/regional_averages_tm_all.csv')
 
 def fourier_analysis(df, columns, case):
 
-    # Assertion of valid inputs
-    df_test = pd.DataFrame([0])
-    assert type(df) == type(df_test)
-    assert case in ['rain', 'sun', 'temp']
-
-    # Define values for plot title and axis
     if case == 'rain':
         variable = ['Precipitation', 'mm']
 
@@ -40,10 +34,11 @@ def fourier_analysis(df, columns, case):
 
         # Plot the Fourier analysis
         plt.figure()
-        plt.plot(frequencies, np.abs(fft_values))
+        plt.plot(1/frequencies, np.abs(fft_values))
         plt.title(f'Fourier Analysis of {column} ' + variable[0])
-        plt.xlabel("Frequency")
+        plt.xlabel("1/Frequency")
         plt.ylabel("Magnitude in " + variable[1])
+        plt.xlim(2, 12)
         plt.grid(True)
         plt.show()
 
