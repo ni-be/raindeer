@@ -1,12 +1,13 @@
 import requests
 from pathlib import Path
-from bs4 import BeautifulSoup
-import urllib.parse
+from global_var import URLS, MONTHS, ROOT_DATA
 
-# download files from url_list YEARLY
-def dwd_downloader(url_list, months, dir):
+
+# download files from url_list, 
+def dwd_downloader(url_list):
     ## convert url_list or month into lists if necessary
-    url_list, months = input_checker(url_list, months)
+    url_list = input_checker(url_list)
+    months = input_checker(MONTHS)
     # iterate over the url_list
     for url in url_list:
         ## Get directory from url
@@ -17,31 +18,27 @@ def dwd_downloader(url_list, months, dir):
         match time_dir:
             case "annual":
                 filename = url.split('/')[-1]
-                path = f"{dir}/{time_dir}/{sub_dir}/{filename}"
+                path = f"{ROOT_DATA}/{time_dir}/{sub_dir}/{filename}"
                 url_checker_handler(path, url)
             case "monthly":
                 for n in months:
                     monthly_url = url.format(n)
                     filename = monthly_url.split('/')[-1]
-                    path = f"{dir}/{time_dir}/{sub_dir}/{filename}"
+                    path = f"{ROOT_DATA}/{time_dir}/{sub_dir}/{filename}"
                     url_checker_handler(path, monthly_url)
 
 
-def input_checker(url_list, months):
-    if isinstance(url_list, str) and isinstance(months, list):
-        url_list = string_list_converter(url_list)
+def input_checker(input):
+    if isinstance(input, str):
+        input = string_list_converter(input)
 
-    elif isinstance(url_list, list) and isinstance(months, str):
-        months = string_list_converter(months)
-    
-    elif isinstance(url_list, str) and isinstance(months, str):
-        url_list = string_list_converter(url_list)
-        months = string_list_converter(months)
-
-    else:
+    elif isinstance(input, list):
         pass
 
-    return url_list, months
+    else:
+        input = string_list_converter(str(input))
+
+    return input
 
 
 def string_list_converter(input):
@@ -67,3 +64,4 @@ def data_writer(path, url):
     output_file.write_text(url)
     print(f"Downloaded '{path}' STATUS OK.")
 
+dwd_downloader(URLS)
