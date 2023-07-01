@@ -33,7 +33,8 @@ def input_checker(input):
         input = string_list_converter(input)
 
     elif isinstance(input, list):
-        pass
+        #print(input)
+        return input
 
     else:
         input = string_list_converter(str(input))
@@ -64,4 +65,4 @@ def data_writer(path, url):
     output_file.write_text(url)
     print(f"Downloaded '{path}' STATUS OK.")
 
-dwd_downloader(URLS)
+

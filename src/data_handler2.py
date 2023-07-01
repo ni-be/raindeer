@@ -1,69 +1,125 @@
 import pandas as pd
 import os
-from dwd_downloader import dwd_downloader, input_checker 
-from global_var import URLS, MONTHS, HEADERS, ROOT_DATA, DWD_BASE_URL # for building and testing
+from dwd_downloader import dwd_downloader, input_checker
+from global_var import URLS, MONTHLY_DATA_TYPE, INTERVAL, ROOT_DATA,MONTHS
 
 
-def dataframe_creator(season, data, interval):
-   pass
-
-def dir_check(season, data, interval):
-    # TODO add a checker if season = monthly that the file for list of intervals is there
-    conv_season, interval = input_checker(season, interval)
-    conv_data, x  = input_checker(data, "")
-    working_path = []
-    data_path = []
-    for list_season in conv_season:          
-        working_path.append(f"{ROOT_DATA}/{list_season}")
-    for data in conv_data:
-        for x in working_path:
-            data_path.append(f"{x}/{data}")
-        
-
-    dir_list = get_directories(working_path)
+def dataframe_creator(data, months):
+    data_list_path = dir_check(data)
+    months_list = input_checker(months)
+    generate_txt_names(data_list_path, months_list)
+    print(data_list_path)
     
-    not_in_dir_list = [elem for elem in data_path if elem not in dir_list]
-    if len(not_in_dir_list) > 0:
-        print("Missing Data will be Downloaded")
-        for download in not_in_dir_list:
-            pass
-    else:
-        return data_path
+
+def csv_creator():
+    #df.to_csv("")
+    pass
 
 
-def get_directories(directory):
-    directories = []
-    for list_directory in directory: 
-        # Iterate over the first level directories
-        for root, dirs, files in os.walk(list_directory):
-            for dir in dirs:
-                dir_path = os.path.join(root, dir)
-                directories.append(dir_path)
-
-    return(directories)
-
-
-def generate_txt_names(path, filename, iterator):
-    txt_names = set()
-    interval = path.split('/')[-2]
-    match interval:
-        case "annual":
-            pass
-
-        case "monthly":
-            for i in iterator:
-                txt_name = f"{path}{filename}{i}.txt"
-                txt_names.add(txt_name)
-    
+def generate_txt_names(data_path, iterator):
+    txt_names = []
+    for data in data_path:
+        interval = data_path.split('/')[-2]
+        file_name = data_path.split('/')[-1] 
+        match interval:
+            case "annual":
+                pass
+            case "monthly":
+                for i in iterator:
+                    txt_name = f"{data}/{file_name}_monthly_{i}.txt"
+                    txt_names.append(txt_name) 
     return txt_names
 
-# Example usage
-print(dir_check(["monthly", "annual"] , ["precipitation", "sunshine_duration"], "0"))
+
+def txt_renamer(path):
+    for pathx in path:
+        data_type = pathx.split('/')[-1]
+        interval_type = pathx.split('/')[-2]
+        for filename in os.listdir(pathx):
+            # Check if the file has a text file extension
+            if filename.endswith(".txt"):
+                if interval_type == "monthly":
+                    ending = filename[-7:]
+                    rename_function(filename, data_type, ending, pathx)
+                elif interval_type == "annual":
+                    ending = str(filename[-9:])
+                    rename_function(filename, data_type, ending, pathx)
+                else:
+                    print(f"Internval needs to be monthly or annual, {interval_type},\
+                            does not exists")
 
 
-# Print the resulting directories
-#for directory in result:
-#def create_csv_from_data(path):
-#    skip_rows = 3
-#    temp_df = merge_files_to_dataframe(txt_files,skip_rows)
-#    temp_df.to_csv(ROOT_DIR+f"/")
+def rename_function(filename, data_type, ending, path):
+    old_filename = os.path.join(path, filename)
+    new_name = str(data_type + ending)
+    new_file = os.path.join(path, new_name)
+    try: 
+        os.rename(old_filename, new_file)
+    except FileNotFoundError:
+        print(f"{old_filename} does not exist")
+
+
+def dir_check(data):
+    # Check whether data is already downloaded or not, if not download it. 
+    conv_data  = input_checker(data)
+    data_path = [] 
+    for data in conv_data:
+        if data in MONTHLY_DATA_TYPE:
+            data_path.append(f"{ROOT_DATA}/monthly/{data}")
+            data_path.append( f"{ROOT_DATA}/annual/{data}")
+        else: 
+            data_path.append(f"{ROOT_DATA}/annual/{data}")
+    dwd_downloader(local_check(data_path))
+    txt_renamer(data_path)
+    return data_path
+
+
+def valid_dir_check_from_url(input):
+    data_url = []
+    interval_url = []
+    data_indices_list = []
+    interval_indices_list = [] 
+    for url in URLS:
+        data_url.append(url.split('/')[-2])
+        interval_url.append(url.split('/')[-3])
+    for path_input in input:
+        data_indices_list.extend(
+            [index for index, value in enumerate(data_url)
+            if value == path_input])
+        interval_indices_list.extend(
+            [index for index, value in enumerate(interval_url)
+            if value == path_input])
+
+
+def create_url_download_list(input):
+    indices_list = []
+    url_list = []
+    download_list = []
+    for url in URLS:
+        url_list.append(url.split('/')[-2])
+    for path_input in input:    
+        indices_list.extend(
+            [index for index, value in enumerate(url_list)
+            if value == path_input.split('/')[-1]]
+        ) 
+    for index in indices_list:
+        download_list.append((URLS[index]))
+    return download_list
+
+
+def local_check(directory):
+    download_list = []
+    for dir in directory:
+        if not os.path.exists(dir):
+            print(f"{dir} does not yet exists, will commence download!")
+            download_list.append(dir)
+        else:
+            print(f"{dir} does exist")
+
+    download_url_list = create_url_download_list(download_list)
+    return download_url_list
+
+
+# TESTING Example usage
+#dataframe_creator(["precipitation", "sunshine_duration", "hot_days"], ["01","03"])
+txt_renamer(["../data/monthly/precipitation"])
