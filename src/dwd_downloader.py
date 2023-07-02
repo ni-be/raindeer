@@ -46,16 +46,7 @@ def input_checker(input):
         input = string_list_converter(input)
         return input
     elif isinstance(input, list):
-<<<<<<< HEAD
         return input
-||||||| simplified DOWNLOADER, but had scrap the DWD scraper, webscraping was server side blocked
-        pass
-
-=======
-        #print(input)
-        return input
-
->>>>>>> data_helper_cli
     else:
         input = string_list_converter(str(input))
         return input
