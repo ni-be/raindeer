@@ -1,85 +1,112 @@
-# -*- coding: utf-8 -*-
 """
-Created on Mon Jun 19 15:02:04 2023
-
-@author: timow
+Functions to do the background tasks to work efficiently with data provided by the DWD
 """
-
-import requests
-import pandas as pd
-
-download = False
-merge = True
+import os
+from dwd_downloader import dwd_downloader, input_checker
+from global_var import URLS, MONTHLY_DATA_TYPE, ROOT_DATA
 
 
-def download_txt_files(url_template, destination_folder, months):
-    for number in months:
-        url = url_template.format(number)
-        response = requests.get(url)
-        if response.status_code == 200:
-            content = response.text
-            filename = url.split("/")[-1]
-            destination_path = f"{destination_folder}/{filename}"
-            with open(destination_path, "w") as file:
-                file.write(content)
-            print(f"Downloaded '{filename}' to '{destination_path}'.")
+def data_helper(data):
+    """
+    Function that takes the data to find all the urls and local paths for each set.
+    Returns a list of paths 
+    :param data: contains a string or list of possible dataset from DWD
+    :type data: String or List
+    """
+    conv_data  = input_checker(data)
+    data_path = [] 
+    for data in conv_data:
+        if data in MONTHLY_DATA_TYPE:
+            data_path.append(f"{ROOT_DATA}/monthly/{data}")
+            data_path.append( f"{ROOT_DATA}/annual/{data}")
+        else: 
+            data_path.append(f"{ROOT_DATA}/annual/{data}")
+    dwd_downloader(local_check(data_path))
+    txt_renamer(data_path)
+    return data_path
+
+
+def txt_renamer(path):
+    """
+    DWD provided txt files have inconsistent file names,
+    txt_renamer is used to rename the txt files after downloading 
+    :param path: takes the data_path created in data_helper as input
+    :type path: list
+    """
+    for pathx in path:
+        data_type = pathx.split('/')[-1]
+        interval_type = pathx.split('/')[-2]
+        for filename in os.listdir(pathx):
+            if filename.endswith(".txt"):
+                if interval_type == "monthly":
+                    ending = filename[-7:]
+                    rename_function(filename, data_type, ending, pathx)
+                elif interval_type == "annual":
+                    ending = str(filename[-9:])
+                    rename_function(filename, data_type, ending, pathx)
+                else:
+                    print(f"Internval needs to be monthly or annual, {interval_type},\
+                            does not exists")
+
+
+def rename_function(filename, data_type, ending, path):
+    """
+    Function to effectively rename the txt files
+    :param filename: current filename
+    :type filename: String
+    :param data_type: precipitation etc
+    :type data_type: String
+    :param ending: _year.txt for annual  _01.txt for monthly
+    :type ending: String
+    :param path: directory path to file
+    :type path: String
+    """
+    old_filename = os.path.join(path, filename)
+    new_name = str(data_type + ending)
+    new_file = os.path.join(path, new_name)
+    try: 
+        os.rename(old_filename, new_file)
+    except FileNotFoundError:
+        print(f"{old_filename} does not exist")
+
+
+def local_check(directory):
+    """
+    Checks whether or not a dataset type is already present on the filesystem, if not
+    path will be added to the downloadlist and run through the create_url_download list
+    :param directory: list of datatype sets including path
+    :type directory: list
+    """
+    download_list = []
+    for dir in directory:
+        if not os.path.exists(dir):
+            print(f"{dir} does not yet exists, will commence download!")
+            download_list.append(dir)
         else:
-            print(f"Failed to download the file for URL: {url}.")
+            print(f"{dir} does exist")
+    download_url_list = create_url_download_list(download_list)
+    return download_url_list
 
 
-# Example usage, please replace later when used as a helper:
-url_template = "https://opendata.dwd.de/climate_environment/CDC/regional_\
-    averages_DE/monthly/air_temperature_mean/regional_averages_tm_{}.txt"
-destination_folder = "../data"
-months = {'01', '02', '03', '04', '05', '06', '07', '08',
-          '09', '10', '11', '12'}
+def create_url_download_list(input):
+    """
+    As part of the local_check this function does the creation of the download list
+    checks whether a combination of datatype and interval type exists and if yes
+    adds it to the download list precipitation monthly or annual only? 
+    :param input: list of datatypes to download
+    :type input: list
 
-if download is True:
-    download_txt_files(url_template, destination_folder, months)
+    """
+    indices_list = []
+    url_list = []
+    download_list = []
+    for url in URLS:
+        url_list.append(url.split('/')[-2])
+    for path_input in input:    
+        indices_list.extend(
+            [index for index, value in enumerate(url_list)
+            if value == path_input.split('/')[-1]]) 
+    for index in indices_list:
+        download_list.append((URLS[index]))
+    return download_list
 
-
-def generate_txt_names(base_name, iterator):
-    txt_names = set()
-    for i in iterator:
-        txt_name = f"{base_name}{i}.txt"
-        txt_names.add(txt_name)
-    return txt_names
-
-
-def merge_files_to_dataframe(filenames, skip_rows):
-    data = []
-    for filename in filenames:
-        with open(filename, 'r') as file:
-            for _ in range(skip_rows):
-                next(file)  # Skip the specified number of rows
-            for line in file:
-                line = line.strip()  # Remove leading/trailing whitespace
-                if line:
-                    data.append(line.split())
-
-    # Create DataFrame from the data
-    df = pd.DataFrame(data)
-    df.columns = [row_headers]
-
-    # Remove ; from all cells
-    for col in df.columns:
-        df[col] = df[col].str.replace(';', '')
-
-    return df
-
-
-# Example usage:
-# Generate txt files
-txt_files = generate_txt_names('../data/regional_averages_tm_', months)
-row_headers = ['Jahr;Monat', 'Brandenburg/Berlin',
-               'Brandenburg', 'Baden-Wuerttemberg', 'Bayern', 'Hessen',
-               'Mecklenburg-Vorpommern', 'Niedersachsen',
-               'Niedersachsen/Hamburg/Bremen', 'Nordrhein-Westfalen',
-               'Rheinland-Pfalz', 'Schleswig-Holstein', 'Saarland', 'Sachsen',
-               'Sachsen-Anhalt', 'Thueringen/Sachsen-Anhalt', 'Thueringen',
-               'Deutschland']
-
-if merge is True:
-    skip_rows = 3
-    df = merge_files_to_dataframe(txt_files, skip_rows)
-    df.to_csv("../data/regional_averages_tm_all.csv")
