@@ -4,8 +4,8 @@ temperature , precipitation, and sunshine over time so that I can see how they
 correlate.
 """
 
-import matplotlib.pyplot as plt
 from typing import List
+import matplotlib.pyplot as plt
 import utilities as utils
 
 
@@ -26,28 +26,28 @@ def plot_weather_parameters_annual(
         time[i] <= time[i + 1] for i in range(len(time) - 1)
     ), "List of years should be sorted"
 
-    tm = utils.load_dataset(
-        "../data/annual/air_temperature_mean/regional_averages_tm_year.txt"
+    temperature_mean = utils.load_dataset(
+        "../data/annual/air_temperature_mean/air_temperature_mean_year.txt"
     ).loc[time, place]
 
-    rr = utils.load_dataset(
+    precipitation = utils.load_dataset(
         "../data/annual/precipitation/regional_averages_rr_year.txt"
     ).loc[time, place]
 
-    sd = utils.load_dataset(
+    sunshine_duration = utils.load_dataset(
         "../data/annual/sunshine_duration/regional_averages_sd_year.txt"
     ).loc[time, place]
 
-    fig, ax = plt.subplots(1, 1)
-    ax.plot(tm, "r", label="Temperature")
+    fig, axis = plt.subplots(1, 1)
+    axis.plot(temperature_mean, "r", label="Temperature")
     plt.ylabel("Temperature mean (°C)")
 
-    ax2 = ax.twinx()
-    ax2.plot(rr, "g", label="Rain")
-    ax2.plot(sd, "b", label="Sunshine")
+    axis2 = axis.twinx()
+    axis2.plot(precipitation, "g", label="Rain")
+    axis2.plot(sunshine_duration, "b", label="Sunshine")
     plt.ylabel("Precipitation amount (mm), sunshine duration (hrs)")
 
-    plt.title("Temperature, rain, and sunshine in {}".format(place))
+    plt.title(f"Temperature, rain, and sunshine in {place}")
     plt.xlabel("Years")
     fig.set_figwidth(15)
     fig.legend(loc="center")
