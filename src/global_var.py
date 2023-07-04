@@ -6,17 +6,16 @@ These lists are used as GLOBAL VAR for QOL puproses and are easily editable
 """
 ## BASE URL FOR ALL DIRECTORIES BY THE DWD
 DWD_BASE_URL = "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/"
-<<<<<<< HEAD
 
 ## AS of July 2023 all possible datasets that are both monthly and annual
 MONTHLY_DATA_TYPE= ["air_temperature_mean", "precipitation", "sunshine_duration"]
 
 ## all possible intervals
-||||||| simplified DOWNLOADER, but had scrap the DWD scraper, webscraping was server side blocked
+
 DATA_TYPE= ["air_temperature_mean", "precipitation", "sunshine_duration"]
-=======
+
 MONTHLY_DATA_TYPE= ["air_temperature_mean", "precipitation", "sunshine_duration"]
->>>>>>> data_helper_cli
+
 INTERVAL = ["annual", "monthly"]
 
 ## URLS to all txt files
