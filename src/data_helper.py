@@ -3,7 +3,11 @@ Functions to do the background tasks to work efficiently with data provided by t
 """
 import os
 from dwd_downloader import dwd_downloader, input_checker
-from global_var import URLS, MONTHLY_DATA_TYPE, ROOT_DATA
+from yaml_reader import yaml_reader
+
+
+ROOT_DATA = yaml_reader("root_data")
+MONTHLY_DATA_TYPE = yaml_reader("monthly_data_type")
 
 
 def data_helper(data):
@@ -14,7 +18,8 @@ def data_helper(data):
     :type data: String or List
     """
     conv_data  = input_checker(data)
-    data_path = [] 
+    data_path = []
+
     for data in conv_data:
         if data in MONTHLY_DATA_TYPE:
             data_path.append(f"{ROOT_DATA}/monthly/{data}")
@@ -100,13 +105,15 @@ def create_url_download_list(input):
     indices_list = []
     url_list = []
     download_list = []
-    for url in URLS:
+    base_url, urls = yaml_reader()
+    for url in urls:
         url_list.append(url.split('/')[-2])
     for path_input in input:    
         indices_list.extend(
             [index for index, value in enumerate(url_list)
             if value == path_input.split('/')[-1]]) 
     for index in indices_list:
-        download_list.append((URLS[index]))
+        download_list.append((urls[index]))
     return download_list
+
 

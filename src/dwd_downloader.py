@@ -3,33 +3,37 @@ DOWNLOADER for DWD data from the internet.
 """
 import requests
 from pathlib import Path
-from global_var import MONTHS, ROOT_DATA
+
+from yaml_reader import yaml_reader 
+
+ROOT_DATA = yaml_reader("root_data")
+MONTHS = yaml_reader("months")
 
 
-def dwd_downloader(url_list):
+def dwd_downloader(data_list):
     """
     Takes a list of paths from data_helper to download
-    :param url_list: paths in the format "data/annual/precipitation"
-    :type url_list: list
+    :param data_list: paths in the format "data/annual/precipitation"
+    :type data_list: list
     """
     ## convert url_list or month into lists if necessary
-    url_list = input_checker(url_list)
+    data_list = input_checker(data_list)
     months = input_checker(MONTHS)
     # iterate over the url_list
-    for url in url_list:
+    for data in data_list:
         ## Get directory from url
-        time_dir = url.split('/')[-3]
+        time_dir = data.split('/')[-3]
         ## Get sub directory from url
-        sub_dir = url.split('/')[-2]
+        sub_dir = data.split('/')[-2]
         #switch implementation for monthly or yearly 
         match time_dir:
             case "annual":
-                filename = url.split('/')[-1]
+                filename = data.split('/')[-1]
                 path = f"{ROOT_DATA}/{time_dir}/{sub_dir}/{filename}"
-                url_checker_handler(path, url)
+                url_checker_handler(path, data)
             case "monthly":
                 for n in months:
-                    monthly_url = url.format(n)
+                    monthly_url = data.format(n)
                     filename = monthly_url.split('/')[-1]
                     path = f"{ROOT_DATA}/{time_dir}/{sub_dir}/{filename}"
                     url_checker_handler(path, monthly_url)

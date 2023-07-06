@@ -6,7 +6,11 @@ return and can directly be used.
 import pandas as pd
 from data_helper import data_helper
 from dwd_downloader import input_checker
-from global_var import ROOT_DATA, HEADERS
+from yaml_reader import yaml_reader
+
+
+ROOT_DATA = yaml_reader("root_data")
+HEADERS = yaml_reader("headers")
 
 
 def dataframe_helper(data, interval, month_range, option):
