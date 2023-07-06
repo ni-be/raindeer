@@ -103,6 +103,8 @@ def plot_between_years(df, yearsmonths, state, case, mode):
             x_label = input(f"Enter x-axis label for plot {i+1}: ")
             y_label = input(f"Enter y-axis label for plot {i+1}: ")
             plot_color = input(f"Enter color for plot {i+1}: ")
+            point_size = float(
+                input(f"Enter the plot point size for plot {i+1}: "))
 
             # add every single subplot to the figure with a for loop
 
@@ -110,7 +112,7 @@ def plot_between_years(df, yearsmonths, state, case, mode):
             ax.set_title(title)
             ax.set_xlabel(x_label)
             ax.set_ylabel(y_label)
-            ax.scatter(x_values, y_values, color=plot_color)
+            ax.scatter(x_values, y_values, color=plot_color, s=point_size)
 
         plt.show()
 
