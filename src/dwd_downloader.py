@@ -3,7 +3,7 @@ DOWNLOADER for DWD data from the internet.
 """
 import requests
 from pathlib import Path
-from data_helper import yaml_reader 
+from utilities import yaml_reader 
 
 
 ROOT_DATA = yaml_reader("root_data")

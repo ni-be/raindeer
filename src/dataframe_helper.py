@@ -4,9 +4,9 @@ If single DATA set is givin in the form of "precipitation" the data will also be
 return and can directly be used. 
 """
 import pandas as pd
-from data_helper import data_helper, yaml_reader
+from data_helper import data_helper
 from dwd_downloader import input_checker
-
+from utilities import yaml_reader
 
 ROOT_DATA = yaml_reader("root_data")
 HEADERS = yaml_reader("headers")

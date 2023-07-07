@@ -11,7 +11,7 @@ from src.dwd_downloader import string_list_converter
 class TestStringListConverter(unittest.TestCase):
     def test_string_list_converter(self):
         # Test that the function correctly converts string to list
-        self.assertEqual(string_list_converter("0123"), ['test'])  
+        self.assertEqual(string_list_converter("test"), ['test'])  
 
   
 if __name__ == '__main__':

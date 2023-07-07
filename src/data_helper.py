@@ -4,9 +4,10 @@ Functions to do the background tasks to work efficiently with data provided by t
 import os
 import yaml
 from dwd_downloader import dwd_downloader, input_checker
-from yaml_reader import yaml_reader
+from utilities import yaml_reader
 
 
+## GLOBAL VAR derived from Config file config.yaml
 ROOT_DATA = yaml_reader("root_data")
 MONTHLY_DATA_TYPE = yaml_reader("monthly_data_type")
 URLS = yaml_reader("urls")
@@ -116,24 +117,3 @@ def create_url_download_list(input):
         download_list.append((URLS[index]))
     return download_list
 
-
-def yaml_reader(option):
-    """
-    Yaml Reader allows reading the config.yaml in the root directory containing 
-    data points needed for running the application. 
-    :param option: choose which data point in config.yaml is needed
-    :type option: string
-    """
-    root_dir = os.path.dirname(os.path.abspath(__file__)) 
-    parent_dir = os.path.dirname(root_dir)
-
-    with open(f"{parent_dir}/config.yaml" , 'r') as file:
-        data = yaml.safe_load(file)
-        
-    if option in data:
-        return data[option]
-    elif option == "root_data":
-        data_dir = f"{parent_dir}/data"
-        return data_dir
-    else:
-        raise ValueError(f"Option {option} is not found in the YAML file.")
