@@ -84,6 +84,10 @@ def dataframe_creator(data, interval,month_range, option):
     :param option: Write to csv yes or no 
     :type option : BOOL
     """
+    if interval not in ['monthly', 'annual']:
+        raise ValueError(f"Invalid interval: {interval}. Interval must \
+                         be either monthly or annual.")
+
     df = pd.DataFrame()
     filename = []
     if data.split('/')[-2] == "annual":
