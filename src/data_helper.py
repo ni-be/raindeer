@@ -35,8 +35,12 @@ def txt_renamer(path):
     :param path: takes the data_path created in data_helper as input
     :type path: list
     """
+    if not isinstance(path, list):
+        raise TypeError("path must be a list")
     for pathx in path:
         data_type = pathx.split('/')[-1]
+        assert isinstance(data_type, str), "data_type must be a string"
+
         interval_type = pathx.split('/')[-2]
         for filename in os.listdir(pathx):
             if filename.endswith(".txt"):
@@ -49,6 +53,9 @@ def txt_renamer(path):
                 else:
                     print(f"Internval needs to be monthly or annual, {interval_type},\
                             does not exists")
+            else:
+                raise ValueError(f"The file {filename} does not end with '.txt'")
+
 
 
 def rename_function(filename, data_type, ending, path):
@@ -63,7 +70,25 @@ def rename_function(filename, data_type, ending, path):
     :param path: directory path to file
     :type path: String
     """
+    # Check that all inputs are of type string
+    if not isinstance(data_type, str):
+        raise TypeError("data_type must be a string")
+    if not isinstance(ending, str):
+        raise TypeError("ending must be a string")
+    if not isinstance(path, str):
+        raise TypeError("path must be a string")
+
+    # Check that ending starts with '_'
+    if not ending.startswith('_'):
+        raise ValueError("ending must start with '_'")    # Assert that ending starts with '_'
+    
     old_filename = os.path.join(path, filename)
+    if not isinstance(old_filename, str):
+        raise TypeError("old_file_name must be a string")
+    if not old_filename.endswith('.txt'):
+        raise ValueError("old_file_name must end with '.txt'")
+
+       
     new_name = str(data_type + ending)
     new_file = os.path.join(path, new_name)
     try: 
@@ -99,7 +124,20 @@ def create_url_download_list(input):
     :type input: list
 
     """
+    # Check that file_paths and URLS are lists
+    if not isinstance(input, list):
+        raise TypeError("file_paths must be a list")
+ 
+    # Check that all elements in file_paths and urls are strings
+    if not all(isinstance(fp, str) for fp in input):
+        raise TypeError("All elements in input must be strings")
+    
     urls = yaml_reader("urls")
+    if not isinstance(urls, list):
+        raise TypeError("URLS must be a list")
+    if not isinstance(urls, list):
+        raise TypeError("URLS must be a list")
+
     indices_list = []
     url_list = []
     download_list = []

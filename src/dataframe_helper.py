@@ -29,6 +29,23 @@ def dataframe_helper(data, interval, month_range, option):
     :param option is True or False - True for Write CSV and False for return DF only
     :type option: BOOL
     """
+    if not isinstance(data, (str, list)):
+        raise TypeError("Data parameter must be a string or a list")
+    if not isinstance(interval, (str, list)):
+        raise TypeError("Interval parameter must be a string or a list")
+    if not isinstance(month_range, (str, list, int)):
+        raise TypeError("Month range parameter must be a string, a list or an integer")
+    if not isinstance(option, bool):
+        raise TypeError("Option parameter must be boolean")
+    if isinstance(data, str) and data not in ['air_temperature_mean', 'frost_days', 
+                                              'hot_days', 'ice_days', 
+                                              'precipGE10mm_days', 'precip20mm_days', 
+                                              'precipitation', 'summer_days',
+                                              'sunshine_duration', 
+                                              'tropical_nights_tminGE20']:
+        raise ValueError("Data parameter is wrong! Please check the documenation.")
+    if isinstance(interval, str) and interval not in ['monthly', 'annual']:
+        raise ValueError("Interval parameter must be either 'monthly' or 'annual'")
     interval_list = input_checker(interval)
     month_list = input_checker(month_range)
     data_list = data_helper(data)
@@ -126,3 +143,4 @@ def write_csv(df,data, ending):
     df.to_csv(f"{ROOT_DATA}/{ending}_combined_data.csv", index=False, header=True)
     print(f"Wrote Dataframe as {data}/{ending}_combined_data.csv")
 
+dataframe_helper(['ice_days'], ['annual'], ['01'], True)
