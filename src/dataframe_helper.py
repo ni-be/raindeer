@@ -6,7 +6,7 @@ return and can directly be used.
 import pandas as pd
 from data_helper import data_helper
 from dwd_downloader import input_checker
-from global_var import ROOT_DATA, HEADERS
+from utilities import yaml_reader
 
 
 def dataframe_helper(data, interval, month_range, option):
@@ -26,6 +26,23 @@ def dataframe_helper(data, interval, month_range, option):
     :param option is True or False - True for Write CSV and False for return DF only
     :type option: BOOL
     """
+    if not isinstance(data, (str, list)):
+        raise TypeError("Data parameter must be a string or a list")
+    if not isinstance(interval, (str, list)):
+        raise TypeError("Interval parameter must be a string or a list")
+    if not isinstance(month_range, (str, list, int)):
+        raise TypeError("Month range parameter must be a string, a list or an integer")
+    if not isinstance(option, bool):
+        raise TypeError("Option parameter must be boolean")
+    if isinstance(data, str) and data not in ['air_temperature_mean', 'frost_days', 
+                                              'hot_days', 'ice_days', 
+                                              'precipGE10mm_days', 'precip20mm_days', 
+                                              'precipitation', 'summer_days',
+                                              'sunshine_duration', 
+                                              'tropical_nights_tminGE20']:
+        raise ValueError("Data parameter is wrong! Please check the documenation.")
+    if isinstance(interval, str) and interval not in ['monthly', 'annual']:
+        raise ValueError("Interval parameter must be either 'monthly' or 'annual'")
     interval_list = input_checker(interval)
     month_list = input_checker(month_range)
     data_list = data_helper(data)
@@ -64,6 +81,10 @@ def dataframe_creator(data, interval,month_range, option):
     :param option: Write to csv yes or no 
     :type option : BOOL
     """
+    if interval not in ['monthly', 'annual']:
+        raise ValueError(f"Invalid interval: {interval}. Interval must \
+                         be either monthly or annual.")
+
     df = pd.DataFrame()
     filename = []
     if data.split('/')[-2] == "annual":
@@ -105,7 +126,7 @@ def merge_files_to_dataframe(filenames, skip_rows):
                     data.append(line.split())
     # Create DataFrame from the data
     df = pd.DataFrame(data)
-    df.columns = [HEADERS]
+    df.columns = yaml_reader('headers')
     # Remove ; from all cells
     for col in df.columns:
         df[col] = df[col].str.replace(';', '')
@@ -119,7 +140,10 @@ def write_csv(df,data, ending):
     :type df: dataframe
     :param ending: descriptor of for file name i.e. "precipitation"
     :type ending: string 
-    """
-    df.to_csv(f"{ROOT_DATA}/{ending}_combined_data.csv", index=False, header=True)
+    """ 
+    df.to_csv(f"{data}/{ending}_combined_data.csv", 
+                index=False, header = True)
     print(f"Wrote Dataframe as {data}/{ending}_combined_data.csv")
- 
+
+#Debug statement TODO REMOVE
+#dataframe_helper(['ice_days'], ['annual'], ['01'], True)
