@@ -8,9 +8,6 @@ from data_helper import data_helper
 from dwd_downloader import input_checker
 from utilities import yaml_reader
 
-ROOT_DATA = yaml_reader("root_data")
-HEADERS = yaml_reader("headers")
-
 
 def dataframe_helper(data, interval, month_range, option):
     """
@@ -129,7 +126,7 @@ def merge_files_to_dataframe(filenames, skip_rows):
                     data.append(line.split())
     # Create DataFrame from the data
     df = pd.DataFrame(data)
-    df.columns = [HEADERS]
+    df.columns = yaml_reader('headers')
     # Remove ; from all cells
     for col in df.columns:
         df[col] = df[col].str.replace(';', '')
@@ -144,7 +141,9 @@ def write_csv(df,data, ending):
     :param ending: descriptor of for file name i.e. "precipitation"
     :type ending: string 
     """
-    df.to_csv(f"{ROOT_DATA}/{ending}_combined_data.csv", index=False, header=True)
+    df.to_csv(f"{yaml_reader('root_data')}/{ending}_combined_data.csv", 
+                index=False, header = True)
     print(f"Wrote Dataframe as {data}/{ending}_combined_data.csv")
 
-dataframe_helper(['ice_days'], ['annual'], ['01'], True)
+#Debug statement TODO REMOVE
+#dataframe_helper(['ice_days'], ['annual'], ['01'], True)
