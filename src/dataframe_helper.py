@@ -140,8 +140,8 @@ def write_csv(df,data, ending):
     :type df: dataframe
     :param ending: descriptor of for file name i.e. "precipitation"
     :type ending: string 
-    """
-    df.to_csv(f"{yaml_reader('root_data')}/{ending}_combined_data.csv", 
+    """ 
+    df.to_csv(f"{data}/{ending}_combined_data.csv", 
                 index=False, header = True)
     print(f"Wrote Dataframe as {data}/{ending}_combined_data.csv")
 
