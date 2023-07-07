@@ -63,7 +63,7 @@ def string_list_converter(input):
     :type input: string
     """
     conv_list = []
-    conv_list += [input]
+    conv_list += [str(input)]
     return conv_list
 
 
