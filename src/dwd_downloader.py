@@ -10,17 +10,18 @@ ROOT_DATA = yaml_reader("root_data")
 MONTHS = yaml_reader("months")
 
 
-def dwd_downloader(data_list):
+def dwd_downloader(url_list):
     """
     Takes a list of paths from data_helper to download
-    :param data_list: paths in the format "data/annual/precipitation"
-    :type data_list: list
+    :param data_list: paths in the format "
+    "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE
+    /annual/air_temperature_mean/regional_averages_tm_year.txt"
+    :type data_list: list or string
     """
     # convert url_list or month into lists if necessary
-    data_list = input_checker(data_list)
-    months = input_checker(MONTHS)
-    # iterate over the url_list
-    for data in data_list:
+    url_list = input_checker(url_list)
+   # iterate over the url_list
+    for data in url_list:
         ## Get directory from url
         time_dir = data.split('/')[-3]
         ## Get sub directory from url
@@ -32,10 +33,10 @@ def dwd_downloader(data_list):
                 path = f"{ROOT_DATA}/{time_dir}/{sub_dir}/{filename}"
                 url_checker_handler(path, data)
             case "monthly":
-                for n in months:
+                for n in MONTHS:
                     monthly_url = data.format(n)
                     filename = monthly_url.split('/')[-1]
-                    path = f"{ROOT_DATA}/{time_dir}/{sub_dir}/{filename}"
+                    path = f"{ROOT_DATA}/{time_dir}/{sub_dir}/{filename}" 
                     url_checker_handler(path, monthly_url)
 
 
@@ -77,6 +78,7 @@ def url_checker_handler(path, url):
     :param url: DWD url 
     :type url: string
     """
+    print(path)
     response = requests.get(url)
     if response.status_code == 200 and url.endswith('.txt'):
         content = response.text
@@ -84,7 +86,7 @@ def url_checker_handler(path, url):
     else:
         errorfile = url.split('/')[-1]
         print(f"Error downloading file: {errorfile}.")
-        
+
 
 def data_writer(path, content):
     """
@@ -98,5 +100,4 @@ def data_writer(path, content):
     output_file.parent.mkdir(exist_ok=True, parents=True)
     output_file.write_text(content)
     print(f"Downloaded '{path}' STATUS OK.")
-
 

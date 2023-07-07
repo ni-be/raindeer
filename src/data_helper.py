@@ -2,15 +2,8 @@
 Functions to do the background tasks to work efficiently with data provided by the DWD
 """
 import os
-import yaml
 from dwd_downloader import dwd_downloader, input_checker
 from utilities import yaml_reader
-
-
-## GLOBAL VAR derived from Config file config.yaml
-ROOT_DATA = yaml_reader("root_data")
-MONTHLY_DATA_TYPE = yaml_reader("monthly_data_type")
-URLS = yaml_reader("urls")
 
 
 def data_helper(data):
@@ -20,14 +13,16 @@ def data_helper(data):
     :param data: contains a string or list of possible dataset from DWD
     :type data: String or List
     """
+    root_data = yaml_reader("root_data")
+    monthly_data_type = yaml_reader("monthly_data_type")
     conv_data  = input_checker(data)
     data_path = [] 
     for data in conv_data:
-        if data in MONTHLY_DATA_TYPE:
-            data_path.append(f"{ROOT_DATA}/monthly/{data}")
-            data_path.append( f"{ROOT_DATA}/annual/{data}")
+        if data in monthly_data_type:
+            data_path.append(f"{root_data}/monthly/{data}")
+            data_path.append( f"{root_data}/annual/{data}")
         else: 
-            data_path.append(f"{ROOT_DATA}/annual/{data}")
+            data_path.append(f"{root_data}/annual/{data}")
     dwd_downloader(local_check(data_path))
     txt_renamer(data_path)
     return data_path
@@ -104,16 +99,17 @@ def create_url_download_list(input):
     :type input: list
 
     """
+    urls = yaml_reader("urls")
     indices_list = []
     url_list = []
     download_list = []
-    for url in URLS:
+    for url in urls:
         url_list.append(url.split('/')[-2])
     for path_input in input:    
         indices_list.extend(
             [index for index, value in enumerate(url_list)
             if value == path_input.split('/')[-1]]) 
     for index in indices_list:
-        download_list.append((URLS[index]))
+        download_list.append((urls[index]))
     return download_list
 
