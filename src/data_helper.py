@@ -2,12 +2,14 @@
 Functions to do the background tasks to work efficiently with data provided by the DWD
 """
 import os
+import yaml
 from dwd_downloader import dwd_downloader, input_checker
 from yaml_reader import yaml_reader
 
 
 ROOT_DATA = yaml_reader("root_data")
 MONTHLY_DATA_TYPE = yaml_reader("monthly_data_type")
+URLS = yaml_reader("urls")
 
 
 def data_helper(data):
@@ -18,8 +20,7 @@ def data_helper(data):
     :type data: String or List
     """
     conv_data  = input_checker(data)
-    data_path = []
-
+    data_path = [] 
     for data in conv_data:
         if data in MONTHLY_DATA_TYPE:
             data_path.append(f"{ROOT_DATA}/monthly/{data}")
@@ -105,15 +106,34 @@ def create_url_download_list(input):
     indices_list = []
     url_list = []
     download_list = []
-    base_url, urls = yaml_reader()
-    for url in urls:
+    for url in URLS:
         url_list.append(url.split('/')[-2])
     for path_input in input:    
         indices_list.extend(
             [index for index, value in enumerate(url_list)
             if value == path_input.split('/')[-1]]) 
     for index in indices_list:
-        download_list.append((urls[index]))
+        download_list.append((URLS[index]))
     return download_list
 
 
+def yaml_reader(option):
+    """
+    Yaml Reader allows reading the config.yaml in the root directory containing 
+    data points needed for running the application. 
+    :param option: choose which data point in config.yaml is needed
+    :type option: string
+    """
+    root_dir = os.path.dirname(os.path.abspath(__file__)) 
+    parent_dir = os.path.dirname(root_dir)
+
+    with open(f"{parent_dir}/config.yaml" , 'r') as file:
+        data = yaml.safe_load(file)
+        
+    if option in data:
+        return data[option]
+    elif option == "root_data":
+        data_dir = f"{parent_dir}/data"
+        return data_dir
+    else:
+        raise ValueError(f"Option {option} is not found in the YAML file.")

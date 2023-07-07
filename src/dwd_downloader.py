@@ -3,8 +3,8 @@ DOWNLOADER for DWD data from the internet.
 """
 import requests
 from pathlib import Path
+from data_helper import yaml_reader 
 
-from yaml_reader import yaml_reader 
 
 ROOT_DATA = yaml_reader("root_data")
 MONTHS = yaml_reader("months")
@@ -16,7 +16,7 @@ def dwd_downloader(data_list):
     :param data_list: paths in the format "data/annual/precipitation"
     :type data_list: list
     """
-    ## convert url_list or month into lists if necessary
+    # convert url_list or month into lists if necessary
     data_list = input_checker(data_list)
     months = input_checker(MONTHS)
     # iterate over the url_list

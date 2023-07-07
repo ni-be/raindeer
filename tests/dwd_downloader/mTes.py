@@ -4,8 +4,6 @@ from src.dwd_downloader import dwd_downloader
 from unittest.mock import patch
 
 class TestDownloader(unittest.TestCase):
-    @patch('src.global_var', "/annual/precipation/precipation_yearly.txt")
-
     def test_single_url(self):
         
         url = "http://example.com"

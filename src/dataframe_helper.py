@@ -4,9 +4,8 @@ If single DATA set is givin in the form of "precipitation" the data will also be
 return and can directly be used. 
 """
 import pandas as pd
-from data_helper import data_helper
+from data_helper import data_helper, yaml_reader
 from dwd_downloader import input_checker
-from yaml_reader import yaml_reader
 
 
 ROOT_DATA = yaml_reader("root_data")
@@ -126,4 +125,4 @@ def write_csv(df,data, ending):
     """
     df.to_csv(f"{ROOT_DATA}/{ending}_combined_data.csv", index=False, header=True)
     print(f"Wrote Dataframe as {data}/{ending}_combined_data.csv")
- 
+
