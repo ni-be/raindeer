@@ -1,8 +1,6 @@
-"""
-Functionality to create custome dataframes and store them as CSV. 
-If single DATA set is givin in the form of "precipitation" the data will also be 
-return and can directly be used. 
-"""
+"""Functionality to create custom dataframes and store them as CSV. If
+single DATA set is giving in the form of "precipitation" the data will also
+be return and can directly be used. """
 import pandas as pd
 from data_helper import data_helper
 from dwd_downloader import input_checker

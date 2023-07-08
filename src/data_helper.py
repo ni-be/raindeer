@@ -1,6 +1,5 @@
-"""
-Functions to do the background tasks to work efficiently with data provided by the DWD
-"""
+"""Functions to do the background tasks to work efficiently with data
+provided by the DWD """
 import os
 from dwd_downloader import dwd_downloader, input_checker
 from utilities import yaml_reader

@@ -22,7 +22,7 @@ def main(data):
 
 
 # CLI entry point
-# more optons should be added here later.
+# more options should be added here later.
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description=__doc__)
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     parser.add_argument('--bundesland', '-b', '-land', help="""bundesland
                         to analyse""",
                         type=str, nargs="+", default=None)
-    parser.add_argument('--weather', '-w', help="""weather phenomenom
+    parser.add_argument('--weather', '-w', help="""weather phenomenon
                         to analyse""",
                         type=str, nargs="+", default=["precipitation"])
 
