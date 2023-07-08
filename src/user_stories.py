@@ -3,14 +3,19 @@ Implementation of the user stories.
 """
 
 from typing import List
+import os
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import utilities as utils
+from dataframe_helper import dataframe_helper
 
+root_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
 def plot_weather_parameters_annual(
         time: List[int] = range(1981, 2023), place: str = "Deutschland",
-        data: str = "../data/annual"
+        data: str = f"{parent_dir}/data/annual"
 ):
     """
     Plots a line plot with all three parameters temperature, precipitation,
@@ -24,22 +29,35 @@ def plot_weather_parameters_annual(
     :param data: Place where the data table is found.
     :type data: String
     """
+    #TODO for unittest
+    #the path needs to be relative not ../ see above root_dir and parent_dir. 
+    # if not relative this will not run if run from different directory e.g not src
+    # or for unittests. 
+    
     assert all(
         time[i] <= time[i + 1] for i in range(len(time) - 1)
     ), "List of years should be sorted"
+    
+    ### PROPOSED SOLUTION using dataframe helper 
+    #df = dataframe_helper('air_temperature_mean', 'annual', '00', True)
+    #temp_df = df[df.loc[0]] 
+    #df = df.set_index('Jahr')
+    #time_df = df[df.index.astype(float).isin(range(time[0], time[1]+1))] 
 
+    #time_df = df[df['Jahr'].astype(int).isin(range(time[0], time[1]+1))] 
+    #test_temperature_mean = time_df['brandenburg/berlin']
+
+    
     temperature_mean = utils.load_dataset(
         data + "/air_temperature_mean/air_temperature_mean_year.txt"
     ).loc[time, place]
-
     precipitation = utils.load_dataset(
-        data + "/precipitation/precipitation_year.txt"
+    data + "/precipitation/precipitation_year.txt"
     ).loc[time, place]
-
     sunshine_duration = utils.load_dataset(
-        data + "/sunshine_duration/regional_averages_sd_year.txt"
+        data + "/sunshine_duration/sunshine_duration_year.txt" 
     ).loc[time, place]
-
+    
     fig, axis = plt.subplots(1, 1)
     axis.plot(temperature_mean, "r", label="Temperature")
     plt.ylabel("Temperature mean (°C)")
@@ -109,7 +127,7 @@ def predict_temperature_next_year():
     place = "Deutschland"
 
     temperature_mean = utils.load_dataset("../data/annual/air_temperature_mean"
-                                          "/regional_averages_tm_year.txt"
+                                          "/air_temperature_mean_year.txt"
                                           ).loc[time, place].to_numpy()
 
     return linear_regression(time, temperature_mean, 2023,

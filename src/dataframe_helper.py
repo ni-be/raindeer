@@ -45,11 +45,11 @@ def dataframe_helper(data, interval, month_range, option):
     interval_list = input_checker(interval)
     month_list = input_checker(month_range)
     data_list = data_helper(data, interval_list)
-    
+ 
     if len(data_list) == 1 and len(interval_list) == 1:
         df = dataframe_creator(data_list[0], interval_list[0], month_list, option)
         return df
-    elif len(data_list) > 1 and len(interval_list) == 1: 
+    elif len(data_list) > 1 and len(interval_list) == 1:
         for data in data_list:
             df = dataframe_creator(data, interval_list[0], month_list, option)
         return df
@@ -82,19 +82,20 @@ def dataframe_creator(data, interval, month_range, option):
     :param option: Write to csv yes or no 
     :type option : BOOL
     """
+
     if interval not in ['monthly', 'annual']:
         raise ValueError(f"Invalid interval: {interval}. Interval must \
                          be either monthly or annual.")
 
     df = pd.DataFrame()
     filename = []
-    if "annual" in interval:
+    if str(interval) == "annual":
         ending = data.split('/')[-1]
         filename.append(f"{data}/{ending}_year.txt")
-        combined_annual_df = merge_files_to_dataframe(filename, 3)
-        anual_df = combined_annual_df.applymap(lambda x: x.replace('year', ''))
-        df = anual_df.rename(columns=lambda x: x.replace(';Monat', ''))   
-    if "monthly" in interval:
+        annual_df = merge_files_to_dataframe(filename, 3)
+        annual_df = annual_df.applymap(lambda x: x.replace('year', ''))
+        df = annual_df.rename(columns=lambda x: x.replace(';Monat', ''))   
+    elif str(interval) == "monthly":
         for months in month_range:
             ending = data.split('/')[-1]
             filename.append(f"{data}/{ending}_{months}.txt")
@@ -116,7 +117,6 @@ def merge_files_to_dataframe(filenames, skip_rows):
     :param skip_rows the amount of rows to skip, 
     :type skip_rows: int
     """
-    print(filenames)
     data = []
     for filename in filenames:
         with open(filename, 'r') as file:

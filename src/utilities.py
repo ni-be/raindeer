@@ -16,6 +16,7 @@ def load_dataset(dataset: str) -> pd.core.frame.DataFrame:
     :rtype: pandas.core.frame.DataFrame
     """
     data = pd.read_csv(dataset, sep=";", header=1, index_col=0)
+    print(data)
     return data
 
 
