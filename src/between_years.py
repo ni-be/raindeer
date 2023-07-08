@@ -1,13 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jun 29 15:45:01 2023
-
-@author: timow
-"""
 
 import pandas as pd
 import matplotlib.pyplot as plt
 import csv
+import sys
 
 df = pd.read_csv('../data/monthly/precipitation/regional_averages_tm_all.csv')
 
@@ -62,10 +57,23 @@ def plot_between_years(df, yearsmonths, state, case, mode):
         plt.show()
 
     if mode == 'custom':
-        num_plots = int(input("Enter the number of plots: "))
-        num_cols = int(input("Enter the number of columns: "))
-        hspacing = float(input("Enter hspace: "))
-        wspacing = float(input("Enter wspace: "))
+        try:
+            num_plots = int(input("Enter the number of plots: "))
+            num_cols = int(input("Enter the number of columns: "))
+
+        except ValueError:
+            print('A non Integer value was given, using single plot')
+            num_plots = 1
+            num_cols = 1
+
+        try:
+            hspacing = float(input("Enter hspace: "))
+            wspacing = float(input("Enter wspace: "))
+
+        except TypeError:
+            print('A non Float value was given, using default values')
+            hspacing = 0.5
+            wspacing = 0.3
 
         # Subplots are organized in a Rows x Cols Grid
         # Tot and Cols are known
@@ -103,8 +111,13 @@ def plot_between_years(df, yearsmonths, state, case, mode):
             x_label = input(f"Enter x-axis label for plot {i+1}: ")
             y_label = input(f"Enter y-axis label for plot {i+1}: ")
             plot_color = input(f"Enter color for plot {i+1}: ")
-            point_size = float(
-                input(f"Enter the plot point size for plot {i+1}: "))
+
+            try:
+                point_size = float(
+                    input(f"Enter the plot point size for plot {i+1}: "))
+
+            except TypeError:
+                print('A non Float value was given')
 
             # add every single subplot to the figure with a for loop
 
