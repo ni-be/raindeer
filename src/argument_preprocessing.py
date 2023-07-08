@@ -67,7 +67,7 @@ def check_if_month(_month, _cal):
 def arg_test_weather(args):
     if args.weather:
         weather = []
-        weather_options = yaml_reader('monthly_data_types')
+        weather_options = yaml_reader('monthly_data_type')
         for i in range(0, len(args.weather)):
             args.weather[i] = args.weather[i].lower()
             weather.append(weather_options[

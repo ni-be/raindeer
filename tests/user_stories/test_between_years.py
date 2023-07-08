@@ -15,9 +15,11 @@ from src.between_years import plot_between_years
 
 class TestPlotBetweenYears(unittest.TestCase):
     def test_between_years(self):
-        "Test plot_between_years for behavior if non valid dates are given"
+        print("\n Testing User Story - between years [1/1]")
+
+        #"Test plot_between_years for behavior if non valid dates are given"
         with self.assertRaises(TypeError):
-            plot_between_years("precipitation", "monthly", [177001, 'a'], 'Deutschland', 'rain')
+            plot_between_years("precipitation", "monthly", [177001, 'a'], 'deutschland', 'rain')
 
 
 

@@ -5,7 +5,7 @@ from dwd_downloader import dwd_downloader, input_checker
 from utilities import yaml_reader
 
 
-def data_helper(data):
+def data_helper(data, interval):
     """
     Function that takes the data to find all the urls and local paths for each set.
     Returns a list of paths 
@@ -13,15 +13,19 @@ def data_helper(data):
     :type data: String or List
     """
     root_data = yaml_reader("root_data")
-    monthly_data_type = yaml_reader("monthly_data_type")
+    mon_type = yaml_reader("monthly_data_type")
     conv_data  = input_checker(data)
     data_path = [] 
     for data in conv_data:
-        if data in monthly_data_type:
+        if data in mon_type and len(interval) == 2:
             data_path.append(f"{root_data}/monthly/{data}")
             data_path.append( f"{root_data}/annual/{data}")
-        else: 
+        elif data in mon_type and interval[0] == "annual" and len(interval) == 1:
             data_path.append(f"{root_data}/annual/{data}")
+        elif data in mon_type and interval[0] == "monthly" and len(interval) == 1: 
+            data_path.append(f"{root_data}/monthly/{data}")
+        else:
+            print(f"{interval} seems not to be annual or monthly")
     dwd_downloader(local_check(data_path))
     txt_renamer(data_path)
     return data_path

@@ -12,6 +12,8 @@ from src.data_helper import create_url_download_list
 class TestURLDownloadList(unittest.TestCase):
     @patch('src.utilities.yaml_reader')  
     def test_create_url_download_list(self, mock_yaml_reader):
+        print("\n Testing Create URL download list [1/1]")
+
         # define the mock behavior of yaml_reader
         mock_yaml_reader.return_value = ['https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/annual/precipitation/regional_averages_rr_year.txt']
       

@@ -11,6 +11,7 @@ from src.dataframe_helper import dataframe_creator
 
 class TestDataframeCreator(unittest.TestCase):
     def test_dataframe_creator(self):
+        print("\n Testing Dataframe Creator [1/1]")
         # Test with annual data
         data = f"{parent_dir}/data/annual/precipitation"  # replace with actual path
         df = dataframe_creator(data, 'annual', '00', False)
