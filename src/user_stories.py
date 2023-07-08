@@ -15,7 +15,7 @@ parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
 def plot_weather_parameters_annual(
         time: List[int] = range(1981, 2023), place: str = "Deutschland",
-        data: str = f"{parent_dir}/data/annual"
+        data: str = f"{parent_dir}/raindeer/data/annual"
 ):
     """
     Plots a line plot with all three parameters temperature, precipitation,
