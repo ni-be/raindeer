@@ -1,3 +1,8 @@
+"""
+DOCSTRING ....
+""" 
+from utitlies import yaml_reader
+
 def arg_preprocess(args):
     """transforms input arguments
        and handels many errors"""
@@ -34,13 +39,8 @@ def check_if_year(_year):
 def arg_test_month(args):
     if args.month:
         month = []
-        calendar = ["january", "february", "march",
-                    "april", "may", "june",
-                    "july", "august", "september",
-                    "october", "november", "december"]
-
+        calendar = yaml_reader('month_names')
         for i in range(0, len(args.month)):
-
             args.month[i] = args.month[i].lower()
             if args.month[i].find('..') != -1:
                 ran = args.month[i].split("..")
@@ -67,9 +67,7 @@ def check_if_month(_month, _cal):
 def arg_test_weather(args):
     if args.weather:
         weather = []
-        weather_options = ["air_temperature_mean",
-                           "precipitation", "sunshine_duration"]
-
+        weather_options = yaml_reader('monthly_data_types')
         for i in range(0, len(args.weather)):
             args.weather[i] = args.weather[i].lower()
             weather.append(weather_options[
@@ -90,14 +88,8 @@ def check_if_weather(_weather, _weather_options):
 def arg_test_bundesland(args):
     if args.bundesland:
         bundesland = []
-        bundesland_options = ["brandenburg/berlin", "brandenburg",
-                              "baden-wuerttemberg", "bayern", "hessen",
-                              "mecklenburg-vorpommern", "niedersachsen",
-                              "niedersachsen/hamburg/bremen",
-                              "nordrhein-westfalen", "rheinland-pfalz",
-                              "schleswig-holstein", "saarland", "sachsen",
-                              "sachsen-anhalt", "thueringen/Sachsen-anhalt",
-                              "thueringen", "deutschland"]
+        bund = yaml_reader('headers')
+        bundesland_options = bund[1:]
         for i in range(0, len(args.bundesland)):
             args.bundesland[i] = args.bundesland[i].lower().replace("ü", "ue")
             if args.bundesland[i] in ["all", "alle", "every"]:
