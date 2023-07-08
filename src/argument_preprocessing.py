@@ -1,7 +1,7 @@
 """
 DOCSTRING ....
 """ 
-from utitlies import yaml_reader
+from utilities import yaml_reader
 
 def arg_preprocess(args):
     """transforms input arguments
