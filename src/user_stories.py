@@ -9,7 +9,8 @@ import utilities as utils
 
 
 def plot_weather_parameters_annual(
-        time: List[int] = range(1981, 2023), place: str = "Deutschland"
+        time: List[int] = range(1981, 2023), place: str = "Deutschland",
+        data: str = "../data/annual"
 ):
     """
     Plots a line plot with all three parameters temperature, precipitation,
@@ -20,21 +21,23 @@ def plot_weather_parameters_annual(
     :param place: Place you want to look at. Name of a German federal state or
     'Deutschland'.
     :type place: String
+    :param data: Place where the data table is found.
+    :type data: String
     """
     assert all(
         time[i] <= time[i + 1] for i in range(len(time) - 1)
     ), "List of years should be sorted"
 
     temperature_mean = utils.load_dataset(
-        "../data/annual/air_temperature_mean/air_temperature_mean_year.txt"
+        data + "/air_temperature_mean/air_temperature_mean_year.txt"
     ).loc[time, place]
 
     precipitation = utils.load_dataset(
-        "../data/annual/precipitation/regional_averages_rr_year.txt"
+        data + "/precipitation/precipitation_year.txt"
     ).loc[time, place]
 
     sunshine_duration = utils.load_dataset(
-        "../data/annual/sunshine_duration/regional_averages_sd_year.txt"
+        data + "/sunshine_duration/regional_averages_sd_year.txt"
     ).loc[time, place]
 
     fig, axis = plt.subplots(1, 1)
@@ -51,7 +54,7 @@ def plot_weather_parameters_annual(
     fig.set_figwidth(15)
     fig.legend(loc="center")
 
-    plt.draw()
+    plt.show()
 
 
 def linear_regression(x_data: np.ndarray, y_data: np.ndarray, x_pred: int,
