@@ -1,11 +1,15 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
+from dataframe_helper import dataframe_helper
+from utilities import yaml_reader
+
 import csv
 import sys
 
-df = pd.read_csv('../data/monthly/precipitation/regional_averages_tm_all.csv')
-
+months = yaml_reader('months')
+#df = pd.read_csv('../data/monthly/precipitation/regional_averages_tm_all.csv')
+df = dataframe_helper("precipitation", "monthly", months, True) 
 
 def plot_data(x, y, title, x_label, y_label):
     plt.plot(x, y)
@@ -37,7 +41,7 @@ def plot_between_years(df, yearsmonths, state, case, mode):
             variable = ['Temperature', 'Celsius']
 
         try:
-            for yearmonth, value in zip(df_sorted['Jahr;Monat'],
+            for yearmonth, value in zip(df_sorted["Jahr;Monat"],
                                         df_sorted[state]):
                 if yearmonth > yearsmonths[0] and yearmonth < yearsmonths[1]:
 
@@ -129,5 +133,8 @@ def plot_between_years(df, yearsmonths, state, case, mode):
 
         plt.show()
 
+#print(df)
+
+#print(df2)
 
 plot_between_years(df, [177001, 202001], 'Deutschland', 'rain', 'custom')

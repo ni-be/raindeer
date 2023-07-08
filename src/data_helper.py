@@ -5,7 +5,7 @@ from dwd_downloader import dwd_downloader, input_checker
 from utilities import yaml_reader
 
 
-def data_helper(data):
+def data_helper(data, interval):
     """
     Function that takes the data to find all the urls and local paths for each set.
     Returns a list of paths 
@@ -13,14 +13,16 @@ def data_helper(data):
     :type data: String or List
     """
     root_data = yaml_reader("root_data")
-    monthly_data_type = yaml_reader("monthly_data_type")
+    monthly_type = yaml_reader("monthly_data_type")
     conv_data  = input_checker(data)
     data_path = [] 
     for data in conv_data:
-        if data in monthly_data_type:
+        if data in monthly_type and "monthly" in interval and "annual" in interval:
             data_path.append(f"{root_data}/monthly/{data}")
             data_path.append( f"{root_data}/annual/{data}")
-        else: 
+        elif data in monthly_type and "annual" not in interval and "monthly" in interval:
+            data_path.append(f"{root_data}/monthly/{data}")
+        elif "annual" in interval and "monthly" not in interval: 
             data_path.append(f"{root_data}/annual/{data}")
     dwd_downloader(local_check(data_path))
     txt_renamer(data_path)
@@ -42,7 +44,7 @@ def txt_renamer(path):
 
         interval_type = pathx.split('/')[-2]
         for filename in os.listdir(pathx):
-            if filename.endswith(".txt"):
+            if filename.endswith((".txt",".csv")):
                 if interval_type == "monthly":
                     ending = filename[-7:]
                     rename_function(filename, data_type, ending, pathx)
@@ -53,7 +55,7 @@ def txt_renamer(path):
                     print(f"Internval needs to be monthly or annual, {interval_type},\
                             does not exists")
             else:
-                raise ValueError(f"The file {filename} does not end with '.txt'")
+                raise ValueError(f"The file {filename} does not end with .txt /.csv")
 
 
 
@@ -77,15 +79,12 @@ def rename_function(filename, data_type, ending, path):
     if not isinstance(path, str):
         raise TypeError("path must be a string")
 
-    # Check that ending starts with '_'
-    if not ending.startswith('_'):
-        raise ValueError("ending must start with '_'")    # Assert that ending starts with '_'
-    
+    # Check that ending starts with '_'  
     old_filename = os.path.join(path, filename)
     if not isinstance(old_filename, str):
         raise TypeError("old_file_name must be a string")
-    if not old_filename.endswith('.txt'):
-        raise ValueError("old_file_name must end with '.txt'")
+    if not old_filename.endswith(('.txt', '.csv')):
+        raise ValueError("old_file_name must end with '.txt' or .csv")
 
        
     new_name = str(data_type + ending)
