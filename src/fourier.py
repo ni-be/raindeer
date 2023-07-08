@@ -50,5 +50,5 @@ def fourier_analysis(data, interval, columns, case):
 
 # Example usage:
 # Assuming you have a DataFrame called 'df' with columns 'column1' and 'column2'
-selected_columns = ['Deutschland']
+selected_columns = ['deutschland']
 fourier_analysis("precipitation", "monthly", selected_columns, 'rain')

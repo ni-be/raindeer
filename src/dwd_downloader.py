@@ -6,10 +6,6 @@ from pathlib import Path
 from utilities import yaml_reader 
 
 
-ROOT_DATA = yaml_reader("root_data")
-MONTHS = yaml_reader("months")
-
-
 def dwd_downloader(url_list):
     """
     Takes a list of paths from data_helper to download
@@ -18,6 +14,8 @@ def dwd_downloader(url_list):
     /annual/air_temperature_mean/regional_averages_tm_year.txt"
     :type data_list: list or string
     """
+    root_data = yaml_reader("root_data")
+    months = yaml_reader("months")
     # convert url_list or month into lists if necessary
     url_list = input_checker(url_list)
    # iterate over the url_list
@@ -30,13 +28,13 @@ def dwd_downloader(url_list):
         match time_dir:
             case "annual":
                 filename = data.split('/')[-1]
-                path = f"{ROOT_DATA}/{time_dir}/{sub_dir}/{filename}"
+                path = f"{root_data}/{time_dir}/{sub_dir}/{filename}"
                 url_checker_handler(path, data)
             case "monthly":
-                for n in MONTHS:
+                for n in months:
                     monthly_url = data.format(n)
                     filename = monthly_url.split('/')[-1]
-                    path = f"{ROOT_DATA}/{time_dir}/{sub_dir}/{filename}" 
+                    path = f"{root_data}/{time_dir}/{sub_dir}/{filename}" 
                     url_checker_handler(path, monthly_url)
 
 

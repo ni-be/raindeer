@@ -86,7 +86,6 @@ def dataframe_creator(data, interval, month_range, option):
     if interval not in ['monthly', 'annual']:
         raise ValueError(f"Invalid interval: {interval}. Interval must \
                          be either monthly or annual.")
-
     df = pd.DataFrame()
     filename = []
     if str(interval) == "annual":
