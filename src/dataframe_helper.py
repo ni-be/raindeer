@@ -97,10 +97,8 @@ def dataframe_creator(data, interval, month_range, option):
     if "monthly" in interval:
         for months in month_range:
             ending = data.split('/')[-1]
-            print(data)
             filename.append(f"{data}/{ending}_{months}.txt")
-        print(filename)
-        #df = merge_files_to_dataframe(filename, 3)    
+        df = merge_files_to_dataframe(filename, 3)    
         if option is True:
             print("adding to csv writer")
             write_csv(df, data, ending)
