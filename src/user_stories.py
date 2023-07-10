@@ -13,67 +13,6 @@ from dataframe_helper import dataframe_helper
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
-def plot_weather_parameters_annual(
-        time: List[int] = range(1981, 2023), place: str = "Deutschland",
-        data: str = f"{parent_dir}/raindeer/data/annual"
-):
-    """
-    Plots a line plot with all three parameters temperature, precipitation,
-    and sunshine over time.
-    :param time: List of all years shown in the plot. Should be ordered and
-    years should be between 1981 and 2023.
-    :type time: List[int]
-    :param place: Place you want to look at. Name of a German federal state or
-    'Deutschland'.
-    :type place: String
-    :param data: Place where the data table is found.
-    :type data: String
-    """
-    #TODO for unittest
-    #the path needs to be relative not ../ see above root_dir and parent_dir. 
-    # if not relative this will not run if run from different directory e.g not src
-    # or for unittests. 
-    
-    assert all(
-        time[i] <= time[i + 1] for i in range(len(time) - 1)
-    ), "List of years should be sorted"
-    
-    ### PROPOSED SOLUTION using dataframe helper 
-    #df = dataframe_helper('air_temperature_mean', 'annual', '00', True)
-    #temp_df = df[df.loc[0]] 
-    #df = df.set_index('Jahr')
-    #time_df = df[df.index.astype(float).isin(range(time[0], time[1]+1))] 
-
-    #time_df = df[df['Jahr'].astype(int).isin(range(time[0], time[1]+1))] 
-    #test_temperature_mean = time_df['brandenburg/berlin']
-
-    
-    temperature_mean = utils.load_dataset(
-        data + "/air_temperature_mean/air_temperature_mean_year.txt"
-    ).loc[time, place]
-    precipitation = utils.load_dataset(
-    data + "/precipitation/precipitation_year.txt"
-    ).loc[time, place]
-    sunshine_duration = utils.load_dataset(
-        data + "/sunshine_duration/sunshine_duration_year.txt" 
-    ).loc[time, place]
-    
-    fig, axis = plt.subplots(1, 1)
-    axis.plot(temperature_mean, "r", label="Temperature")
-    plt.ylabel("Temperature mean (°C)")
-
-    axis2 = axis.twinx()
-    axis2.plot(precipitation, "g", label="Rain")
-    axis2.plot(sunshine_duration, "b", label="Sunshine")
-    plt.ylabel("Precipitation amount (mm), sunshine duration (hrs)")
-
-    plt.title(f"Temperature, rain, and sunshine in {place}")
-    plt.xlabel("Years")
-    fig.set_figwidth(15)
-    fig.legend(loc="center")
-
-    plt.show()
-
 
 def linear_regression(x_data: np.ndarray, y_data: np.ndarray, x_pred: int,
                       x_label: str = 'x', y_label: str = 'y') -> float:
@@ -132,3 +71,63 @@ def predict_temperature_next_year():
 
     return linear_regression(time, temperature_mean, 2023,
                              'Time in years', 'Temperature mean in °C')
+
+
+def plot_weather_parameters_annual(
+        time: List[int] = range(1981, 2023), place: str = "Deutschland",
+        data: str = f"{parent_dir}/raindeer/data/annual"
+):
+    """
+    Plots a line plot with all three parameters temperature, precipitation,
+    and sunshine over time.
+    :param time: List of all years shown in the plot. Should be ordered and
+    years should be between 1981 and 2023.
+    :type time: List[int]
+    :param place: Place you want to look at. Name of a German federal state or
+    'Deutschland'.
+    :type place: String
+    :param data: Place where the data table is found.
+    :type data: String
+    """
+    # TODO for unittest the path needs to be relative not ../ see above
+    #  root_dir and parent_dir. if not relative this will not run if run
+    #  from different directory e.g not src or for unittests.
+
+    assert all(
+        time[i] <= time[i + 1] for i in range(len(time) - 1)
+    ), "List of years should be sorted"
+
+    ### PROPOSED SOLUTION using dataframe helper 
+    # df = dataframe_helper('air_temperature_mean', 'annual', '00', True)
+    # temp_df = df[df.loc[0]]
+    # df = df.set_index('Jahr')
+    # time_df = df[df.index.astype(float).isin(range(time[0], time[1]+1))]
+
+    # time_df = df[df['Jahr'].astype(int).isin(range(time[0], time[1]+1))]
+    # test_temperature_mean = time_df['brandenburg/berlin']
+
+    temperature_mean = utils.load_dataset(
+        data + "/air_temperature_mean/air_temperature_mean_year.txt"
+    ).loc[time, place]
+    precipitation = utils.load_dataset(
+        data + "/precipitation/precipitation_year.txt"
+    ).loc[time, place]
+    sunshine_duration = utils.load_dataset(
+        data + "/sunshine_duration/sunshine_duration_year.txt"
+    ).loc[time, place]
+
+    fig, axis = plt.subplots(1, 1)
+    axis.plot(temperature_mean, "r", label="Temperature")
+    plt.ylabel("Temperature mean (°C)")
+
+    axis2 = axis.twinx()
+    axis2.plot(precipitation, "g", label="Rain")
+    axis2.plot(sunshine_duration, "b", label="Sunshine")
+    plt.ylabel("Precipitation amount (mm), sunshine duration (hrs)")
+
+    plt.title(f"Temperature, rain, and sunshine in {place}")
+    plt.xlabel("Years")
+    fig.set_figwidth(15)
+    fig.legend(loc="center")
+
+    plt.show()
