@@ -1,7 +1,8 @@
 """
 DOCSTRING ....
-""" 
+"""
 from utilities import yaml_reader
+
 
 def arg_preprocess(args):
     """transforms input arguments
@@ -22,7 +23,7 @@ def arg_test_year(args):
                 check_if_year(ran[1])
                 start = int(ran[0])
                 end = int(ran[1])
-                for j in range(start, end+1):
+                for j in range(start, end + 1):
                     year.append(j)
 
             else:
@@ -33,7 +34,7 @@ def arg_test_year(args):
 
 
 def check_if_year(_year):
-    assert _year.isdigit(), str(_year)+" is not a number"
+    assert _year.isdigit(), str(_year) + " is not a number"
 
 
 def arg_test_month(args):
@@ -46,7 +47,7 @@ def arg_test_month(args):
                 ran = args.month[i].split("..")
                 start = check_if_month(ran[0], calendar)
                 end = check_if_month(ran[1], calendar)
-                for j in range(start, end+1):
+                for j in range(start, end + 1):
                     month.append(calendar[j])
 
             else:
@@ -57,11 +58,10 @@ def arg_test_month(args):
 
 
 def check_if_month(_month, _cal):
-
     for i in range(0, len(_cal)):
         if _month == _cal[i]:
             return i
-    assert str(_month)+" is not a month"
+    assert str(_month) + " is not a month"
 
 
 def arg_test_weather(args):
@@ -71,18 +71,18 @@ def arg_test_weather(args):
         for i in range(0, len(args.weather)):
             args.weather[i] = args.weather[i].lower()
             weather.append(weather_options[
-                check_if_weather(args.weather[i], weather_options)])
+                               check_if_weather(args.weather[i],
+                                                weather_options)])
 
         args.weather = sorted(set(weather),
                               key=lambda inp: weather_options.index(inp))
 
 
 def check_if_weather(_weather, _weather_options):
-
     for i in range(0, len(_weather_options)):
         if _weather in _weather_options[i]:
             return i
-    assert str(_weather)+" is not a weather"
+    assert str(_weather) + " is not a weather"
 
 
 def arg_test_bundesland(args):
@@ -103,8 +103,7 @@ def arg_test_bundesland(args):
 
 
 def check_if_bundesland(_bundesland, _bundesland_options):
-
     for i in range(0, len(_bundesland_options)):
         if _bundesland == _bundesland_options[i]:
             return i
-    assert str(_bundesland)+" is not a bundesland"
+    assert str(_bundesland) + " is not a bundesland"

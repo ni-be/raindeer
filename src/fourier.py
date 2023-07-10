@@ -32,7 +32,8 @@ def fourier_analysis(data, interval, columns, case):
     for column in columns:
         data = df[column].values
         n = len(data)
-        dt = 1  # Assuming a constant time interval between data points of a year/month
+        dt = 1  # Assuming a constant time interval between data points of a
+        # year/month
 
         # Perform Fourier transform
         frequencies = np.fft.fftfreq(n, dt)
@@ -48,7 +49,7 @@ def fourier_analysis(data, interval, columns, case):
         plt.show()
 
 
-# Example usage:
-# Assuming you have a DataFrame called 'df' with columns 'column1' and 'column2'
+# Example usage: Assuming you have a DataFrame called 'df' with columns
+# 'column1' and 'column2'
 selected_columns = ['deutschland']
 fourier_analysis("precipitation", "monthly", selected_columns, 'rain')

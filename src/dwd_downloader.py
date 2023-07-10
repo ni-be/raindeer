@@ -3,28 +3,28 @@ DOWNLOADER for DWD data from the internet.
 """
 import requests
 from pathlib import Path
-from utilities import yaml_reader 
+from utilities import yaml_reader
 
 
 def dwd_downloader(url_list):
     """
     Takes a list of paths from data_helper to download
-    :param data_list: paths in the format "
+    :param url_list: paths in the format "
     "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE
     /annual/air_temperature_mean/regional_averages_tm_year.txt"
-    :type data_list: list or string
+    :type url_list: list or string
     """
     root_data = yaml_reader("root_data")
     months = yaml_reader("months")
     # convert url_list or month into lists if necessary
     url_list = input_checker(url_list)
-   # iterate over the url_list
+    # iterate over the url_list
     for data in url_list:
-        ## Get directory from url
+        # Get directory from url
         time_dir = data.split('/')[-3]
-        ## Get sub directory from url
+        # Get sub directory from url
         sub_dir = data.split('/')[-2]
-        #switch implementation for monthly or yearly 
+        # switch implementation for monthly or yearly
         match time_dir:
             case "annual":
                 filename = data.split('/')[-1]
@@ -34,7 +34,7 @@ def dwd_downloader(url_list):
                 for n in months:
                     monthly_url = data.format(n)
                     filename = monthly_url.split('/')[-1]
-                    path = f"{root_data}/{time_dir}/{sub_dir}/{filename}" 
+                    path = f"{root_data}/{time_dir}/{sub_dir}/{filename}"
                     url_checker_handler(path, monthly_url)
 
 
@@ -57,7 +57,7 @@ def input_checker(input):
 
 def string_list_converter(input):
     """
-    conversts input into a list
+    converses input into a list
     :param input: 
     :type input: string
     """
@@ -80,7 +80,7 @@ def url_checker_handler(path, url):
     response = requests.get(url)
     if response.status_code == 200 and url.endswith('.txt'):
         content = response.text
-        data_writer(path, content) 
+        data_writer(path, content)
     else:
         errorfile = url.split('/')[-1]
         print(f"Error downloading file: {errorfile}.")
@@ -98,4 +98,3 @@ def data_writer(path, content):
     output_file.parent.mkdir(exist_ok=True, parents=True)
     output_file.write_text(content)
     print(f"Downloaded '{path}' STATUS OK.")
-
