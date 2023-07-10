@@ -16,7 +16,20 @@ parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
 
 def fourier_analysis(data, interval, columns, case):
-    if isinstance(data, str) and isinstance(interval, str):
+    """
+
+    :param data:
+    :type data:
+    :param interval:
+    :type interval:
+    :param columns:
+    :type columns:
+    :param case:
+    :type case:
+    :return:
+    :rtype:
+    """
+    if isinstance(data, str) and all(isinstance(i, str) for i in interval):
         df = dataframe_helper(data, interval, utilities.yaml_reader('months'),
                               False)
 
@@ -141,7 +154,7 @@ def plot_between_years(data, interval, yearsmonths, state, case, mode):
     if isinstance(data, str) and isinstance(interval, (str, list)):
         df = dataframe_helper(data, interval, months, True)
 
-        # Assertion of valid inputs
+    # Assertion of valid inputs
     df_test = pd.DataFrame([0])
     assert type(df) == type(df_test)
     assert case in ['rain', 'sun', 'temp']
@@ -264,10 +277,10 @@ def predict_temperature_next_year():
     time = range(1981, 2023)
     place = "Deutschland"
 
-    temperature_mean = utilities.load_dataset("../data/annual"
-                                              "/air_temperature_mean "
-                                          "/air_temperature_mean_year.txt"
-                                          ).loc[time, place].to_numpy()
+    temperature_mean = utilities.load_dataset(f"{parent_dir}/raindeer/data"
+                                              f"/annual/air_temperature_mean"
+                                              f"/air_temperature_mean_year.txt"
+                                              ).loc[time, place].to_numpy()
 
     return linear_regression(time, temperature_mean, 2023,
                              'Time in years', 'Temperature mean in °C')

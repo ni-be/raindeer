@@ -9,6 +9,21 @@ import argument_preprocessing as argpre
 import user_stories
 import utilities as utils
 
+month_to_number = {
+    "january": 1,
+    "february": 2,
+    "march": 3,
+    "april": 4,
+    "may": 5,
+    "june": 6,
+    "july": 7,
+    "august": 8,
+    "september": 9,
+    "october": 10,
+    "november": 11,
+    "december": 12
+}
+
 
 def main(data):
     argpre.arg_preprocess(args)
@@ -23,12 +38,51 @@ def main(data):
         print(user_stories.linear_regression(time, means, args.forecast,
                                              'Time in years',
                                              'Temperature mean in °C'))
+
     elif args.mode == "plot-params":
         # Works with the following command: python src/raindeer.py
         # "data/annual" --mode=plot-params -b='Baden-Wuerttemberg'
         time = args.year
         place = args.bundesland[0].title()
         user_stories.plot_weather_parameters_annual(time, place, data)
+
+    elif args.mode == "fourier":
+        # Works with the following command: python python src/raindeer.py
+        # 'precipitation' --mode fourier -b 'hessen' 'deutschland'
+        if args.month:
+            interval = "monthly"
+        else:
+            interval = "annual"
+        columns = args.bundesland
+        if args.weather == ["air_temperature_mean"]:
+            case = 'temp'
+        elif args.weather == ["precipitation"]:
+            case = 'rain'
+        else:
+            case = 'sun'
+        user_stories.fourier_analysis(data, interval, columns, case)
+
+    elif args.mode == "between-years":
+        # Works with the following command: python src/raindeer.py
+        # 'precipitation' --mode between-years -m january  -b 'deutschland'
+        # -w 'precipitation' -y 2000..2001
+        if args.month:
+            interval = "monthly"
+        else:
+            interval = "annual"
+        months = [month_to_number[m] for m in args.month]
+        yearsmonths = [str(args.year[0] * 100 + months[0]),
+                       str(args.year[-1] * 100 + months[-1])]
+        state = args.bundesland[0]
+        if args.weather == ["air_temperature_mean"]:
+            case = 'temp'
+        elif args.weather == ["precipitation"]:
+            case = 'rain'
+        else:
+            case = 'sun'
+        mode = args.complexity[0]
+        user_stories.plot_between_years(data, interval, yearsmonths, state,
+                                        case, mode)
     elif args.mode == "PLACEHOLDER":
         pass
     else:
@@ -60,6 +114,9 @@ if __name__ == "__main__":
                         type=str, nargs="+", default=["precipitation"])
     parser.add_argument('--forecast', '-f', help="""Time to make forecast 
                         for""", type=int, nargs="?", default=2023)
+    parser.add_argument('--complexity', '-c', help="""mode for the plot; 
+                        can be 'simple' or 'custom'""",
+                        type=str, nargs="+", default=['simple'])
 
     args = parser.parse_args()
     if args.url:
