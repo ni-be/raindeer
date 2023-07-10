@@ -41,29 +41,32 @@ def dataframe_helper(data, interval, month_range, option):
         raise ValueError("Data parameter is wrong! Please check the documenation.")
     if isinstance(interval, str) and interval not in ['monthly', 'annual']:
         raise ValueError("Interval parameter must be either 'monthly' or 'annual'")
+    
     interval_list = input_checker(interval)
     month_list = input_checker(month_range)
-    data_list = data_helper(data)
-    
+    data_list = data_helper(data, interval_list)
+ 
     if len(data_list) == 1 and len(interval_list) == 1:
         df = dataframe_creator(data_list[0], interval_list[0], month_list, option)
         return df
-    elif len(data_list) > 1 and len(interval_list) == 1: 
+    elif len(data_list) > 1 and len(interval_list) == 1:
         for data in data_list:
-            dataframe_creator(data, interval_list[0], month_list, option)
+            df = dataframe_creator(data, interval_list[0], month_list, option)
+        return df
     elif len(data_list) == 1 and len(interval_list) > 1:
         for interval in interval_list:
-            dataframe_creator(data_list[0], interval, month_list, option)
-    elif len(data_list) >1 and len(interval_list)> 1:
+            df =  dataframe_creator(data_list[0], interval, month_list, option)
+            return df
+    elif len(data_list) >1 and len(interval_list)> 1 and option == True:
         for interval in interval_list:
             for data in data_list:
-                dataframe_creator(data, interval, month_list, option)
+               dataframe_creator(data, interval, month_list, option)
     else: 
         print(f" Data List: {data_list}, Interval List {interval_list} \
                         or Month List: {month_list} seem to be empty!")
     
 
-def dataframe_creator(data, interval,month_range, option):
+def dataframe_creator(data, interval, month_range, option):
     """
     Takes data parameter and returns a dataframe, 
         or stores multiple in form of csv
@@ -79,28 +82,28 @@ def dataframe_creator(data, interval,month_range, option):
     :param option: Write to csv yes or no 
     :type option : BOOL
     """
+
     if interval not in ['monthly', 'annual']:
         raise ValueError(f"Invalid interval: {interval}. Interval must \
                          be either monthly or annual.")
-
     df = pd.DataFrame()
     filename = []
-    if data.split('/')[-2] == "annual":
+    if str(interval) == "annual":
         ending = data.split('/')[-1]
         filename.append(f"{data}/{ending}_year.txt")
-        combined_annual_df = merge_files_to_dataframe(filename, 3)
-        anual_df = combined_annual_df.applymap(lambda x: x.replace('year', ''))
-        df = anual_df.rename(columns=lambda x: x.replace(';Monat', ''))
-    elif data.split('/')[-2] == "monthly":
+        annual_df = merge_files_to_dataframe(filename, 3)
+        annual_df = annual_df.applymap(lambda x: x.replace('year', ''))
+        df = annual_df.rename(columns=lambda x: x.replace(';Monat', ''))   
+    elif str(interval) == "monthly":
         for months in month_range:
             ending = data.split('/')[-1]
             filename.append(f"{data}/{ending}_{months}.txt")
-        df = merge_files_to_dataframe(filename, 3)     
+        df = merge_files_to_dataframe(filename, 3)    
+        if option is True:
+            print("adding to csv writer")
+            write_csv(df, data, ending)
     else: 
-        print("An error has occured in the Dataframe_creator")
-
-    if option is True:
-        write_csv(df, data, ending)
+        print("An error has occured in the Dataframe_creator") 
     return df
 
 

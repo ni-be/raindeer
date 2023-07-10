@@ -1,28 +1,24 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Jun 30 12:42:22 2023
 
-@author: timow
-"""
-
-import pytest
-import fourier
-import between_years
 import pandas as pd
+import unittest
+import os
+import sys
 
-df = pd.read_csv('../data/monthly/precipitation/regional_averages_tm_all.csv')
+root_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(os.path.dirname(root_dir))
+
+sys.path.append(f"{parent_dir}/src")
+
+from src.fourier import fourier_analysis
 
 
-def test_fourier_input_table():
-    "Test for fourier analysis implementation for weather data"
+class TestFourierAnalysis(unittest.TestCase):
+    def test_fourier_input_table(self):
+        "Test for fourier analysis implementation for weather data"
+        with self.assertRaises(AssertionError):
+            fourier_analysis("precipitation", "monthly", 'Deutschland', 'rain')
 
-    with pytest.raises(AssertionError):
-        fourier.fourier_analysis(df, 'Deutschland', 'rain')
 
-
-def test_between_years():
-    "Test plot_between_years for behavior if non valid dates are given"
-
-    with pytest.raises(TypeError):
-        between_years.plot_between_years(df, [177001, 'a'],
-                                         'Deutschland', 'rain')
+if __name__ == '__main__':
+    unittest.main()

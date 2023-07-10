@@ -1,5 +1,5 @@
 """
-USER STORY TESTS: 3, 8
+USER STORY TESTS: 3
 
 """
 import unittest

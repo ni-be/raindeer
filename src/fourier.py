@@ -1,12 +1,18 @@
-
+"""
+User Story ? Fourier analysis: 
+"""
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from dataframe_helper import dataframe_helper
+from utilities import yaml_reader
 
-df = pd.read_csv('../data/monthly/precipitation/regional_averages_tm_all.csv')
 
-def fourier_analysis(df, columns, case):
-
+def fourier_analysis(data, interval, columns, case):
+    
+    if isinstance(data, str) and isinstance(interval, str):
+        df = dataframe_helper(data, interval, yaml_reader('months'), False)
+    
     # Assertion of valid inputs
     df_test = pd.DataFrame([0])
     assert type(df) == type(df_test)
@@ -44,5 +50,5 @@ def fourier_analysis(df, columns, case):
 
 # Example usage:
 # Assuming you have a DataFrame called 'df' with columns 'column1' and 'column2'
-selected_columns = ['Deutschland']
-fourier_analysis(df, selected_columns, 'rain')
+selected_columns = ['deutschland']
+fourier_analysis("precipitation", "monthly", selected_columns, 'rain')

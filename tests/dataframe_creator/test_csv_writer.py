@@ -17,6 +17,8 @@ class TestWriteCsv(unittest.TestCase):
         self.ending = 'test'
 
     def test_write_csv(self):
+        print("\n Testing Dataframe_helper - Write CSV [1/1]")
+
         # Call the function with correct arguments
         write_csv(self.df, self.data, self.ending)
 
