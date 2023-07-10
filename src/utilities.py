@@ -22,17 +22,17 @@ def load_dataset(dataset: str) -> pd.core.frame.DataFrame:
 
 def yaml_reader(option):
     """
-    Yaml Reader allows reading the config.yaml in the root directory containing 
-    data points needed for running the application. 
+    Yaml Reader allows reading the config.yaml in the root directory containing
+    data points needed for running the application.
     :param option: choose which data point in config.yaml is needed
     :type option: string
     """
-    root_dir = os.path.dirname(os.path.abspath(__file__)) 
+    root_dir = os.path.dirname(os.path.abspath(__file__))
     parent_dir = os.path.dirname(root_dir)
 
-    with open(f"{parent_dir}/config.yaml" , 'r') as file:
+    with open(f"{parent_dir}/config.yaml", 'r') as file:
         data = yaml.safe_load(file)
-        
+
     if option in data:
         return data[option]
     elif option == "root_data":
@@ -40,4 +40,3 @@ def yaml_reader(option):
         return data_dir
     else:
         raise ValueError(f"Option {option} is not found in the YAML file.")
-

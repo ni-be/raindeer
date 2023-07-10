@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import pandas as pd
 import unittest
 import os
@@ -7,7 +5,6 @@ import sys
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
-
 sys.path.append(f"{parent_dir}/src")
 
 from src.fourier import fourier_analysis

@@ -310,7 +310,7 @@ def plot_weather_parameters_annual(
         time[i] <= time[i + 1] for i in range(len(time) - 1)
     ), "List of years should be sorted"
 
-    ### PROPOSED SOLUTION using dataframe helper 
+    # PROPOSED SOLUTION using dataframe helper
     # df = dataframe_helper('air_temperature_mean', 'annual', '00', True)
     # temp_df = df[df.loc[0]]
     # df = df.set_index('Jahr')

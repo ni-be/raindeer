@@ -42,7 +42,7 @@ def input_checker(input):
     """
     Function to check the input and convert it into a list
     :param input: any input
-    :type input:  any 
+    :type input:  any
     :output: list
     """
     if isinstance(input, str):
@@ -58,7 +58,7 @@ def input_checker(input):
 def string_list_converter(input):
     """
     converses input into a list
-    :param input: 
+    :param input:
     :type input: string
     """
     conv_list = []
@@ -68,12 +68,12 @@ def string_list_converter(input):
 
 def url_checker_handler(path, url):
     """
-    Checks whether the https urls are correct and the servers are online 
+    Checks whether the https urls are correct and the servers are online
     and downloads the data if OK
 
-    :param path: local file path 
+    :param path: local file path
     :type path: string
-    :param url: DWD url 
+    :param url: DWD url
     :type url: string
     """
     print(path)
@@ -92,7 +92,7 @@ def data_writer(path, content):
     :param path: local file path
     :type path: string
     :param content: content of the txt file
-    :type web content? 
+    :type web content?
     """
     output_file = Path(path)
     output_file.parent.mkdir(exist_ok=True, parents=True)

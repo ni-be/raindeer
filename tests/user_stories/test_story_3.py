@@ -25,5 +25,6 @@ class TestUserStory3(unittest.TestCase):
         # Additional test case with sorted years
         plot_weather_parameters_annual([1981, 1982, 1983])
 
+
 if __name__ == '__main__':
     unittest.main()

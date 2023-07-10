@@ -9,17 +9,17 @@ from utilities import yaml_reader
 
 def dataframe_helper(data, interval, month_range, option):
     """
-    Takes data parameter and returns a dataframe, 
+    Takes data parameter and returns a dataframe,
         or stores multiple in form of csv
-    :param data: takes either a list or string of possible dataset types 
+    :param data: takes either a list or string of possible dataset types
         used by the Dwd.
     :type data: String or list[]
     :param interval: takes either a string or list with either of the following
         two parameters "monthly" or "annual"
     :type interval: String or list[]
-    :param month_range: define the months used in dataframe 
+    :param month_range: define the months used in dataframe
         > only for interval monthly
-    :type month_range: string or list or int 
+    :type month_range: string or list or int
     :format month_range: 01, 02, 03, ... 12
     :param option is True or False - True for Write CSV and False for return DF
      only
@@ -75,18 +75,18 @@ def dataframe_helper(data, interval, month_range, option):
 
 def dataframe_creator(data, interval, month_range, option):
     """
-    Takes data parameter and returns a dataframe, 
+    Takes data parameter and returns a dataframe,
         or stores multiple in form of csv
     :param data: is astring of possible dataset types used by the Dwd.
-    :type data: String 
+    :type data: String
     :param interval: takes a string with either of the following
         two parameters "monthly" or "annual"
     :type interval: String
-    :param month_range: define the months used in dataframe 
+    :param month_range: define the months used in dataframe
         > only for interval monthly
-    :type month_range: list  
+    :type month_range: list
     :format month_range: 01, 02, 03, ... 12
-    :param option: Write to csv yes or no 
+    :param option: Write to csv yes or no
     :type option : BOOL
     """
 
@@ -116,11 +116,11 @@ def dataframe_creator(data, interval, month_range, option):
 
 def merge_files_to_dataframe(filenames, skip_rows):
     """
-    Merges txt files in a directory into a single dataframe, with dropping the 
+    Merges txt files in a directory into a single dataframe, with dropping the
     top 3 rows.
     :param filenames:  is the path of the txt files to download
     :type filenames: list
-    :param skip_rows the amount of rows to skip, 
+    :param skip_rows the amount of rows to skip,
     :type skip_rows: int
     """
     data = []
@@ -143,13 +143,13 @@ def merge_files_to_dataframe(filenames, skip_rows):
 
 def write_csv(df, data, ending):
     """
-    Write the dataframe to a csv 
+    Write the dataframe to a csv
     :param data:
     :type data:
     :param df: dataframe
     :type df: dataframe
     :param ending: descriptor of for file name i.e. "precipitation"
-    :type ending: string 
+    :type ending: string
     """
     df.to_csv(f"{data}/{ending}_combined_data.csv",
               index=False, header=True)

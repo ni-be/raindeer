@@ -7,8 +7,8 @@ from utilities import yaml_reader
 
 def data_helper(data, interval):
     """
-    Function that takes the data to find all the urls and local paths for each set.
-    Returns a list of paths 
+    Function that takes the data to find all the urls and local paths for
+    each set returns a list of paths
     :param interval:
     :type interval:
     :param data: contains a string or list of possible dataset from DWD
@@ -38,7 +38,7 @@ def data_helper(data, interval):
 def txt_renamer(path):
     """
     DWD provided txt files have inconsistent file names,
-    txt_renamer is used to rename the txt files after downloading 
+    txt_renamer is used to rename the txt files after downloading
     :param path: takes the data_path created in data_helper as input
     :type path: list
     """
@@ -87,7 +87,7 @@ def rename_function(filename, data_type, ending, path):
     if not isinstance(path, str):
         raise TypeError("path must be a string")
 
-    # Check that ending starts with '_'  
+    # Check that ending starts with '_'
     old_filename = os.path.join(path, filename)
     if not isinstance(old_filename, str):
         raise TypeError("old_file_name must be a string")

@@ -3,8 +3,8 @@ relating to the climate"""
 
 import argparse
 # from data_helper import *
-import pandas as pd
-from typing import List
+# import pandas as pd
+#from typing import List # top three seem unused remove?
 import argument_preprocessing as argpre
 import user_stories
 import utilities as utils
@@ -112,9 +112,9 @@ if __name__ == "__main__":
     parser.add_argument('--weather', '-w', help="""weather phenomenon
                         to analyse""",
                         type=str, nargs="+", default=["precipitation"])
-    parser.add_argument('--forecast', '-f', help="""Time to make forecast 
+    parser.add_argument('--forecast', '-f', help="""Time to make forecast
                         for""", type=int, nargs="?", default=2023)
-    parser.add_argument('--complexity', '-c', help="""mode for the plot; 
+    parser.add_argument('--complexity', '-c', help="""mode for the plot;
                         can be 'simple' or 'custom'""",
                         type=str, nargs="+", default=['simple'])
 

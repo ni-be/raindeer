@@ -1,5 +1,5 @@
 """
-User Story ? Fourier analysis: 
+User Story ? Fourier analysis:
 """
 import numpy as np
 import pandas as pd
@@ -9,10 +9,10 @@ from utilities import yaml_reader
 
 
 def fourier_analysis(data, interval, columns, case):
-    
+
     if isinstance(data, str) and isinstance(interval, str):
         df = dataframe_helper(data, interval, yaml_reader('months'), False)
-    
+
     # Assertion of valid inputs
     df_test = pd.DataFrame([0])
     assert type(df) == type(df_test)

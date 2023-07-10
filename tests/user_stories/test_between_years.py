@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import pandas as pd
 import unittest
 import os
@@ -17,10 +15,10 @@ class TestPlotBetweenYears(unittest.TestCase):
     def test_between_years(self):
         print("\n Testing User Story - between years [1/1]")
 
-        #"Test plot_between_years for behavior if non valid dates are given"
+        # Test plot_between_years for behavior if non valid dates are given
         with self.assertRaises(TypeError):
-            plot_between_years("precipitation", "monthly", [177001, 'a'], 'deutschland', 'rain')
-
+            plot_between_years("precipitation", "monthly", [177001, 'a'],
+                               'deutschland', 'rain')
 
 
 if __name__ == '__main__':
