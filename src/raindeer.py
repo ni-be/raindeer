@@ -84,7 +84,7 @@ def main(data):
         user_stories.plot_between_years(data, interval, yearsmonths, state,
                                         case, mode)
     elif args.mode == "PLACEHOLDER":
-        pass
+        pass   
     else:
         print(str(args.mode) + " is not a valid mode")
 
