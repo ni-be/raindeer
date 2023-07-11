@@ -21,15 +21,15 @@ class TestDwdDownloader(unittest.TestCase):
     def test_single_url(self, mock_data_writer, mock_get):
         print("\n Testing DWD Downloader - single URL [1/3]")
         # Test that the function can handle a single URL
-        url = 'https://opendata.dwd.de/climate_environment/CDC/'\
-              'regional_averages_DE/annual/air_temperature_mean/'\
-              'regional_averages_tm_year.txt'
+        url = str('https://opendata.dwd.de/climate_environment/CDC'
+                  '/regional_averages_DE/annual/air_temperature_mean/'
+                  'regional_averages_tm_year.txt')
         mock_get.return_value.status_code = 200
         mock_get.return_value.text = 'Test content'
         dwd_downloader(url)
         # Check that data_writer was called with the correct arguments
-        mock_data_writer.assert_called_with('/home/nibe/PROJECTS/raindeer/'\
-                                            'data/annual/air_temperature_mean/'\
+        mock_data_writer.assert_called_with('/home/nibe/PROJECTS/raindeer/'
+                                            'data/annual/air_temperature_mean/'
                                             'regional_averages_tm_year.txt',
                                             'Test content')
 
@@ -37,14 +37,14 @@ class TestDwdDownloader(unittest.TestCase):
     @patch('src.dwd_downloader.data_writer')
     def test_list_of_urls(self, mock_data_writer, mock_get):
         print("\n Testing DWD Downloader - URL list [2/3]")
-        urls = ['https://opendata.dwd.de/climate_environment/CDC/'\
-                'regional_averages_DE/annual/air_temperature_mean/'\
+        urls = ['https://opendata.dwd.de/climate_environment/CDC/'
+                'regional_averages_DE/annual/air_temperature_mean/'
                 'regional_averages_tm_year.txt',
-                'https://opendata.dwd.de/climate_environment/CDC/'\
-                'regional_averages_DE/annual/precipitation/'\
+                'https://opendata.dwd.de/climate_environment/CDC/'
+                'regional_averages_DE/annual/precipitation/'
                 'regional_averages_rr_year.txt',
-                'https://opendata.dwd.de/climate_environment/CDC/'\
-                'regional_averages_DE/annual/sunshine_duration/'\
+                'https://opendata.dwd.de/climate_environment/CDC/'
+                'regional_averages_DE/annual/sunshine_duration/'
                 'regional_averages_sd_year.txt']
 
         mock_get.return_value.status_code = 200

@@ -20,7 +20,7 @@ def dataframe_helper(data, interval, month_range, option):
     :param month_range: define the months used in dataframe
         > only for interval monthly
     :type month_range: string or list or int
-    :format month_range: 01, 02, 03, ... 12   
+    :format month_range: 01, 02, 03, ... 12
     :param option: Write or read only "w" for write, "r" for df output only
     :type option : string
     """
@@ -59,7 +59,7 @@ def dataframe_helper(data, interval, month_range, option):
         for data in data_list:
             df = dataframe_creator(data, interval_list[0], month_list, option)
         return df
-    elif len(data_list) == 1 and len(interval_list) > 1 and option == "r":        
+    elif len(data_list) == 1 and len(interval_list) > 1 and option == "r":
         for interval in interval_list:
             df = dataframe_creator(data_list[0], interval, month_list, option)
             return df
