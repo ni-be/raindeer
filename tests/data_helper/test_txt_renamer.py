@@ -1,6 +1,6 @@
 import unittest
-from unittest import patch
-from unittest import mock
+from unittest.mock import patch, Mock
+#from unittest.mock import MagicMock
 import os
 import sys
 root_dir = os.path.dirname(os.path.abspath(__file__))
@@ -22,8 +22,8 @@ class TestTxtRenamer(unittest.TestCase):
                                      'precipiation.csv', 'file3.txt']
 
         # Call the function with a test path
-        path = [f"{parent_dir}/data/monthly/\
-                precipitation", f"{parent_dir}/data/annual/precipitation"]
+        path = [f"{parent_dir}/data/monthly/"\
+                "precipitation", f"{parent_dir}/data/annual/precipitation"]
         txt_renamer(path)
 
         # Check if rename_function was called the expected number of times
@@ -34,8 +34,8 @@ class TestTxtRenamer(unittest.TestCase):
         self.assertEqual(first_call_args[0][0], 'precipitation.txt')
         self.assertEqual(first_call_args[0][1], 'precipitation')
         self.assertEqual(first_call_args[0][2], 'ion.txt')
-        self.assertEqual(first_call_args[0][3], f"{parent_dir}/ \
-                         data/monthly/precipitation")
+        self.assertEqual(first_call_args[0][3], f"{parent_dir}/"\
+                         "data/monthly/precipitation")
 
 
 if __name__ == '__main__':

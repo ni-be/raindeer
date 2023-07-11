@@ -95,7 +95,7 @@ class TestArg(unittest.TestCase):
 
         # Mock the yaml_reader function
         def yaml_reader(filename):
-            return ["Jahr;Monat", "brandenburg/berlin", "brandenburg",
+            return ["brandenburg/berlin", "brandenburg",
                     "baden-wuerttemberg", "bayern", "hessen",
                     "mecklenburg-vorpommern", "niedersachsen",
                     "niedersachsen/hamburg/bremen", "nordrhein-westfalen",
@@ -120,7 +120,7 @@ class TestArg(unittest.TestCase):
             arg_test_bundesland(args)
 
             # Assert the expected output
-            expected_output = ["Jahr;Monat", "brandenburg/berlin",
+            expected_output = ["brandenburg/berlin",
                                "brandenburg", "baden-wuerttemberg",
                                "bayern", "hessen", "mecklenburg-vorpommern",
                                "niedersachsen",

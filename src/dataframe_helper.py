@@ -20,10 +20,9 @@ def dataframe_helper(data, interval, month_range, option):
     :param month_range: define the months used in dataframe
         > only for interval monthly
     :type month_range: string or list or int
-    :format month_range: 01, 02, 03, ... 12
-    :param option is True or False - True for Write CSV and False for return DF
-     only
-    :type option: BOOL
+    :format month_range: 01, 02, 03, ... 12   
+    :param option: Write or read only "w" for write, "r" for df output only
+    :type option : string
     """
     if not isinstance(data, (str, list)):
         raise TypeError("Data parameter must be a string or a list")
@@ -52,19 +51,19 @@ def dataframe_helper(data, interval, month_range, option):
     month_list = input_checker(month_range)
     data_list = data_helper(data, interval_list)
 
-    if len(data_list) == 1 and len(interval_list) == 1:
-        df = dataframe_creator(data_list[0], interval_list[0], month_list,
-                               option)
+    if len(data_list) == 1 and len(interval_list) == 1 and option == "r":
+        df = dataframe_creator(data_list[0], interval_list[0],
+                               month_list, option)
         return df
-    elif len(data_list) > 1 and len(interval_list) == 1:
+    elif len(data_list) > 1 and len(interval_list) == 1 and option == "r":
         for data in data_list:
             df = dataframe_creator(data, interval_list[0], month_list, option)
         return df
-    elif len(data_list) == 1 and len(interval_list) > 1:
+    elif len(data_list) == 1 and len(interval_list) > 1 and option == "r":        
         for interval in interval_list:
             df = dataframe_creator(data_list[0], interval, month_list, option)
             return df
-    elif len(data_list) > 1 and len(interval_list) > 1 and option == True:
+    elif len(data_list) > 1 and len(interval_list) > 1 and option == "w":
         for interval in interval_list:
             for data in data_list:
                 dataframe_creator(data, interval, month_list, option)
@@ -86,8 +85,8 @@ def dataframe_creator(data, interval, month_range, option):
         > only for interval monthly
     :type month_range: list
     :format month_range: 01, 02, 03, ... 12
-    :param option: Write to csv yes or no
-    :type option : BOOL
+    :param option: Write or read only "w" for write, "r" for df output only
+    :type option : string
     """
 
     if interval not in ['monthly', 'annual']:
@@ -106,7 +105,7 @@ def dataframe_creator(data, interval, month_range, option):
             ending = data.split('/')[-1]
             filename.append(f"{data}/{ending}_{months}.txt")
         df = merge_files_to_dataframe(filename, 3)
-        if option is True:
+        if option == "w":
             print("adding to csv writer")
             write_csv(df, data, ending)
     else:

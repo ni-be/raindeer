@@ -1,7 +1,8 @@
 import unittest
+from unittest.mock import patch, Mock
 import sys
 import os
-from unittest.mock import patch
+
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
@@ -17,20 +18,20 @@ class TestURLDownloadList(unittest.TestCase):
         print("\n Testing Create URL download list [1/1]")
 
         # define the mock behavior of yaml_reader
-        mock_yaml_reader.return_value = ['https://opendata.dwd.de/\
-        climate_environment/CDC/regional_averages_DE/annual/precipitation\
-        /regional_averages_rr_year.txt']
+        mock_yaml_reader.return_value = ['https://opendata.dwd.de/'\
+        'climate_environment/CDC/regional_averages_DE/annual/precipitation'\
+        '/regional_averages_rr_year.txt']
 
         # call the function with test input
         test_input = ['/data/annual/precipitation']
         result = create_url_download_list(test_input)
 
         # check the output
-        expected_output = ['https://opendata.dwd.de/climate_environment/CDC\
-            /regional_averages_DE/annual/precipitation/\
-            regional_averages_rr_year.txt', 'https://opendata.dwd.de/\
-            climate_environment/CDC/regional_averages_DE/monthly/\
-            precipitation/regional_averages_rr_{}.txt']
+        expected_output = ['https://opendata.dwd.de/climate_environment/CDC'\
+            '/regional_averages_DE/annual/precipitation/'\
+            'regional_averages_rr_year.txt', 'https://opendata.dwd.de/'\
+            'climate_environment/CDC/regional_averages_DE/monthly/'\
+            'precipitation/regional_averages_rr_{}.txt']
         self.assertEqual(result, expected_output)
 
 

@@ -8,7 +8,7 @@ parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
 sys.path.append(f"{parent_dir}/src")
 
-from src.between_years import plot_between_years
+from src.user_stories import plot_between_years
 
 
 class TestPlotBetweenYears(unittest.TestCase):
