@@ -91,7 +91,7 @@ def main(data):
             month_range = [month_to_number[m] for m in args.month]
         else:
             month_range = ['01']
-        data_range = [d for d in args.data_type]
+        data_range = [d for d in args.data_set]
         dfh.dataframe_helper(data_range, interval_range, month_range, "wlci")
         print("done")
 
@@ -130,7 +130,7 @@ if __name__ == "__main__":
     parser.add_argument('--interval', '-i', help='interval: monthly and'
                                                  ' or annual',
                         type=str, nargs="+", default=None)
-    parser.add_argument('--data_type', '-dt', help='Data Type: precipiation',
+    parser.add_argument('--data_set', '-ds', help='Data Type: precipiation',
                         type=str, nargs="+", default=None)
 
     args = parser.parse_args()
