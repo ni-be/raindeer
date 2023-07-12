@@ -102,8 +102,6 @@ def rename_function(filename, data_type, ending, path):
     new_file = os.path.join(path, new_name)
     try:
         os.rename(old_filename, new_file)
-        if new_file.endswith(".csv"):
-            print(f"{old_filename} was renamed into {new_file}")
     except FileNotFoundError:
         print(f"{old_filename} does not exist")
 

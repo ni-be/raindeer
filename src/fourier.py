@@ -11,7 +11,8 @@ from utilities import yaml_reader
 def fourier_analysis(data, interval, columns, case):
 
     if isinstance(data, str) and isinstance(interval, str):
-        df = dataframe_helper(data, interval, yaml_reader('months'), False)
+        df_list = dataframe_helper(data, interval, yaml_reader('months'), 'r')
+    df = df_list[0]
 
     # Assertion of valid inputs
     df_test = pd.DataFrame([0])

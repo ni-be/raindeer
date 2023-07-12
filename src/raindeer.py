@@ -2,9 +2,6 @@
 relating to the climate"""
 
 import argparse
-# from data_helper import *
-# import pandas as pd
-#from typing import List # top three seem unused remove?
 import argument_preprocessing as argpre
 import user_stories
 import utilities as utils
@@ -95,10 +92,7 @@ def main(data):
         else:
             month_range = ['01']
         data_range = [d for d in args.data_type]
-        print(data_range)
-        print(interval_range)
-        print(month_range)
-        dfh(data_range, interval_range, month_range, "wlci")
+        dfh.dataframe_helper(data_range, interval_range, month_range, "wlci")
         print("done")
 
     else:
@@ -138,7 +132,7 @@ if __name__ == "__main__":
                         type=str, nargs="+", default=None)
     parser.add_argument('--data_type', '-dt', help='Data Type: precipiation',
                         type=str, nargs="+", default=None)
-    
+
     args = parser.parse_args()
     if args.url:
         print("input url: ", args.url)

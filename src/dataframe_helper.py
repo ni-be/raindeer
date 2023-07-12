@@ -23,6 +23,7 @@ def dataframe_helper(data, interval, month_range, option):
     :format month_range: 01, 02, 03, ... 12
     :param option: Write or read only "w" for write, "r" for df output only
     :type option : string
+    :output: type List
     """
     if not isinstance(data, (str, list)):
         raise TypeError("Data parameter must be a string or a list")
@@ -51,42 +52,51 @@ def dataframe_helper(data, interval, month_range, option):
     month_list = input_checker(month_range)
     conv_data = input_checker(data)
     data_list = data_helper(conv_data, interval_list, option)
-    if len(data_list) == 1 and len(interval_list) == 1:
-        df = dataframe_creator(data_list[0], interval_list[0],
-                               month_list, option)
-        return df
-    elif len(data_list) == 2 and len(interval_list) == 1:
-        df1 = dataframe_creator(data_list[0], interval_list[0],
-                                month_list, option)
-        df2 = dataframe_creator(data_list[1], interval_list[0],
-                                month_list, option)
-        return df1, df2
-    elif len(data_list) == 3 and len(interval_list) == 1:
-        df1 = dataframe_creator(data_list[0], interval_list[0],
-                                month_list, option)
-        df2 = dataframe_creator(data_list[1], interval_list[0],
-                                month_list, option)
-        df3 = dataframe_creator(data_list[2], interval_list[0],
-                                month_list, option)
-        return df1, df2, df3
-    elif len(data_list) == 2 and len(conv_data) == 1 and \
-            len(interval_list) == 2:
-        for data in data_list:
-            front_string = data.split('/')[-2]
-            if front_string == "monthly":
-                df1 = dataframe_creator(data, "monthly", month_list, option)
-            else:
-                df2 = dataframe_creator(data, "annual", month_list, option)
-        return df1, df2
-    elif len(data_list) > 2 and len(interval_list) == 2:
-        print("You chose too many data points and intervals\n"
-              "The mixing of data is not support for Dataframe Creation\n"
-              "Please limit to 1 Data value i.e. percipitation \n"
-              "and either monthly or annual interval for the dataframe.\n"
-              "You may also use 1 data point + 2 intervals ")
-    else:
-        print(f" Data List: {data_list}, Interval List {interval_list}"
-              " or Month List: {month_list} seem to be empty!")
+    df_ret = []
+    for dlist in data_list:
+        # dlist_dt = dlist.split('/')[-1]
+        interv = dlist.split('/')[-2]
+        df = dataframe_creator(dlist, interv, month_list, option)
+        df_ret.append(df)
+    return df_ret
+    print(df_ret)
+
+    # if len(data_list) == 1 and len(interval_list) == 1:
+    #     df = dataframe_creator(data_list[0], interval_list[0],
+    #                            month_list, option)
+    #     return df
+    # elif len(data_list) == 2 and len(interval_list) == 1:
+    #     df1 = dataframe_creator(data_list[0], interval_list[0],
+    #                             month_list, option)
+    #     df2 = dataframe_creator(data_list[1], interval_list[0],
+    #                             month_list, option)
+    #     return df1, df2
+    # elif len(data_list) == 3 and len(interval_list) == 1:
+    #     df1 = dataframe_creator(data_list[0], interval_list[0],
+    #                             month_list, option)
+    #     df2 = dataframe_creator(data_list[1], interval_list[0],
+    #                             month_list, option)
+    #     df3 = dataframe_creator(data_list[2], interval_list[0],
+    #                             month_list, option)
+    #     return df1, df2, df3
+    # elif len(data_list) == 2 and len(conv_data) == 1 and \
+    #         len(interval_list) == 2:
+    #     for data in data_list:
+    #         front_string = data.split('/')[-2]
+    #         if front_string == "monthly":
+    #             df1 = dataframe_creator(data, "monthly", month_list, option)
+    #         else:
+    #             df2 = dataframe_creator(data, "annual", month_list, option)
+    #     return df1, df2
+    # elif len(data_list) > 2 and len(interval_list) == 2:
+    #     print("You chose too many data points and intervals\n"
+    #           "The mixing of data is not support for Dataframe Creation\n"
+    #           "Please limit to 1 Data value i.e. percipitation \n"
+    #           "and either monthly or annual interval for the dataframe.\n"
+    #           "You may also use 1 data point + 2 intervals ")
+    # else:
+    #     print(f" Data List: {data_list}, Interval List {interval_list}"
+    #           " or Month List: {month_list} seem to be empty!")
 
 
 def dataframe_creator(data, interval, month_range, option):
@@ -121,7 +131,10 @@ def dataframe_creator(data, interval, month_range, option):
     elif str(interval) == "monthly":
         for months in month_range:
             ending = data.split('/')[-1]
-            filename.append(f"{data}/{ending}_0{months}.txt")
+            if len(str(months)) == 1:
+                filename.append(f"{data}/{ending}_0{months}.txt")
+            else:
+                filename.append(f"{data}/{ending}_{months}.txt")
         df = merge_files_to_dataframe(filename, 3)
         if option == "w" or option == "wcli":
             print(f"Adding {filename} adding to csv writer")
