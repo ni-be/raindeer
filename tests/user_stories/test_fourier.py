@@ -12,6 +12,7 @@ from src.user_stories import fourier_analysis
 
 class TestFourierAnalysis(unittest.TestCase):
     def test_fourier_input_table(self):
+        print("\n Testing Fourier Analysis [1/1]")
         "Test for fourier analysis implementation for weather data"
         with self.assertRaises(AssertionError):
             fourier_analysis("precipitation", "monthly", 'Deutschland', 'rain')

@@ -2,12 +2,11 @@
 TEST FILE QUICK TESTING FUNCTIONS
 """
 from dataframe_helper import dataframe_helper
-from user_stories import plot_weather_parameters_annual
+from user_stories import fourier_analysis
 
-# dataframe_helper(['air_temperature_mean', 'sunshine_duration',
-# 'precipitation'], 'annual', '01', True)
 
-plot_weather_parameters_annual([1983, 2020], 'Brandenburg/Berlin',
-                               '../data/annual')
+df = dataframe_helper(["air_temperature_mean"], ['annual','monthly'], "1", "r")
 
-# dataframe_helper("air_temperature_mean", "annual", "01", True)
+selected_columns = ['deutschland']
+fourier_analysis("precipitation", "monthly", selected_columns, 'rain')
+
