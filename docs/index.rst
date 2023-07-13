@@ -10,7 +10,8 @@ Welcome to Raindeer's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   architecture.md
+   requirements.md
 
 Indices and tables
 ==================
