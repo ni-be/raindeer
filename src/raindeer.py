@@ -95,7 +95,7 @@ def main(data):
         dfh.dataframe_helper(data_range, interval_range, month_range, "wlci")
         print("done")
 
-    elif args.mode == "simple_plot":
+    elif args.mode == "simple-plot":
         print("Works")
 
     else:
