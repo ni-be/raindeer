@@ -348,3 +348,41 @@ def plot_weather_parameters_annual(
 
     plt.show()
     utilities.plot_save(plt, "user_stories", "weather_param_annual")
+
+
+def simple_plot(data, _args, mtn):
+    """Draws plots of the given data depending on:
+       The timeframe (Year and Month), the Bundesländer
+       and the weather phenomenon"""
+    
+    year = _args.year
+    print("Year: " +str(year))
+    month = _args.month
+    print("Month: " +str(month))
+    bund = _args.bundesland
+    print("Bundesland: " +str(bund))
+    weather = _args.weather
+    print("Weather: " +str(weather))
+    print("Data: " +str(data))
+
+    #python src\raindeer.py data\annual --mode=simple-plot -y 2000 -m "January" -b "Brandenburg" -w "precipitation"
+    
+    #handle input data
+    #if no input file given:
+    if "monthly" in data:
+        interval="monthly"
+    elif "annual" in data:
+        interval="annual"
+    else:
+        raise Exception("Input file needs to be in the "+
+                        "data/annual or data/monthly directory")
+    #transform _args.month from word-strings to number-string
+    i=0
+    for m in _args.month:
+        _args.month[i]=mtn[m]
+        i+=1
+    df=dataframe_helper(_args.weather, interval, _args.month, "r")
+    
+    
+    for d in df:
+        print("DataFrame: " +str(d))
