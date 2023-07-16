@@ -27,7 +27,7 @@ class TestLocalCheck(unittest.TestCase):
         mock_exists.side_effect = lambda path: path not in self.directory
         mock_create_url_download_list.return_value = self.download_url_list
 
-        result = local_check(self.directory)
+        result = local_check(self.directory, "r")
 
         mock_create_url_download_list.assert_called_once_with(self.directory)
         mock_exists.assert_has_calls([mock.call(path) for
@@ -45,7 +45,7 @@ class TestLocalCheck(unittest.TestCase):
         mock_exists.side_effect = lambda path: path in self.directory
         mock_create_url_download_list.return_value = []
 
-        result = local_check(self.directory)
+        result = local_check(self.directory, "r")
 
         mock_create_url_download_list.assert_called_once_with([])
         mock_exists.assert_has_calls([mock.call(path) for

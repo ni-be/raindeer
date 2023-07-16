@@ -2,12 +2,10 @@
 relating to the climate"""
 
 import argparse
-# from data_helper import *
-# import pandas as pd
-#from typing import List # top three seem unused remove?
 import argument_preprocessing as argpre
 import user_stories
 import utilities as utils
+import dataframe_helper as dfh
 
 month_to_number = {
     "january": 1,
@@ -83,8 +81,20 @@ def main(data):
         mode = args.complexity[0]
         user_stories.plot_between_years(data, interval, yearsmonths, state,
                                         case, mode)
-    elif args.mode == "PLACEHOLDER":
-        pass   
+    elif args.mode == "dataframe_helper":
+        # Works with raindeer.py --mode dataframe_helper -dt precipitation
+        # -i annual -m january february
+        # should also work with -dt precipitation hot_days summer_days
+        # -i annual monthly
+        interval_range = [i for i in args.interval]
+        if args.month:
+            month_range = [month_to_number[m] for m in args.month]
+        else:
+            month_range = ['01']
+        data_range = [d for d in args.data_set]
+        dfh.dataframe_helper(data_range, interval_range, month_range, "wlci")
+        print("done")
+
     else:
         print(str(args.mode) + " is not a valid mode")
 
@@ -117,6 +127,11 @@ if __name__ == "__main__":
     parser.add_argument('--complexity', '-c', help="""mode for the plot;
                         can be 'simple' or 'custom'""",
                         type=str, nargs="+", default=['simple'])
+    parser.add_argument('--interval', '-i', help='interval: monthly and'
+                                                 ' or annual',
+                        type=str, nargs="+", default=None)
+    parser.add_argument('--data_set', '-ds', help='Data Type: precipiation',
+                        type=str, nargs="+", default=None)
 
     args = parser.parse_args()
     if args.url:
@@ -127,6 +142,8 @@ if __name__ == "__main__":
         print("inputfile: ", args.infile)
         main(args.infile)
 
+    elif args.mode:
+        main(args.mode)
     else:
         print("No url or file provided")
         parser.print_help()

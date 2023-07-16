@@ -15,12 +15,12 @@ class TestDataframeCreator(unittest.TestCase):
         print("\n Testing Dataframe Creator [1/1]")
         # Test with annual data
         data = f"{parent_dir}/data/annual/precipitation"
-        df = dataframe_creator(data, 'annual', '00', False)
+        df = dataframe_creator(data, 'annual', '0', False)
         self.assertIsInstance(df, pd.DataFrame)
 
         # Test with monthly data
         data = f"{parent_dir}/data/monthly/precipitation"
-        df = dataframe_creator(data, 'monthly', ['01', '02'], False)
+        df = dataframe_creator(data, 'monthly', ['1', '2'], False)
         self.assertIsInstance(df, pd.DataFrame)
 
         # Test with invalid interval

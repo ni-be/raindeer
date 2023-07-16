@@ -1,37 +1,41 @@
 """Functions to do the background tasks to work efficiently with data
 provided by the DWD """
 import os
-from dwd_downloader import dwd_downloader, input_checker
+from dwd_downloader import dwd_downloader
 from utilities import yaml_reader
 
 
-def data_helper(data, interval):
+def data_helper(conv_data, interval, option):
     """
     Function that takes the data to find all the urls and local paths for
     each set returns a list of paths
-    :param interval:
-    :type interval:
+    :param interval: annual and or monthly as a list
+    :type interval: list
     :param data: contains a string or list of possible dataset from DWD
     :type data: String or List
+    :param option: string , w , r, wlci write read or write cli
+    :type option string
     """
     root_data = yaml_reader("root_data")
     mon_type = yaml_reader("monthly_data_type")
-    conv_data = input_checker(data)
     data_path = []
     for data in conv_data:
         if data in mon_type and len(interval) == 2:
             data_path.append(f"{root_data}/monthly/{data}")
             data_path.append(f"{root_data}/annual/{data}")
-        elif data in mon_type and interval[0] == "annual" and len(
-                interval) == 1:
-            data_path.append(f"{root_data}/annual/{data}")
-        elif data in mon_type and interval[0] == "monthly" and len(
-                interval) == 1:
+        elif data in mon_type and len(interval) == 1 and \
+                interval[0] == "monthly":
             data_path.append(f"{root_data}/monthly/{data}")
+        elif len(interval) == 1 and interval[0] == "annual":
+            data_path.append(f"{root_data}/annual/{data}")
+        elif data not in mon_type and interval[0] == "monthly" \
+                and len(interval) == 1:
+            print("Sorry, this data type does not have monthly data!")
         else:
             print(f"{interval} seems not to be annual or monthly")
-    dwd_downloader(local_check(data_path))
+    dwd_downloader(local_check(data_path, option))
     txt_renamer(data_path)
+    print(data_path)
     return data_path
 
 
@@ -102,13 +106,15 @@ def rename_function(filename, data_type, ending, path):
         print(f"{old_filename} does not exist")
 
 
-def local_check(directory):
+def local_check(directory, option):
     """
     Checks whether a dataset type is already present on the filesystem,
     if not path will be added to the downloadlist and run through the
     create_url_download list
     :param directory: list of datatype sets including path
     :type directory: list
+    :param option: string , w , r, wlci write read or write cli
+    :type option string
     """
     download_list = []
     for dir in directory:
@@ -116,8 +122,8 @@ def local_check(directory):
             print(f"{dir} does not yet exists, will commence download!")
             download_list.append(dir)
         else:
-            pass
-            # print(f"{dir} does exist")
+            if option == "wcli":
+                print(f"{dir} does exist")
     download_url_list = create_url_download_list(download_list)
     return download_url_list
 

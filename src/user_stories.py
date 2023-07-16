@@ -30,9 +30,9 @@ def fourier_analysis(data, interval, columns, case):
     :rtype:
     """
     if isinstance(data, str) and all(isinstance(i, str) for i in interval):
-        df = dataframe_helper(data, interval, utilities.yaml_reader('months'),
-                              False)
-
+        df_list = dataframe_helper(data, interval,
+                                   utilities.yaml_reader('months'), 'r')
+    df = df_list[0]
     # Assertion of valid inputs
     df_test = pd.DataFrame([0])
     assert type(df) == type(df_test)
@@ -68,6 +68,7 @@ def fourier_analysis(data, interval, columns, case):
         plt.grid(True)
         plt.show()
 
+        utilities.plot_save(plt, "user_stories", "fourier_analysis")
 
 def linear_regression(x_data: np.ndarray, y_data: np.ndarray, x_pred: int,
                       x_label: str = 'x', y_label: str = 'y') -> float:
@@ -107,6 +108,8 @@ def linear_regression(x_data: np.ndarray, y_data: np.ndarray, x_pred: int,
     plt.ylabel(y_label)
     plt.show()
 
+    utilities.plot_save(plt, "user_stories", "linear_regression")
+    
     return round(b_0 + b_1 * x_pred, 1)
 
 
@@ -130,7 +133,7 @@ def plot_data(x, y, title, x_label, y_label):
     plt.title(title)
     plt.xlabel(x_label)
     plt.ylabel(y_label)
-
+    
 
 def plot_between_years(data, interval, yearsmonths, state, case, mode):
     """
@@ -152,8 +155,8 @@ def plot_between_years(data, interval, yearsmonths, state, case, mode):
     """
     months = utilities.yaml_reader('months')
     if isinstance(data, str) and isinstance(interval, (str, list)):
-        df = dataframe_helper(data, interval, months, True)
-
+        df_list = dataframe_helper(data, interval, months, 'r')
+    df = df_list[0]
     # Assertion of valid inputs
     df_test = pd.DataFrame([0])
     assert type(df) == type(df_test)
@@ -192,7 +195,7 @@ def plot_between_years(data, interval, yearsmonths, state, case, mode):
         plt.ylabel("Magnitude in " + variable[1])
         plt.grid(True)
         plt.show()
-
+        utilities.plot_save(plt, "user_stories", "between_years")
     if mode == 'custom':
         try:
             num_plots = int(input("Enter the number of plots: "))
@@ -265,7 +268,7 @@ def plot_between_years(data, interval, yearsmonths, state, case, mode):
             ax.scatter(x_values, y_values, color=plot_color, s=point_size)
 
         plt.show()
-
+        utilities.plot_save(plt, "user_stories", "between_years2")
 
 def predict_temperature_next_year():
     """
@@ -344,3 +347,4 @@ def plot_weather_parameters_annual(
     fig.legend(loc="center")
 
     plt.show()
+    utilities.plot_save(plt, "user_stories", "weather_param_annual")
