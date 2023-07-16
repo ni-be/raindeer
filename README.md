@@ -60,8 +60,8 @@ As part of the Project the following user stories are implemented:
 2) Automaticaly create dataframes and if needed download the data.
 3) Fourier Analysis - a tool to look for patterns in the data via frequency analysis
 4) Between Years - creates simple or advanced plots between two given months of any year
-5) UserStory 3 - TODO more details 
-6) Userstory 8 - TODO more details 
+5) Predict temperature - Does a linear regression analysis of the temperature data to predict the temperature in germany for the next year.
+6) Plot annual weather - Does a multiplot of all three weather parameters 
 7) TODO Joul USER STORY 
 8) TODO NIKO vertical Farming
 9) TODO ? 
