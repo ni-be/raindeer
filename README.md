@@ -1,5 +1,39 @@
 # RAINDEER
 
+Analysis of precipitation in Germany. 
+
+This project is done as part of the Research Software Engineering course Group Project. 
+
+* [Problem Description](#problem-description)
+* [How to get started and Requirements](#how-to-get-started-requirements)
+* [Running the Program](#running-the-program)
+  * [CLI](#cli)
+* [Dataset](#dataset)
+* [Contributing](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CONTRIBUTING.md)
+* [Code of Conduct](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CONDUCT.md)
+* [Licencse](https://gitup.uni-potsdam.de/jubruns/raindeer/main/LICENSE) 
+* [Citation](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CITATION.cff)
+
+
+
+## Problem Description
+
+### Research questions:
+1)  What is the temperature trend in germany?
+2) Are there correlations between different weather parameters?
+3) What will the average temperature be next year in germany?
+4) Are there patterns in the weather data?
+5) How can we make the weather data from the online database usable?
+
+## How to get Started
+
+## Running the Program
+
+### CLI
+
+
+# RAINDEER
+
 Tool to analyse data from the German weather service (DWD)
 
 
@@ -24,8 +58,8 @@ As part of the Project the following user stories are implemented:
 ## User-Stories:
 1) Download tool for datasets from the Deutschen Wetter Dienst / German weather service
 2) Automaticaly create dataframes and if needed download the data.
-3) Fourier Analysis - TODO more details 
-4) Between Years - TODO more details 
+3) Fourier Analysis - a tool to look for patterns in the data via frequency analysis
+4) Between Years - creates simple or advanced plots between two given months of any year
 5) UserStory 3 - TODO more details 
 6) Userstory 8 - TODO more details 
 7) TODO Joul USER STORY 
@@ -144,6 +178,29 @@ TODO URL minus BASE_URL
 
 
 ### TODO OTHER USER STORIES
+
+### Forecast
+"""BASH
+$ raindeer.py "data/annual/air_temperature_mean/regional_averages_tm_year.txt" --mode=forecast -b='Deutschland'
+"""
+This function doesn't need any additional input as it will use the historical data for linear regression
+
+### Fourier
+"""BASH
+$ raindeer.py WEATHER --mode fourier -b BUNDESLAND
+"""
+arguments:
+``weather``: type of weather to analyse between "precipitacion", "air_temperature_mean" and "sunshine"
+``month``: can be set to "annual" or "monthly" to switch between the datasets
+``bundesland``: can also be accsessed via ``-b`` and takes a german state or multiple states
+
+### Plot weather parameters annual
+"""BASH
+$ raindeer.py "data/annual" --mode=plot-params -b=BUNDESLAND
+"""
+arguments:
+``bundesland``: can also be accsessed via ``-b`` and takes a german state or multiple states
+``year``:  takes a list of years to be plotted like `"START..END"` or with ``+`` for only certain years
 
 ## Datasets
 
