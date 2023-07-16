@@ -83,7 +83,7 @@ For more [more information](#yaml_reader)
 
 ## Jupyter Notebook
 
-TODO Short intro and usage how and is displayed
+Start the jupyter notebook from the commandline with ``jupyter notebook``. This will open a homepage in your browser containing all files in your current working directory. From here select ``raindeer.ipynb`` and open it. Inside the notebook is the computational narrative for this software. It explains all the modules and usecases as well as answering some interesting questions using the data.
 
 ## Module usage
 
