@@ -9,6 +9,7 @@ import pandas as pd
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 PARENT_DIR = os.path.dirname(ROOT_DIR)
 
+
 def load_dataset(dataset: str) -> pd.core.frame.DataFrame:
     """Load the specified dataset into a pandas dataframe.
 
@@ -18,7 +19,7 @@ def load_dataset(dataset: str) -> pd.core.frame.DataFrame:
     Returns:
         pd.core.frame.DataFrame: Dataframe containing the dataset.
     """
-    
+
     data = pd.read_csv(dataset, sep=";", header=1, index_col=0)
     print(data)
     return data
@@ -37,7 +38,7 @@ def yaml_reader(option):
     Returns:
         Various: Returns the specific configuration data defined by option.
     """
-    
+
     with open(f"{PARENT_DIR}/config.yaml", 'r') as file:
         data = yaml.safe_load(file)
 
@@ -49,13 +50,14 @@ def yaml_reader(option):
     else:
         raise ValueError(f"Option {option} is not found in the YAML file.")
 
+
 def plot_save(plt, sub_dir, filename):
     """
     Save the provided plot to the specified directory.
 
     Args:
         plt (matplotlib.pyplot): The configured matplotlib plot to be saved.
-        sub_dir (str): Subdirectory under '/results' where the plot will be saved.
+        sub_dir (str): Subdir under '/results' where the plot will be saved.
         filename (str): The filename to save the plot under.
 
     """
@@ -71,6 +73,6 @@ def plot_save(plt, sub_dir, filename):
     try:
         plt.savefig(f"{PARENT_DIR}/results/{sub_dir}/plots/{filename}.png")
         print(f"Successfully saved: /results/{sub_dir}/plots/{filename}.png")
- 
+
     except Exception as e:
         print(f"An error occurred: {e}")

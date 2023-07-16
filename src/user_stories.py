@@ -17,17 +17,27 @@ parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
 def fourier_analysis(data, interval, columns, case):
     """
+    Perform Fourier analysis on specified columns of the data and
+    plot the results.
 
-    :param data:
-    :type data:
-    :param interval:
-    :type interval:
-    :param columns:
-    :type columns:
-    :param case:
-    :type case:
-    :return:
-    :rtype:
+    Args:
+        data (str or pandas.DataFrame): The input data. If a string, it's
+                                        assumed to be a path to a .csv file.
+                                        If a DataFrame, it's used directly.
+
+        interval (list of str): The interval at which the data is sampled.
+
+        columns (list of str): Names of the columns in the data on which to
+                               perform Fourier analysis.
+
+        case (str): One of 'rain', 'sun', 'temp'. This decides the title and
+                    units for the plot. 'rain' for Precipitation, 'sun' for
+                    Sunshine, 'temp' for Temperature.
+
+    Raises:
+        AssertionError: If the input data is neither a pandas DataFrame nor a
+        string, or if `case` is not one of ['rain', 'sun', 'temp'].
+
     """
     if isinstance(data, str) and all(isinstance(i, str) for i in interval):
         df_list = dataframe_helper(data, interval,
@@ -70,24 +80,27 @@ def fourier_analysis(data, interval, columns, case):
 
         utilities.plot_save(plt, "user_stories", "fourier_analysis")
 
+
 def linear_regression(x_data: np.ndarray, y_data: np.ndarray, x_pred: int,
                       x_label: str = 'x', y_label: str = 'y') -> float:
     """
-    Function that uses a simple linear regression model to predict a
-    parameter subject to another parameter and plots the linear regression
-    line.
-    :param x_data: The parameter X that the other parameter is depending on.
-    :type x_data: numpy.ndarray
-    :param y_data: The dependent parameter Y we want to predict.
-    :type y_data: numpy.ndarray
-    :param x_pred: The value we want to make a prediction for.
-    :type x_pred: int
-    :param x_label: The label for the x-axis in the plot. Defaults to 'X'.
-    :type x_label: String
-    :param y_label: The label for the y-axis in the plot. Defaults to 'Y'.
-    :type y_label: String
-    :return: The predicted value.
-    :rtype: Floating point number
+    Predict a dependent variable using linear regression and plot the result.
+
+    The function uses a simple linear regression model to predict 'y_data'
+    values based on 'x_data' entries. It also plots the regression line.
+
+    Args:
+        x_data (np.ndarray): Independent variable values.
+        y_data (np.ndarray): Dependent variable values we want to predict.
+        x_pred (int): Independent variable value we want to predict for.
+        x_label (str, optional): x-axis label for the plot. Default is 'x'.
+        y_label (str, optional): y-axis label for the plot. Default is 'y'.
+
+    Raises:
+        AssertionError: X and Y must have the same lengths
+
+    Returns:
+        float: The predicted value for 'x_pred'.
     """
     assert len(x_data) == len(y_data), "X and Y must have the same lengths"
     num = len(x_data)
@@ -109,49 +122,50 @@ def linear_regression(x_data: np.ndarray, y_data: np.ndarray, x_pred: int,
     plt.show()
 
     utilities.plot_save(plt, "user_stories", "linear_regression")
-    
     return round(b_0 + b_1 * x_pred, 1)
 
 
 def plot_data(x, y, title, x_label, y_label):
     """
+    Plot y values against x values with specified labels and title.
 
-    :param x:
-    :type x:
-    :param y:
-    :type y:
-    :param title:
-    :type title:
-    :param x_label:
-    :type x_label:
-    :param y_label:
-    :type y_label:
-    :return:
-    :rtype:
+    Args:
+        x (iterable): Data to be plotted on the x-axis.
+        y (iterable): Data to be plotted on the y-axis.
+        title (str): Title of the plot.
+        x_label (str): Label for the x-axis.
+        y_label (str): Label for the y-axis.
+
+    Returns:
+        None. This function shows the plot inline and does not return any
+        value.
     """
     plt.plot(x, y)
     plt.title(title)
     plt.xlabel(x_label)
     plt.ylabel(y_label)
-    
+
 
 def plot_between_years(data, interval, yearsmonths, state, case, mode):
     """
+    Plot specific data between certain years in simple or custom mode.
 
-    :param data:
-    :type data:
-    :param interval:
-    :type interval:
-    :param yearsmonths:
-    :type yearsmonths:
-    :param state:
-    :type state:
-    :param case:
-    :type case:
-    :param mode:
-    :type mode:
-    :return:
-    :rtype:
+    Args:
+        data (str): Path to data or DataFrame to plot.
+        interval (str/list): str or list of dates to consider for the plot.
+        yearsmonths (list): 2 element list containing start , end year-month.
+        state (str): Name of the state for which data should be plotted.
+        case (str): Type of data to plot ('rain', 'sun', 'temp').
+        mode (str): Mode of plotting ('simple', 'custom').
+
+    Returns:
+        None. Function shows the plot inline and does not return any value.
+
+    Raises:
+        ValueError: If 'case' is not in ['rain', 'sun', 'temp'],
+                    or input value is of incorrect data type.
+        TypeError: If input values are not numeric.
+
     """
     months = utilities.yaml_reader('months')
     if isinstance(data, str) and isinstance(interval, (str, list)):
@@ -270,12 +284,18 @@ def plot_between_years(data, interval, yearsmonths, state, case, mode):
         plt.show()
         utilities.plot_save(plt, "user_stories", "between_years2")
 
+
 def predict_temperature_next_year():
     """
-    Prediction of the temperature mean in Germany in 2023 using linear
-    regression. (Example use of the function linear_regression() above.)
-    :return: The predicted temperature mean in Germany in 2023.
-    :rtype: Floating point number
+    Predict the mean temperature in Germany for 2023.
+
+    This function uses the linear_regression() function to estimate
+    the mean temperature in Germany for 2023. The historical mean
+    temperatures from 1981 to 2022 are used as the basis for the
+    regression.
+
+    Returns:
+        float: The projected mean temperature in Germany for 2023.
     """
     time = range(1981, 2023)
     place = "Deutschland"
@@ -291,19 +311,23 @@ def predict_temperature_next_year():
 
 def plot_weather_parameters_annual(
         time: List[int] = range(1981, 2023), place: str = "Deutschland",
-        data: str = f"{parent_dir}/raindeer/data/annual"
-):
+        data: str = f"{parent_dir}/raindeer/data/annual"):
     """
-    Plots a line plot with all three parameters temperature, precipitation,
-    and sunshine over time.
-    :param time: List of all years shown in the plot. Should be ordered and
-    years should be between 1981 and 2023.
-    :type time: List[int]
-    :param place: Place you want to look at. Name of a German federal state or
-    'Deutschland'.
-    :type place: String
-    :param data: Place where the data table is found.
-    :type data: String
+    Plots annual weather parameters (temperature, precipitation, sunshine).
+
+    Args:
+        time (List[int]): Years to show in plot. Ord, list in 1981-2023 range.
+        place (str): German state or 'Deutschland'.
+        data (str): Path to the data table.
+
+    Raises:
+        AssertionError: If the list of years is unsorted.
+
+    Returns:
+        None, This function shows a plot inline.
+
+    Note:
+        This function expects the 'time' list to be sorted in ascending order.
     """
     # TODO for unittest the path needs to be relative not ../ see above
     #  root_dir and parent_dir. if not relative this will not run if run
