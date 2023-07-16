@@ -1,5 +1,6 @@
 """
-DOCSTRING ....
+This module preprocesses and validates input arguments related to
+weather data.
 """
 from utilities import yaml_reader
 
@@ -14,6 +15,15 @@ def arg_preprocess(args):
 
 
 def arg_test_year(args):
+    """
+    Transforms and validates input arguments.
+
+    Args:
+        args: Input arguments to preprocess and validate.
+
+    Returns:
+        None
+    """
     if args.year:
         year = []
         for i in range(0, len(args.year)):
@@ -34,10 +44,28 @@ def arg_test_year(args):
 
 
 def check_if_year(_year):
+    """
+    Validates if the input year(s) is valid and in proper format.
+
+    Args:
+        args: Input arguments containing year(s).
+
+    Returns:
+        None
+    """
     assert _year.isdigit(), str(_year) + " is not a number"
 
 
 def arg_test_month(args):
+    """
+    Checks if a provided year is a number.
+
+    Args:
+        _year: Year to validate if it's a number.
+
+    Raises:
+        AssertionError: If year is not a number.
+    """
     if args.month:
         month = []
         calendar = yaml_reader('month_names')
@@ -58,6 +86,18 @@ def arg_test_month(args):
 
 
 def check_if_month(_month, _cal):
+    """
+    Check if the given month is valid.
+
+    Args:
+        _month: The month to check (int).
+
+    Returns:
+        The index of the month if it is valid (int).
+
+    Raises:
+        AssertionError: If the month is not valid.
+    """
     for i in range(0, len(_cal)):
         if _month == _cal[i]:
             return i
@@ -65,6 +105,15 @@ def check_if_month(_month, _cal):
 
 
 def arg_test_weather(args):
+    """
+    Test and parse the weather arguments.
+
+    Args:
+        args: The command line arguments (argparse.Namespace).
+
+    Returns:
+        None
+    """
     if args.weather:
         weather = []
         weather_options = yaml_reader('monthly_data_type')
@@ -79,6 +128,19 @@ def arg_test_weather(args):
 
 
 def check_if_weather(_weather, _weather_options):
+    """
+    Check if the given weather option is valid.
+
+    Args:
+        _weather: The weather option to check (str).
+        _weather_options: The list of valid weather options (list).
+
+    Returns:
+        The index of the weather option if it is valid (int).
+
+    Raises:
+        AssertionError: If the weather option is not valid.
+    """
     for i in range(0, len(_weather_options)):
         if _weather in _weather_options[i]:
             return i
@@ -86,6 +148,15 @@ def check_if_weather(_weather, _weather_options):
 
 
 def arg_test_bundesland(args):
+    """
+    Test and parse the bundesland arguments.
+
+    Args:
+        args: The command line arguments (argparse.Namespace).
+
+    Returns:
+        None
+    """
     if args.bundesland:
         bundesland = []
         bund = yaml_reader('headers')
@@ -103,6 +174,19 @@ def arg_test_bundesland(args):
 
 
 def check_if_bundesland(_bundesland, _bundesland_options):
+    """
+    Check if the given bundesland is valid.
+
+    Args:
+        _bundesland: The bundesland to check (str).
+        _bundesland_options: The list of valid bundesland options (list).
+
+    Returns:
+        The index of the bundesland if it is valid (int).
+
+    Raises:
+        AssertionError: If the bundesland is not valid.
+    """
     for i in range(0, len(_bundesland_options)):
         if _bundesland == _bundesland_options[i]:
             return i
