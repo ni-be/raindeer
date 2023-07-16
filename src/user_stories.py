@@ -404,9 +404,9 @@ def simple_plot(data, _args, mtn):
     _, legend = plot.get_legend_handles_labels()
     print(legend)
     for i in range(0, len(legend)):
-        legend[i] = _args.weather[i//(len(legend)//len(_args.weather))]+
-        " "+legend[i]
-    plt.legend(legend)
+        legend[i] = _args.weather[
+            i//(len(legend)//len(_args.weather))]+" "+legend[i]
+        plt.legend(legend)
     # show the graph
     plt.show()
 
