@@ -8,12 +8,12 @@ from utilities import yaml_reader
 
 def dwd_downloader(url_list):
     """
-    Takes a list of paths from data_helper to download
-    :param url_list: paths in the format "
-    "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE
-    /annual/air_temperature_mean/regional_averages_tm_year.txt"
-    :type url_list: list or string
-    """
+    Download data of the specified URL list.
+
+    Args:
+        url_list (list or string): Paths in a specific format.
+
+     """
     root_data = yaml_reader("root_data")
     months = yaml_reader("months")
     # convert url_list or month into lists if necessary
@@ -40,10 +40,13 @@ def dwd_downloader(url_list):
 
 def input_checker(input):
     """
-    Function to check the input and convert it into a list
-    :param input: any input
-    :type input:  any
-    :output: list
+    Check the input type and convert to list if necessary.
+
+    Args:
+        input: Any type of input.
+
+    Returns:
+        list: Converted input in list format.
     """
     if isinstance(input, str):
         input = string_list_converter(input)
@@ -57,9 +60,13 @@ def input_checker(input):
 
 def string_list_converter(input):
     """
-    converses input into a list
-    :param input:
-    :type input: string
+    Convert the input into a list.
+
+    Args:
+        input (str): String input.
+
+    Returns:
+        list: Converted input.
     """
     conv_list = []
     conv_list += [str(input)]
@@ -68,13 +75,11 @@ def string_list_converter(input):
 
 def url_checker_handler(path, url):
     """
-    Checks whether the https urls are correct and the servers are online
-    and downloads the data if OK
+    Validate URLs and handle URL errors during download.
 
-    :param path: local file path
-    :type path: string
-    :param url: DWD url
-    :type url: string
+    Args:
+        path (str): Path to local file.
+        url (str): DWD URL.
     """
     print(path)
     response = requests.get(url)
@@ -88,11 +93,11 @@ def url_checker_handler(path, url):
 
 def data_writer(path, content):
     """
-    writes the data into local files
-    :param path: local file path
-    :type path: string
-    :param content: content of the txt file
-    :type web content?
+    Write downloaded data to a local file.
+
+    Args:
+        path (str): Path to local file.
+        content: Content of the downloaded file.
     """
     output_file = Path(path)
     output_file.parent.mkdir(exist_ok=True, parents=True)
