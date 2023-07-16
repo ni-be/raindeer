@@ -191,7 +191,7 @@ $ raindeer.py WEATHER --mode fourier -b BUNDESLAND
 """
 arguments:
 ``weather``: type of weather to analyse between "precipitacion", "air_temperature_mean" and "sunshine"
-``month``: can be set to "annual" or "monthly" to switch between the datasets
+``interval``: can be set to "annual" or "monthly" to switch between the datasets
 ``bundesland``: can also be accsessed via ``-b`` and takes a german state or multiple states
 
 ### Plot weather parameters annual
@@ -200,7 +200,17 @@ $ raindeer.py "data/annual" --mode=plot-params -b=BUNDESLAND
 """
 arguments:
 ``bundesland``: can also be accsessed via ``-b`` and takes a german state or multiple states
-``year``:  takes a list of years to be plotted like `"START..END"` or with ``+`` for only certain years
+``year``:  takes a list of years to be plotted like `"START..END"` or with ``+`` for only certain years, can also be accessed with ``-y``
+
+### Customizable plotting
+"""BASH
+$ raindeer.py WEATHER --mode between-years -m MONTH  -b BUNDESLAND -w WEATHER -y START..END
+"""
+arguments:
+``bundesland``: can also be accsessed via ``-b`` and takes a german state
+``weather``: type of weather to analyse between "precipitacion", "air_temperature_mean" and "sunshine"
+``month``: takes one or multiple months with ``+``to be plotted, can also be accessed with ``-m``
+``complexity``: can be set to "simple" or "custom", if "custom" is chosen the user can freely control a vast range of parameters of the plot. This will be asked by the software as user input in the commandline.
 
 ## Datasets
 
