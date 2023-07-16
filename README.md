@@ -19,6 +19,9 @@ This project is done as part of the Research Software Engineering course Group P
 ## Problem Description
 
 ### Research questions:
+This project was created on the basis of answering the following research questions. 
+From these multiple [USER_STORIES](#User-Stories) were created.
+
 1)  What is the temperature trend in germany?
 2) Are there correlations between different weather parameters?
 3) What will the average temperature be next year in germany?
@@ -26,6 +29,8 @@ This project is done as part of the Research Software Engineering course Group P
 5) How can we make the weather data from the online database usable?
 
 ## How to get Started
+
+
 
 ## Running the Program
 
@@ -62,10 +67,10 @@ As part of the Project the following user stories are implemented:
 4) Between Years - creates simple or advanced plots between two given months of any year
 5) Predict temperature - Does a linear regression analysis of the temperature data to predict the temperature in germany for the next year.
 6) Plot annual weather - Does a multiplot of all three weather parameters 
-7) TODO Joul USER STORY 
-8) TODO NIKO vertical Farming
-9) TODO ? 
-10) TODO ? 
+7) TODO Joul USER STORY 1-3 
+8) TODO vert FARMING ... if TIME. 
+9)  
+10)
 
 # How to get Started
 To install all necessary packages, run: 
@@ -74,6 +79,8 @@ pip install -r requirements.txt
 ```
 
 ## Running the Program
+The programm has 2 interfaces / access points, you can access some functionality through the CLI. 
+And you can directly access the modules through importing in for example Jupyter Notebook. 
 
 ## Configuration and QoL
 
@@ -137,7 +144,7 @@ dataframe_helper(["ice_days", "hot_days"], "annual", "0", "w")
 dataframe_helper(["precipitation"], ["monthly", "annual"], ["01","02","03"], "r")
 
 # if you need all months from 1-12 you can also use the utilities.yaml_reader['months']
-````
+```
 Data can be either a string of a single data set or it can be a list
 
 Possible datasets are (July 2023): 
@@ -168,9 +175,9 @@ wcli : is mainly used automatically when accessing the dataframe_helper from the
 ## CLI 
 
 ### Dataframe_helper - Downloader
-"""BASH
+```BASH
 $ raindeer.py --mode dataframe_helper --data_set DATA_SET --interval INTERVAL --month MONTHS
-"""
+```
 DATA_SET, INTERVAL and MONTHS are the same values as above only the OPTION is not included. 
 
 TODO add an ALL condition so that all datasets are downloaded. 
@@ -180,32 +187,32 @@ TODO URL minus BASE_URL
 ### TODO OTHER USER STORIES
 
 ### Forecast
-"""BASH
+```BASH
 $ raindeer.py "data/annual/air_temperature_mean/regional_averages_tm_year.txt" --mode=forecast -b='Deutschland'
-"""
+```
 This function doesn't need any additional input as it will use the historical data for linear regression
 
 ### Fourier
-"""BASH
+```BASH
 $ raindeer.py WEATHER --mode fourier -b BUNDESLAND
-"""
+```
 arguments:
 ``weather``: type of weather to analyse between "precipitacion", "air_temperature_mean" and "sunshine"
 ``interval``: can be set to "annual" or "monthly" to switch between the datasets
 ``bundesland``: can also be accsessed via ``-b`` and takes a german state or multiple states
 
 ### Plot weather parameters annual
-"""BASH
+```BASH
 $ raindeer.py "data/annual" --mode=plot-params -b=BUNDESLAND
-"""
+````
 arguments:
 ``bundesland``: can also be accsessed via ``-b`` and takes a german state or multiple states
 ``year``:  takes a list of years to be plotted like `"START..END"` or with ``+`` for only certain years, can also be accessed with ``-y``
 
 ### Customizable plotting
-"""BASH
+```BASH
 $ raindeer.py WEATHER --mode between-years -m MONTH  -b BUNDESLAND -w WEATHER -y START..END
-"""
+````
 arguments:
 ``bundesland``: can also be accsessed via ``-b`` and takes a german state
 ``weather``: type of weather to analyse between "precipitacion", "air_temperature_mean" and "sunshine"
