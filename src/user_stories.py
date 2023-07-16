@@ -369,20 +369,40 @@ def simple_plot(data, _args, mtn):
     
     #handle input data
     #if no input file given:
-    if "monthly" in data:
+    if _args.month:
         interval="monthly"
-    elif "annual" in data:
-        interval="annual"
     else:
-        raise Exception("Input file needs to be in the "+
-                        "data/annual or data/monthly directory")
+        interval="annual"
+
     #transform _args.month from word-strings to number-string
-    i=0
-    for m in _args.month:
-        _args.month[i]=mtn[m]
-        i+=1
-    df=dataframe_helper(_args.weather, interval, _args.month, "r")
+    if _args.month:
+        i=0
+        for m in _args.month:
+            _args.month[i]=mtn[m]
+            i+=1
+    else:
+        _args.month="0"
+    df_list=dataframe_helper(_args.weather, interval, _args.month, "r")
     
+
+    # Iterate trhough each entry in the df_list
+    # Each entry represent a different "weather phneomenom"
+    # Like sun-duration or precipitation
     
-    for d in df:
-        print("DataFrame: " +str(d))
+    for i in range(0,len(df_list)):
+        #Use only the required subset of Year-rows and Bundesland-Comumns
+        #Key/Columns
+        _args.bundesland.insert(0,"Jahr;Monat")
+        df_list[i]=df_list[i][_args.bundesland]
+
+        drop=[]
+        for row in range(0,len(df_list[i])):
+            if not int(df_list[i].iloc[row]["Jahr;Monat"][0:4]) in _args.year:
+                drop.append(row)
+
+        df_list[i].drop(labels=drop,inplace=True)
+        df_list[i].reset_index(inplace=True,drop=True)
+        print(df_list[i])
+
+        
+
