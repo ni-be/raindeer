@@ -355,20 +355,7 @@ def simple_plot(data, _args, mtn):
        The timeframe (Year and Month), the Bundesländer
        and the weather phenomenon"""
     
-    year = _args.year
-    #print("Year: " +str(year))
-    month = _args.month
-    #print("Month: " +str(month))
-    bund = _args.bundesland
-    #print("Bundesland: " +str(bund))
-    weather = _args.weather
-    #print("Weather: " +str(weather))
-    #print("Data: " +str(data))
-
-    #python src\raindeer.py data\annual --mode=simple-plot -y 2000 -m "January" -b "Brandenburg" -w "precipitation"
-    
-    #handle input data
-    #if no input file given:
+    # handle input data
     if _args.month:
         interval="monthly"
         index_str="Jahr;Monat"
@@ -376,7 +363,7 @@ def simple_plot(data, _args, mtn):
         interval="annual"
         index_str="Jahr"
 
-    #transform _args.month from word-strings to number-string
+    # transform _args.month from word-strings to number-string
     if _args.month:
         i=0
         for m in _args.month:
@@ -385,18 +372,15 @@ def simple_plot(data, _args, mtn):
     else:
         _args.month="0"
     df_list=dataframe_helper(_args.weather, interval, _args.month, "r")
-    
 
-    # Iterate trhough each entry in the df_list
+    # Adding "Jahr;Monat" or "Jahr" to the dataframe
+    _args.bundesland.insert(0,index_str)
+    
+    # Iterate through each entry in the df_list
     # Each entry represent a different "weather phneomenom"
     # Like sun-duration or precipitation
-
-    _args.bundesland.insert(0,index_str)
- 
     for i in range(0,len(df_list)):
-        #Use only the required subset of Year-rows and Bundesland-Comumns
-        #Key/Columns
-        
+        # Use only the required subset of Year-rows and Bundesland-Comumns
         df_list[i]=df_list[i][_args.bundesland]
         drop=[]
         for row in range(0,len(df_list[i])):
@@ -406,7 +390,7 @@ def simple_plot(data, _args, mtn):
         df_list[i].drop(labels=drop,inplace=True)
         df_list[i].reset_index(inplace=True,drop=True)
 
-        #Draw graphs
+        # Plot graphs
         df_list[i] = df_list[i].set_index([index_str])
         df_list[i]=df_list[i].astype(float)
         if i==0:
@@ -414,17 +398,15 @@ def simple_plot(data, _args, mtn):
         else:
             plot=df_list[i].plot(ax=plot)
 
+    # Process the labels
     _,legend=plot.get_legend_handles_labels()
     print(legend)
     for i in range(0,len(legend)):
-        legend[i]=_args.weather[i//len(_args.weather)]+" "+legend[i]
-    #Legend
+        legend[i]=_args.weather[i//(len(legend)//len(_args.weather))]+" "+legend[i]
     plt.legend(legend)
-             
+    #show the graph
     plt.show()
 
-    
-    
     #Save Plot
     if _args.outfile:
         try:
