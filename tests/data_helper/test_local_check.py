@@ -18,7 +18,7 @@ class TestLocalCheck(unittest.TestCase):
         self.download_url_list = ['url1', 'url2']
 
     @mock.patch('os.path.exists')
-    @mock.patch('src.data_helper.create_url_download_list')
+    @mock.patch('raindeer.data_helper.create_url_download_list')
     def test_local_check_nonexistent_path(self,
                                           mock_create_url_download_list,
                                           mock_exists):
@@ -36,7 +36,7 @@ class TestLocalCheck(unittest.TestCase):
         self.assertEqual(result, self.download_url_list)
 
     @mock.patch('os.path.exists')
-    @mock.patch('src.data_helper.create_url_download_list')
+    @mock.patch('raindeer.data_helper.create_url_download_list')
     def test_local_check_existing_path(self, mock_create_url_download_list,
                                        mock_exists):
 
