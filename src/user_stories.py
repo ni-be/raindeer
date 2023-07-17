@@ -388,7 +388,11 @@ def simple_plot(data, _args, mtn):
         for row in range(0, len(df_list[i])):
             if not int(df_list[i].iloc[row][index_str][0:4]) in _args.year:
                 drop.append(row)
-
+            else:
+                if interval == "monthly":
+                    print("TEST: "+ str(df_list[i].iloc[row][index_str]))
+                    df_list[i].iloc[row][index_str]=df_list[i].iloc[row][index_str][0:4]+", "+df_list[i].iloc[row][index_str][5:6]
+                
         df_list[i].drop(labels=drop, inplace=True)
         df_list[i].reset_index(inplace=True, drop=True)
 
@@ -396,7 +400,7 @@ def simple_plot(data, _args, mtn):
         df_list[i] = df_list[i].set_index([index_str])
         df_list[i] = df_list[i].astype(float)
         if i == 0:
-            plot = (df_list[i].plot(label="Test"))
+            plot = (df_list[i].plot())
         else:
             plot = df_list[i].plot(ax=plot)
 
@@ -406,6 +410,8 @@ def simple_plot(data, _args, mtn):
         legend[i] = _args.weather[
             i//(len(legend)//len(_args.weather))]+" "+legend[i]
         plt.legend(legend)
+    if interval == "monthly":
+        plt.xlabel("Jahr, Monat")
 
     # Save Plot
     if _args.outfile:
