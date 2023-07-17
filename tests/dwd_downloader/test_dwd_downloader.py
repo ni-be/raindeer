@@ -1,17 +1,16 @@
 import unittest
 import sys
 import os
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch #, MagicMock
+from raindeer.dwd_downloader import dwd_downloader
+from raindeer.dwd_downloader import input_checker
+from raindeer.dwd_downloader import url_checker_handler
+from raindeer.dwd_downloader import data_writer
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
 sys.path.append(f"{parent_dir}/raindeer")
-
-from raindeer.dwd_downloader import dwd_downloader
-from raindeer.dwd_downloader import input_checker
-from raindeer.dwd_downloader import url_checker_handler
-from raindeer.dwd_downloader import data_writer
 
 
 class TestDwdDownloader(unittest.TestCase):

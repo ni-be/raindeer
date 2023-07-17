@@ -3,18 +3,16 @@ from unittest.mock import patch, Mock
 from unittest.mock import MagicMock
 import os
 import sys
-root_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
-sys.path.append(f"{parent_dir}/raindeer")
-
-# BECAUSE RUNNING IN DIFFERENT PATH,... EVEN IF PYCODESTYLE DOES NOT LIKE IT
-# LEAVE IT AS IT IS!
 from raindeer.argument_preprocessing import arg_test_year, check_if_year
 from raindeer.argument_preprocessing import arg_test_month, check_if_month
 from raindeer.utilities import yaml_reader
 from raindeer.argument_preprocessing import arg_test_weather
 from raindeer.argument_preprocessing import arg_test_bundesland
+
+root_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(os.path.dirname(root_dir))
+sys.path.append(f"{parent_dir}/raindeer")
 
 
 class TestArg(unittest.TestCase):

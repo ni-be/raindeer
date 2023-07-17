@@ -1,13 +1,12 @@
 import unittest
 import sys
 import os
+from raindeer.dwd_downloader import string_list_converter
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
 sys.path.append(f"{parent_dir}/raindeer")
-
-from raindeer.dwd_downloader import string_list_converter
 
 
 class TestStringListConverter(unittest.TestCase):

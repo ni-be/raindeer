@@ -392,9 +392,36 @@ def plot_weather_parameters_annual(
 
 
 def simple_plot(data, _args, mtn):
-    """Draws plots of the given data depending on:
-       The timeframe (Year and Month), the Bundesländer
-       and the weather phenomenon"""
+    """
+    Draws plots of the given data based on specified parameters:
+    Month, Bundesländer (regions in Germany), and weather phenomenon.
+
+    Parameters:
+    data: pandas DataFrame --
+        The original dataset.
+    -args: argparse.Namespace --
+        A Namespace object from argparse. The attributes are:
+            month: String --
+                The specified month.
+            year: Integer --
+                The specified year.
+            weather: List of String --
+                The specified weather phenomenon identifiers.
+            bundesland: List of String --
+                The specified Bundesländer (regions in Germany).
+    mtn: Dictionary --
+        A dictionary mapping month names to their corresponding numbers.
+
+    Outputs:
+    This function plots the data based on specified parameters. 
+    Each plot represents a different weather phenomena like sun-duration 
+    or precipitation. These plots can be saved to a specified output 
+    file, or they will be displayed instantly.
+
+    The plot demonstrates the observations in the specified year(s) and 
+    Bundesländer, across the chosen month (or annually), for the selected 
+    weather phenomena.
+    """
 
     # handle input data
     if _args.month:
