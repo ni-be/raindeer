@@ -28,7 +28,7 @@ class TestDwdDownloader(unittest.TestCase):
         mock_get.return_value.text = 'Test content'
         dwd_downloader(url)
         # Check that data_writer was called with the correct arguments
-        mock_data_writer.assert_called_with('/home/nibe/PROJECTS/raindeer/'
+        mock_data_writer.assert_called_with(f'{parent_dir}/'
                                             'data/annual/air_temperature_mean/'
                                             'regional_averages_tm_year.txt',
                                             'Test content')

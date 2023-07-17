@@ -14,6 +14,8 @@ import utilities
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
+show_plots = False
+
 
 def fourier_analysis(data, interval, columns, case):
     """
@@ -78,7 +80,8 @@ def fourier_analysis(data, interval, columns, case):
         plt.xlabel("Frequency")
         plt.ylabel("Magnitude in " + variable[1])
         plt.grid(True)
-        plt.show()
+        if show_plots:
+            plt.show()
 
         utilities.plot_save(plt, "user_stories", "fourier_analysis")
 
@@ -122,7 +125,8 @@ def linear_regression(x_data: np.ndarray, y_data: np.ndarray, x_pred: int,
     plt.scatter(x_data, y_data)
     plt.xlabel(x_label)
     plt.ylabel(y_label)
-    plt.show()
+    if show_plots:
+        plt.show()
 
     utilities.plot_save(plt, "user_stories", "linear_regression")
     return round(b_0 + b_1 * x_pred, 1)
@@ -214,7 +218,8 @@ def plot_between_years(data, interval, yearsmonths, state, case, mode):
         plt.xlabel("Date")
         plt.ylabel("Magnitude in " + variable[1])
         plt.grid(True)
-        plt.show()
+        if show_plots:
+            plt.show()
         utilities.plot_save(plt, "user_stories", "between_years")
 
     if mode == 'custom':
@@ -289,7 +294,8 @@ def plot_between_years(data, interval, yearsmonths, state, case, mode):
             ax.set_ylabel(y_label)
             ax.scatter(x_values, y_values, color=plot_color, s=point_size)
 
-        plt.show()
+        if show_plots:
+            plt.show()
         utilities.plot_save(plt, "user_stories", "between_years2")
 
 
@@ -380,5 +386,6 @@ def plot_weather_parameters_annual(
     fig.set_figwidth(15)
     fig.legend(loc="center")
 
-    plt.show()
+    if show_plots:
+        plt.show()
     utilities.plot_save(plt, "user_stories", "weather_param_annual")
