@@ -8,8 +8,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from dataframe_helper import dataframe_helper
-import utilities
+from raindeer.dataframe_helper import dataframe_helper
+import raindeer.utilities as utilities
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))

@@ -7,10 +7,10 @@ Offering the CLI entry point!
 
 import logging
 import argparse
-import argument_preprocessing as argpre
-import user_stories
-import utilities as utils
-import dataframe_helper as dfh
+import raindeer.argument_preprocessing as argpre
+import raindeer.user_stories as user_stories
+import raindeer.utilities as utils
+import raindeer.dataframe_helper as dfh
 
 month_to_number = {
     "january": 1,
@@ -28,13 +28,55 @@ month_to_number = {
 }
 
 
-def main(data):
+def parse_command_line():
+    """
+    Parse the command line for input arguments.
+
+    Returns:
+        args
+    """
+    logging.basicConfig(filename='raindeer.log', level=logging.INFO)
+    logging.info('Reading command-line arguments.')
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('infile', help='file to process',
+                        type=str, nargs="?")
+    parser.add_argument('--url', help='url to process',
+                        type=str, nargs="?")
+    parser.add_argument('--outfile', help='location to save file',
+                        type=str, nargs="?")
+    parser.add_argument('--mode', help='process mode',
+                        type=str, nargs="?", default="simple-plot")
+    parser.add_argument('--year', '-y', help='timeframe in years',
+                        type=str, nargs="+", default=["2000..2020"])
+    parser.add_argument('--month', '-m', help='timeframe in months',
+                        type=str, nargs="+", default=None)
+    parser.add_argument('--bundesland', '-b', '-land', help="""bundesland
+                        to analyse""",
+                        type=str, nargs="+", default=None)
+    parser.add_argument('--weather', '-w', help="""weather phenomenon
+                        to analyse""",
+                        type=str, nargs="+", default=["precipitation"])
+    parser.add_argument('--forecast', '-f', help="""Time to make forecast
+                        for""", type=int, nargs="?", default=2023)
+    parser.add_argument('--complexity', '-c', help="""mode for the plot;
+                        can be 'simple' or 'custom'""",
+                        type=str, nargs="+", default=['simple'])
+    parser.add_argument('--interval', '-i', help='interval: monthly and'
+                                                 ' or annual',
+                        type=str, nargs="+", default=None)
+    parser.add_argument('--data_set', '-ds', help='Data Type: precipitation',
+                        type=str, nargs="+", default=None)
+
+    args = parser.parse_args()
+
+    return args
+
+
+def main():
     """
     Executes different operations based on the mode specified through
     command line arguments.
-
-    Args:
-        data (str): The path to the data file.
 
     Raises:
         ValueError: If the mode specified is not valid.
@@ -43,6 +85,23 @@ def main(data):
         >>> main("data/annual/air_temperature_mean/
             regional_averages_tm_year.txt")
     """
+    args = parse_command_line()
+
+    if args.url:
+        print("input url: ", args.url)
+        data = args.url
+
+    elif args.infile:
+        print("inputfile: ", args.infile)
+        data = args.infile
+
+    elif args.mode:
+        data = args.mode
+
+    else:
+        logging.error('No URL or file provided.')
+        print('No URL or file provided.')
+
     argpre.arg_preprocess(args)
 
     if args.mode == "forecast":
@@ -179,52 +238,4 @@ def main(data):
 # CLI entry point
 # more options should be added here later.
 if __name__ == "__main__":
-    logging.basicConfig(filename='raindeer.log', level=logging.INFO)
-    logging.info('Reading command-line arguments.')
-
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('infile', help='file to process',
-                        type=str, nargs="?")
-    parser.add_argument('--url', help='url to process',
-                        type=str, nargs="?")
-    parser.add_argument('--outfile', help='location to save file',
-                        type=str, nargs="?")
-    parser.add_argument('--mode', help='process mode',
-                        type=str, nargs="?", default="simple-plot")
-    parser.add_argument('--year', '-y', help='timeframe in years',
-                        type=str, nargs="+", default=["2000..2020"])
-    parser.add_argument('--month', '-m', help='timeframe in months',
-                        type=str, nargs="+", default=None)
-    parser.add_argument('--bundesland', '-b', '-land', help="""bundesland
-                        to analyse""",
-                        type=str, nargs="+", default=None)
-    parser.add_argument('--weather', '-w', help="""weather phenomenon
-                        to analyse""",
-                        type=str, nargs="+", default=["precipitation"])
-    parser.add_argument('--forecast', '-f', help="""Time to make forecast
-                        for""", type=int, nargs="?", default=2023)
-    parser.add_argument('--complexity', '-c', help="""mode for the plot;
-                        can be 'simple' or 'custom'""",
-                        type=str, nargs="+", default=['simple'])
-    parser.add_argument('--interval', '-i', help='interval: monthly and'
-                                                 ' or annual',
-                        type=str, nargs="+", default=None)
-    parser.add_argument('--data_set', '-ds', help='Data Type: precipitation',
-                        type=str, nargs="+", default=None)
-
-    args = parser.parse_args()
-    if args.url:
-        print("input url: ", args.url)
-        main(args.url)
-
-    elif args.infile:
-        print("inputfile: ", args.infile)
-        main(args.infile)
-
-    elif args.mode:
-        main(args.mode)
-
-    else:
-        logging.error('No URL or file provided.')
-        print('No URL or file provided.')
-        parser.print_help()
+    main()

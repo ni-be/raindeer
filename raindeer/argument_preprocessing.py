@@ -3,7 +3,7 @@ This module preprocesses and validates input arguments related to
 weather data.
 """
 import logging
-from utilities import yaml_reader
+from raindeer.utilities import yaml_reader
 
 
 def arg_preprocess(args):
