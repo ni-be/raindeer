@@ -5,9 +5,9 @@ be return and can directly be used.
 
 import pandas as pd
 import logging
-from data_helper import data_helper
-from dwd_downloader import input_checker
-from utilities import yaml_reader
+from raindeer.data_helper import data_helper
+from raindeer.dwd_downloader import input_checker
+from raindeer.utilities import yaml_reader
 
 
 def dataframe_helper(data, interval, month_range, option):
