@@ -390,9 +390,10 @@ def simple_plot(data, _args, mtn):
                 drop.append(row)
             else:
                 if interval == "monthly":
-                    print("TEST: "+ str(df_list[i].iloc[row][index_str]))
-                    df_list[i].iloc[row][index_str]=df_list[i].iloc[row][index_str][0:4]+", "+df_list[i].iloc[row][index_str][5:6]
-                
+                    df_list[i].iloc[row][index_str] = df_list[i].iloc[
+                        row][index_str][0:4] + "," + df_list[i].iloc[
+                            row][index_str][4:6]
+
         df_list[i].drop(labels=drop, inplace=True)
         df_list[i].reset_index(inplace=True, drop=True)
 
