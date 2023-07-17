@@ -389,3 +389,76 @@ def plot_weather_parameters_annual(
     if show_plots:
         plt.show()
     utilities.plot_save(plt, "user_stories", "weather_param_annual")
+
+
+def simple_plot(data, _args, mtn):
+    """Draws plots of the given data depending on:
+       The timeframe (Year and Month), the Bundesländer
+       and the weather phenomenon"""
+
+    # handle input data
+    if _args.month:
+        interval = "monthly"
+        index_str = "Jahr;Monat"
+    else:
+        interval = "annual"
+        index_str = "Jahr"
+
+    # transform _args.month from word-strings to number-string
+    if _args.month:
+        i = 0
+        for m in _args.month:
+            _args.month[i] = mtn[m]
+            i += 1
+    else:
+        _args.month = "0"
+    df_list = dataframe_helper(_args.weather, interval, _args.month, "r")
+
+    # Adding "Jahr;Monat" or "Jahr" to the dataframe
+    _args.bundesland.insert(0, index_str)
+
+    # Iterate through each entry in the df_list
+    # Each entry represent a different "weather phneomenom"
+    # Like sun-duration or precipitation
+    for i in range(0, len(df_list)):
+        # Use only the required subset of Year-rows and Bundesland-Comumns
+        df_list[i] = df_list[i][_args.bundesland]
+        drop = []
+        for row in range(0, len(df_list[i])):
+            if not int(df_list[i].iloc[row][index_str][0:4]) in _args.year:
+                drop.append(row)
+            else:
+                if interval == "monthly":
+                    df_list[i].iloc[row][index_str] = df_list[i].iloc[
+                        row][index_str][0:4] + "," + df_list[i].iloc[
+                            row][index_str][4:6]
+
+        df_list[i].drop(labels=drop, inplace=True)
+        df_list[i].reset_index(inplace=True, drop=True)
+
+        # Plot graphs
+        df_list[i] = df_list[i].set_index([index_str])
+        df_list[i] = df_list[i].astype(float)
+        if i == 0:
+            plot = (df_list[i].plot())
+        else:
+            plot = df_list[i].plot(ax=plot)
+
+    # Process the labels
+    _, legend = plot.get_legend_handles_labels()
+    for i in range(0, len(legend)):
+        legend[i] = _args.weather[
+            i//(len(legend)//len(_args.weather))]+" "+legend[i]
+        plt.legend(legend)
+    if interval == "monthly":
+        plt.xlabel("Jahr, Monat")
+
+    # Save Plot
+    if _args.outfile:
+        try:
+            plt.savefig(str(_args.outfile))
+        except (ValueError):
+            print("Could not save. Wrong outputfile")
+
+    # show the graph
+    plt.show()

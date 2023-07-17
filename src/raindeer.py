@@ -165,6 +165,12 @@ def main(data):
         dfh.dataframe_helper(data_range, interval_range, month_range, "wlci")
         print("done")
 
+    elif args.mode == "simple-plot":
+        # Works with the following command: python src/raindeer.py
+        # "data/annual" --mode=simple-plot -y 2000 -m "January"
+        # -b "Brandenburg" -w "precipitation"
+        user_stories.simple_plot(data, args, month_to_number)
+
     else:
         logging.error(str(args.mode) + ' is not a valid mode!')
         print(str(args.mode) + ' is not a valid mode!')

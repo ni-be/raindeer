@@ -27,9 +27,14 @@ def dwd_downloader(url_list):
         # Get sub directory from url
         sub_dir = data.split('/')[-2]
         # switch implementation for monthly or yearly
-        match time_dir:
-            case "annual":
-                filename = data.split('/')[-1]
+        if time_dir == "annual":
+            filename = data.split('/')[-1]
+            path = f"{root_data}/{time_dir}/{sub_dir}/{filename}"
+            url_checker_handler(path, data)
+        elif time_dir == "monthly":
+            for n in months:
+                monthly_url = data.format(f"0{n}")
+                filename = monthly_url.split('/')[-1]
                 path = f"{root_data}/{time_dir}/{sub_dir}/{filename}"
                 url_checker_handler(path, data)
             case "monthly":
