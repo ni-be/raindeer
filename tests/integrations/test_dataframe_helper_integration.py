@@ -51,7 +51,7 @@ class Testdataframe_helper(unittest.TestCase):
         result = dataframe_helper(data, interval, month_range, option)
 
         # define your expected output
-        expected_output = [pd.DataFrame()]  
+        expected_output = pd.DataFrame()  
 
         # assert that the result is as expected, row by row
         for result_df, expected_df in zip(result, expected_output):
