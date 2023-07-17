@@ -402,13 +402,10 @@ def simple_plot(data, _args, mtn):
 
     # Process the labels
     _, legend = plot.get_legend_handles_labels()
-    print(legend)
     for i in range(0, len(legend)):
         legend[i] = _args.weather[
             i//(len(legend)//len(_args.weather))]+" "+legend[i]
         plt.legend(legend)
-    # show the graph
-    plt.show()
 
     # Save Plot
     if _args.outfile:
@@ -416,3 +413,6 @@ def simple_plot(data, _args, mtn):
             plt.savefig(str(_args.outfile))
         except (ValueError):
             print("Could not save. Wrong outputfile")
+
+    # show the graph
+    plt.show()
