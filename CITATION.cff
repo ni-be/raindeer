@@ -12,13 +12,16 @@ authors:
     family-names: Bertrand
     email: nbertrand@uni-potsdam.de
     orcid: 'https://orcid.org/0000-0001-7259-2111'
-  - given-names: 'Julian '
+  - given-names: Julian
     family-names: Bruns
   - given-names: Josephine
     family-names: Funken
   - given-names: Timo
     family-names: Wedding
 repository-code: 'https://gitup.uni-potsdam.de/jubruns/raindeer/'
-abstract: Precipitation analysis in Germany
+abstract: >-
+  Download tool for and analysis of weather data in Germany
+  provided by Deutscher Wetterdienst
 license: MIT
-date-released: '2023-07-18'
+version: 1.0.0
+date-released: '2023-07-21'

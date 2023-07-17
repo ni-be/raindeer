@@ -1,5 +1,44 @@
 # RAINDEER
 
+Analysis of precipitation in Germany. 
+
+This project is done as part of the Research Software Engineering course Group Project. 
+
+* [Problem Description](#problem-description)
+* [How to get started and Requirements](#how-to-get-started-requirements)
+* [Running the Program](#running-the-program)
+  * [CLI](#cli)
+* [Dataset](#dataset)
+* [Contributing](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CONTRIBUTING.md)
+* [Code of Conduct](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CONDUCT.md)
+* [Licencse](https://gitup.uni-potsdam.de/jubruns/raindeer/main/LICENSE) 
+* [Citation](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CITATION.cff)
+
+
+
+## Problem Description
+
+### Research questions:
+This project was created on the basis of answering the following research questions. 
+From these multiple [USER_STORIES](#User-Stories) were created.
+
+1)  What is the temperature trend in germany?
+2) Are there correlations between different weather parameters?
+3) What will the average temperature be next year in germany?
+4) Are there patterns in the weather data?
+5) How can we make the weather data from the online database usable?
+
+## How to get Started
+
+
+
+## Running the Program
+
+### CLI
+
+
+# RAINDEER
+
 Tool to analyse data from the German weather service (DWD)
 
 
@@ -24,14 +63,14 @@ As part of the Project the following user stories are implemented:
 ## User-Stories:
 1) Download tool for datasets from the Deutschen Wetter Dienst / German weather service
 2) Automaticaly create dataframes and if needed download the data.
-3) Fourier Analysis - TODO more details 
-4) Between Years - TODO more details 
-5) UserStory 3 - TODO more details 
-6) Userstory 8 - TODO more details 
-7) TODO Joul USER STORY 
-8) TODO NIKO vertical Farming
-9) TODO ? 
-10) TODO ? 
+3) Fourier Analysis - a tool to look for patterns in the data via frequency analysis
+4) Between Years - creates simple or advanced plots between two given months of any year
+5) Predict temperature - Does a linear regression analysis of the temperature data to predict the temperature in germany for the next year.
+6) Plot annual weather - Does a multiplot of all three weather parameters 
+7) TODO Joul USER STORY 1-3 
+8) TODO vert FARMING ... if TIME. 
+9)  
+10)
 
 # How to get Started
 To install all necessary packages, run: 
@@ -40,6 +79,8 @@ pip install -r requirements.txt
 ```
 
 ## Running the Program
+The programm has 2 interfaces / access points, you can access some functionality through the CLI. 
+And you can directly access the modules through importing in for example Jupyter Notebook. 
 
 ## Configuration and QoL
 
@@ -49,7 +90,7 @@ For more [more information](#yaml_reader)
 
 ## Jupyter Notebook
 
-TODO Short intro and usage how and is displayed
+Start the jupyter notebook from the commandline with ``jupyter notebook``. This will open a homepage in your browser containing all files in your current working directory. From here select ``raindeer.ipynb`` and open it. Inside the notebook is the computational narrative for this software. It explains all the modules and usecases as well as answering some interesting questions using the data.
 
 ## Module usage
 
@@ -103,7 +144,7 @@ dataframe_helper(["ice_days", "hot_days"], "annual", "0", "w")
 dataframe_helper(["precipitation"], ["monthly", "annual"], ["01","02","03"], "r")
 
 # if you need all months from 1-12 you can also use the utilities.yaml_reader['months']
-````
+```
 Data can be either a string of a single data set or it can be a list
 
 Possible datasets are (July 2023): 
@@ -134,9 +175,9 @@ wcli : is mainly used automatically when accessing the dataframe_helper from the
 ## CLI 
 
 ### Dataframe_helper - Downloader
-"""BASH
+```BASH
 $ raindeer.py --mode dataframe_helper --data_set DATA_SET --interval INTERVAL --month MONTHS
-"""
+```
 DATA_SET, INTERVAL and MONTHS are the same values as above only the OPTION is not included. 
 
 TODO add an ALL condition so that all datasets are downloaded. 
@@ -144,6 +185,39 @@ TODO URL minus BASE_URL
 
 
 ### TODO OTHER USER STORIES
+
+### Forecast
+```BASH
+$ raindeer.py "data/annual/air_temperature_mean/regional_averages_tm_year.txt" --mode=forecast -b='Deutschland'
+```
+This function doesn't need any additional input as it will use the historical data for linear regression
+
+### Fourier
+```BASH
+$ raindeer.py WEATHER --mode fourier -b BUNDESLAND
+```
+arguments:
+``weather``: type of weather to analyse between "precipitacion", "air_temperature_mean" and "sunshine"
+``interval``: can be set to "annual" or "monthly" to switch between the datasets
+``bundesland``: can also be accsessed via ``-b`` and takes a german state or multiple states
+
+### Plot weather parameters annual
+```BASH
+$ raindeer.py "data/annual" --mode=plot-params -b=BUNDESLAND
+````
+arguments:
+``bundesland``: can also be accsessed via ``-b`` and takes a german state or multiple states
+``year``:  takes a list of years to be plotted like `"START..END"` or with ``+`` for only certain years, can also be accessed with ``-y``
+
+### Customizable plotting
+```BASH
+$ raindeer.py WEATHER --mode between-years -m MONTH  -b BUNDESLAND -w WEATHER -y START..END
+````
+arguments:
+``bundesland``: can also be accsessed via ``-b`` and takes a german state
+``weather``: type of weather to analyse between "precipitacion", "air_temperature_mean" and "sunshine"
+``month``: takes one or multiple months with ``+``to be plotted, can also be accessed with ``-m``
+``complexity``: can be set to "simple" or "custom", if "custom" is chosen the user can freely control a vast range of parameters of the plot. This will be asked by the software as user input in the commandline.
 
 ## Datasets
 

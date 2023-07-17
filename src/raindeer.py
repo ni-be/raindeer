@@ -1,6 +1,11 @@
-"""Processes and visualizes different data
-relating to the climate"""
+"""
+Processes and visualizes different data
+relating to the climate
 
+Offering the CLI entry point!
+"""
+
+import logging
 import argparse
 import argument_preprocessing as argpre
 import user_stories
@@ -24,9 +29,33 @@ month_to_number = {
 
 
 def main(data):
+    """
+    Executes different operations based on the mode specified through
+    command line arguments.
+
+    Args:
+        data (str): The path to the data file.
+
+    Raises:
+        ValueError: If the mode specified is not valid.
+
+    Example:
+        >>> main("data/annual/air_temperature_mean/
+            regional_averages_tm_year.txt")
+    """
     argpre.arg_preprocess(args)
 
     if args.mode == "forecast":
+        """"
+        Performs forecasting based on the specified data.
+
+        Example:
+            >>> args.year = 2022
+            >>> args.bundesland = ['Deutschland']
+            >>> main("data/annual/air_temperature_mean/
+                regional_averages_tm_year.txt")
+        """
+        logging.info('Selected mode: forecast')
         # Works with the following command: python src/raindeer.py
         # "data/annual/air_temperature_mean/regional_averages_tm_year.txt"
         # --mode=forecast -b='Deutschland'
@@ -38,6 +67,15 @@ def main(data):
                                              'Temperature mean in °C'))
 
     elif args.mode == "plot-params":
+        """
+        Plots weather parameters for the specified time and place.
+
+        Example:
+            >>> args.year = 2022
+            >>> args.bundesland = ['Baden-Wuerttemberg']
+            >>> main("data/annual")
+        """
+        logging.info('Selected mode: plot-params')
         # Works with the following command: python src/raindeer.py
         # "data/annual" --mode=plot-params -b='Baden-Wuerttemberg'
         time = args.year
@@ -45,6 +83,16 @@ def main(data):
         user_stories.plot_weather_parameters_annual(time, place, data)
 
     elif args.mode == "fourier":
+        """
+        Performs Fourier analysis on the specified data.
+
+        Example:
+            >>> args.month = True
+            >>> args.bundesland = ['hessen', 'deutschland']
+            >>> args.weather = ['precipitation']
+            >>> main("data/annual")
+        """
+        logging.info('Selected mode: fourier')
         # Works with the following command: python python src/raindeer.py
         # 'precipitation' --mode fourier -b 'hessen' 'deutschland'
         if args.month:
@@ -61,6 +109,18 @@ def main(data):
         user_stories.fourier_analysis(data, interval, columns, case)
 
     elif args.mode == "between-years":
+        """
+        Plots weather data between the specified years.
+
+        Example:
+            >>> args.month = True
+            >>> args.year = [2000, 2001]
+            >>> args.bundesland = ['deutschland']
+            >>> args.weather = ['precipitation']
+            >>> args.complexity = ['january']
+            >>> main("data/annual")
+        """
+        logging.info('Selected mode: between-years')
         # Works with the following command: python src/raindeer.py
         # 'precipitation' --mode between-years -m january  -b 'deutschland'
         # -w 'precipitation' -y 2000..2001
@@ -82,6 +142,16 @@ def main(data):
         user_stories.plot_between_years(data, interval, yearsmonths, state,
                                         case, mode)
     elif args.mode == "dataframe_helper":
+        """
+        Performs operations on the dataframe based on the specified parameters.
+
+        Example:
+            >>> args.interval = ['annual']
+            >>> args.month = ['january', 'february']
+            >>> args.data_set = ['precipitation']
+            >>> main("data/annual")
+        """
+        logging.info('Selected mode: dataframe_helper')
         # Works with raindeer.py --mode dataframe_helper -dt precipitation
         # -i annual -m january february
         # should also work with -dt precipitation hot_days summer_days
@@ -102,12 +172,15 @@ def main(data):
         user_stories.simple_plot(data, args, month_to_number)
 
     else:
-        print(str(args.mode) + " is not a valid mode")
+        logging.error(str(args.mode) + ' is not a valid mode!')
+        print(str(args.mode) + ' is not a valid mode!')
 
 
 # CLI entry point
 # more options should be added here later.
 if __name__ == "__main__":
+    logging.basicConfig(filename='raindeer.log', level=logging.INFO)
+    logging.info('Reading command-line arguments.')
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('infile', help='file to process',
@@ -136,7 +209,7 @@ if __name__ == "__main__":
     parser.add_argument('--interval', '-i', help='interval: monthly and'
                                                  ' or annual',
                         type=str, nargs="+", default=None)
-    parser.add_argument('--data_set', '-ds', help='Data Type: precipiation',
+    parser.add_argument('--data_set', '-ds', help='Data Type: precipitation',
                         type=str, nargs="+", default=None)
 
     args = parser.parse_args()
@@ -150,6 +223,8 @@ if __name__ == "__main__":
 
     elif args.mode:
         main(args.mode)
+
     else:
-        print("No url or file provided")
+        logging.error('No URL or file provided.')
+        print('No URL or file provided.')
         parser.print_help()

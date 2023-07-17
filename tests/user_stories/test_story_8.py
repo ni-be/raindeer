@@ -13,6 +13,7 @@ parent_dir = os.path.dirname(os.path.dirname(root_dir))
 sys.path.append(f"{parent_dir}/src")
 
 from src.user_stories import linear_regression
+from src.user_stories import predict_temperature_next_year
 
 
 class TestUserStory8(unittest.TestCase):
@@ -30,6 +31,9 @@ class TestUserStory8(unittest.TestCase):
         y_data = np.empty(3)
         with self.assertRaises(AssertionError):
             linear_regression(x_data, y_data, 1)
+
+    def test_predict_temperature_next_year(self):
+        self.assertAlmostEqual(10.0, predict_temperature_next_year(), places=5)
 
 
 if __name__ == '__main__':

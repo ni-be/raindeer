@@ -1,21 +1,35 @@
 """Functions to do the background tasks to work efficiently with data
 provided by the DWD """
 import os
+import logging
 from dwd_downloader import dwd_downloader
 from utilities import yaml_reader
 
 
 def data_helper(conv_data, interval, option):
     """
-    Function that takes the data to find all the urls and local paths for
-    each set returns a list of paths
-    :param interval: annual and or monthly as a list
-    :type interval: list
-    :param data: contains a string or list of possible dataset from DWD
-    :type data: String or List
-    :param option: string , w , r, wlci write read or write cli
-    :type option string
+    Retrieve all the urls and local paths for each data set.
+
+    Args:
+        conv_data (str or list): Dataset from DWD.
+        interval (list): 'annual' and/or 'monthly'.
+        option (str): 'w', 'r', 'wlci'.
+
+    Returns:
+        list: List of paths.
     """
+    assert isinstance(interval, list),\
+        "interval must be a list"
+    assert option in ["w", "r", "wlci"],\
+        "option must be 'w', 'r', or 'wlci'"
+    if isinstance(conv_data, list):
+        for data in conv_data:
+            assert isinstance(data, str),\
+                "Each item in conv_data list must be a string"
+    else:
+        assert isinstance(conv_data, str),\
+            "conv_data must be a string or a list of strings"
+
     root_data = yaml_reader("root_data")
     mon_type = yaml_reader("monthly_data_type")
     data_path = []
@@ -35,16 +49,17 @@ def data_helper(conv_data, interval, option):
             print(f"{interval} seems not to be annual or monthly")
     dwd_downloader(local_check(data_path, option))
     txt_renamer(data_path)
+    logging.info('Data path: ' + str(data_path))
     print(data_path)
     return data_path
 
 
 def txt_renamer(path):
     """
-    DWD provided txt files have inconsistent file names,
-    txt_renamer is used to rename the txt files after downloading
-    :param path: takes the data_path created in data_helper as input
-    :type path: list
+    Rename the inconsistent txt files provided by DWD.
+
+    Args:
+        path (list): data_path created in data_helper.
     """
     if not isinstance(path, list):
         raise TypeError("path must be a list")
@@ -73,15 +88,13 @@ def txt_renamer(path):
 
 def rename_function(filename, data_type, ending, path):
     """
-    Function to effectively rename the txt files
-    :param filename: current filename
-    :type filename: String
-    :param data_type: precipitation etc
-    :type data_type: String
-    :param ending: _year.txt for annual  _01.txt for monthly
-    :type ending: String
-    :param path: directory path to file
-    :type path: String
+    Rename the txt files from the DWD.
+
+    Args:
+        filename (str): Current filename.
+        data_type (str): Type of the data e.g., precipitation.
+        ending (str): Ending of the filename e.g., '_year.txt'.
+        path (str): Directory path to the file.
     """
     # Check that all inputs are of type string
     if not isinstance(data_type, str):
@@ -108,21 +121,24 @@ def rename_function(filename, data_type, ending, path):
 
 def local_check(directory, option):
     """
-    Checks whether a dataset type is already present on the filesystem,
-    if not path will be added to the downloadlist and run through the
-    create_url_download list
-    :param directory: list of datatype sets including path
-    :type directory: list
-    :param option: string , w , r, wlci write read or write cli
-    :type option string
+    Check if dataset type exists on the filesystem.
+
+    Args:
+        directory (list): List of datatype sets including path.
+        option (str): Action mode, 'w', 'r', 'wlci'.
+
+    Returns:
+        list: Download URLs.
     """
     download_list = []
     for dir in directory:
         if not os.path.exists(dir):
+            logging.info(f"{dir} does not yet exists, will commence download!")
             print(f"{dir} does not yet exists, will commence download!")
             download_list.append(dir)
         else:
             if option == "wcli":
+                logging.info(f"{dir} does exist")
                 print(f"{dir} does exist")
     download_url_list = create_url_download_list(download_list)
     return download_url_list
@@ -130,12 +146,13 @@ def local_check(directory, option):
 
 def create_url_download_list(input):
     """
-    As part of the local_check this function does the creation of the
-    download list checks whether a combination of datatype and interval type
-    exists and if yes adds it to the download list precipitation monthly or
-    annual only?
-    :param input: list of datatypes to download
-    :type input: list
+    Generate a download list based on the given input.
+
+    Args:
+        input (list): List of datatypes to be downloaded.
+
+    Returns:
+        list: Download list.
     """
     # Check that file_paths and URLS are lists
     if not isinstance(input, list):

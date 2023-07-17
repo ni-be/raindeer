@@ -1,5 +1,6 @@
 import pandas as pd
 import unittest
+from unittest.mock import patch
 import os
 import sys
 
@@ -13,12 +14,18 @@ from src.user_stories import plot_between_years
 
 class TestPlotBetweenYears(unittest.TestCase):
     def test_between_years(self):
-        print("\n Testing User Story - between years [1/1]")
+        print("\n Testing User Story - between years [1/2]")
 
-        # Test plot_between_years for behavior if non valid dates are given
+        # Test plot_between_years for behavior if non-valid dates are given
         with self.assertRaises(TypeError):
             plot_between_years("precipitation", "monthly", [177001, 'a'],
                                'deutschland', 'rain')
+
+    @patch("matplotlib.pyplot.show")
+    def test_between_years_simple(self, mock_show):
+        print("\n Testing User Story - between years [2/2]")
+        plot_between_years('precipitation', 'monthly', [198101, 202101],
+                           'deutschland', 'temp', 'simple')
 
 
 if __name__ == '__main__':

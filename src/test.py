@@ -5,8 +5,9 @@ from dataframe_helper import dataframe_helper
 from user_stories import fourier_analysis
 
 
-df = dataframe_helper(["air_temperature_mean"], ['annual','monthly'], "1", "r")
+df = dataframe_helper(["frost_days"], ['annual'], ["0"], "r")
 
-selected_columns = ['deutschland']
-fourier_analysis("precipitation", "monthly", selected_columns, 'rain')
+print(df)
+#selected_columns = ['deutschland']
+#fourier_analysis("precipitation", "monthly", selected_columns, 'rain')
 

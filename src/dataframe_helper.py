@@ -1,7 +1,10 @@
 """Functionality to create custom dataframes and store them as CSV. If
 single DATA set is giving in the form of "precipitation" the data will also
-be return and can directly be used. """
+be return and can directly be used.
+"""
+
 import pandas as pd
+import logging
 from data_helper import data_helper
 from dwd_downloader import input_checker
 from utilities import yaml_reader
@@ -9,21 +12,31 @@ from utilities import yaml_reader
 
 def dataframe_helper(data, interval, month_range, option):
     """
-    Takes data parameter and returns a dataframe,
-        or stores multiple in form of csv
-    :param data: takes either a list or string of possible dataset types
-        used by the Dwd.
-    :type data: String or list[]
-    :param interval: takes either a string or list with either of the following
-        two parameters "monthly" or "annual"
-    :type interval: String or list[]
-    :param month_range: define the months used in dataframe
-        > only for interval monthly
-    :type month_range: string or list or int
-    :format month_range: 01, 02, 03, ... 12
-    :param option: Write or read only "w" for write, "r" for df output only
-    :type option : string
-    :output: type List
+    This function helps in creating a dataframe from the provided data,
+    or storing multiple dataframes in the form of CSV files.
+
+    Args:
+        data (str or list): of possible dataset types used by the Dwd.
+
+        interval (str or list): Either "monthly" or "annual".
+
+        month_range (str, list, or int): Nonths used DF. Annual '0' enough
+
+        option (str): Operation mode 'w' = read + write csv , 'r' read only
+
+    Raises:
+        TypeError: If the data types of the parameters are not as expected.
+        ValueError: If 'data' and 'interval' parameters are not as expected.
+
+
+    Returns:
+        list: A list of dataframes created from the provided data.
+
+    This function first checks the types and values of the input parameters.
+    It then converts the input data into a suitable format and creates a list
+    of dataframes from it. If the 'option' parameter is set to "w",
+    the dataframes are also stored as CSV files.
+
     """
     if not isinstance(data, (str, list)):
         raise TypeError("Data parameter must be a string or a list")
@@ -43,7 +56,7 @@ def dataframe_helper(data, interval, month_range, option):
                                               'sunshine_duration',
                                               'tropical_nights_tminGE20']:
         raise ValueError("Data parameter is wrong! Please check the "
-                         "documenation.")
+                         "documentation.")
     if isinstance(interval, str) and interval not in ['monthly', 'annual']:
         raise ValueError("Interval parameter must be either 'monthly' or "
                          "'annual'")
@@ -53,70 +66,43 @@ def dataframe_helper(data, interval, month_range, option):
     conv_data = input_checker(data)
     data_list = data_helper(conv_data, interval_list, option)
     df_ret = []
+    logging.info('Creating a dataframe from the provided data')
     for dlist in data_list:
         # dlist_dt = dlist.split('/')[-1]
         interv = dlist.split('/')[-2]
         df = dataframe_creator(dlist, interv, month_list, option)
         df_ret.append(df)
     return df_ret
-    print(df_ret)
-
-    # if len(data_list) == 1 and len(interval_list) == 1:
-    #     df = dataframe_creator(data_list[0], interval_list[0],
-    #                            month_list, option)
-    #     return df
-    # elif len(data_list) == 2 and len(interval_list) == 1:
-    #     df1 = dataframe_creator(data_list[0], interval_list[0],
-    #                             month_list, option)
-    #     df2 = dataframe_creator(data_list[1], interval_list[0],
-    #                             month_list, option)
-    #     return df1, df2
-    # elif len(data_list) == 3 and len(interval_list) == 1:
-    #     df1 = dataframe_creator(data_list[0], interval_list[0],
-    #                             month_list, option)
-    #     df2 = dataframe_creator(data_list[1], interval_list[0],
-    #                             month_list, option)
-    #     df3 = dataframe_creator(data_list[2], interval_list[0],
-    #                             month_list, option)
-    #     return df1, df2, df3
-    # elif len(data_list) == 2 and len(conv_data) == 1 and \
-    #         len(interval_list) == 2:
-    #     for data in data_list:
-    #         front_string = data.split('/')[-2]
-    #         if front_string == "monthly":
-    #             df1 = dataframe_creator(data, "monthly", month_list, option)
-    #         else:
-    #             df2 = dataframe_creator(data, "annual", month_list, option)
-    #     return df1, df2
-    # elif len(data_list) > 2 and len(interval_list) == 2:
-    #     print("You chose too many data points and intervals\n"
-    #           "The mixing of data is not support for Dataframe Creation\n"
-    #           "Please limit to 1 Data value i.e. percipitation \n"
-    #           "and either monthly or annual interval for the dataframe.\n"
-    #           "You may also use 1 data point + 2 intervals ")
-    # else:
-    #     print(f" Data List: {data_list}, Interval List {interval_list}"
-    #           " or Month List: {month_list} seem to be empty!")
 
 
 def dataframe_creator(data, interval, month_range, option):
     """
-    Takes data parameter and returns a dataframe,
-        or stores multiple in form of csv
-    :param data: is astring of possible dataset types used by the Dwd.
-    :type data: String
-    :param interval: takes a string with either of the following
-        two parameters "monthly" or "annual"
-    :type interval: String
-    :param month_range: define the months used in dataframe
-        > only for interval monthly
-    :type month_range: list
-    :format month_range: 01, 02, 03, ... 12
-    :param option: Write or read only "w" for write, "r" for df output only
-    and wlci for write from cli more print output
-    :type option : string
-    """
+    This function creates a dataframe from the provided data, or stores it in
+    the form of a CSV file.
 
+    Args:
+        data (str): String of possible dataset types used by the Dwd.
+        interval (str): A string with either "monthly" or "annual".
+        month_range (list): Defines the months used in the dataframe. Each
+                            element in the list should represent a month
+                            (1 for January, 2 for February, etc). This is
+                            only applicable for the "monthly" interval.
+        option (str): Specifies the operation mode. Use "w" for write mode
+                      (to store the dataframe as a CSV file), "r" for read
+                      mode (to output the dataframe only), or "wcli" for
+                      write mode with more print output.
+
+    Raises:
+        ValueError: If the value of the 'interval' parameter is not in the
+                    expected list.
+
+    Returns:
+        DataFrame: A dataframe created from the provided data.
+
+    This function checks the value of the 'interval' parameter and creates a
+    dataframe accordingly. If the 'option' parameter is set to "w" or "wcli",
+    the dataframe is also stored as a CSV file.
+    """
     if interval not in ['monthly', 'annual']:
         raise ValueError(f"Invalid interval: {interval}. Interval must \
                          be either monthly or annual.")
@@ -137,22 +123,27 @@ def dataframe_creator(data, interval, month_range, option):
                 filename.append(f"{data}/{ending}_{months}.txt")
         df = merge_files_to_dataframe(filename, 3)
         if option == "w" or option == "wcli":
+            logging.info(f"Adding {filename} adding to csv writer")
             print(f"Adding {filename} adding to csv writer")
             write_csv(df, data, ending)
     else:
+        logging.error("An error has occurred in the Dataframe_creator")
         print("An error has occurred in the Dataframe_creator")
     return df
 
 
 def merge_files_to_dataframe(filenames, skip_rows):
     """
-    Merges txt files in a directory into a single dataframe, with dropping the
-    top 3 rows.
-    :param filenames:  is the path of the txt files to download
-    :type filenames: list
-    :param skip_rows the amount of rows to skip,
-    :type skip_rows: int
+    Merges txt files into a single dataframe, skips specified rows.
+
+    Args:
+        filenames (list): Path of the txt files to download.
+        skip_rows (int): Number of rows to skip in the txt files.
+
+    Returns:
+        DataFrame: A dataframe merged from the txt files.
     """
+    logging.info('Mergeing txt files into a single dataframe')
     data = []
     for filename in filenames:
         with open(filename, 'r') as file:
@@ -173,14 +164,17 @@ def merge_files_to_dataframe(filenames, skip_rows):
 
 def write_csv(df, data, ending):
     """
-    Write the dataframe to a csv
-    :param data:
-    :type data:
-    :param df: dataframe
-    :type df: dataframe
-    :param ending: descriptor of for file name i.e. "precipitation"
-    :type ending: string
+    Write the dataframe to a csv.
+
+    Args:
+        df (DataFrame): DataFrame to be written to csv.
+        data (str): Descriptor for file path.
+        ending (str): Descriptor for file name, i.e. "precipitation".
+
+    This function writes the provided dataframe to a csv file at the specified
+    path. The filename is constructed using the 'ending' parameter.
     """
     df.to_csv(f"{data}/{ending}_combined_data.csv",
               index=False, header=True)
+    logging.info(print(f"Writing dataframe to a csv"))
     print(f"Wrote Dataframe as {data}/{ending}_combined_data.csv")
