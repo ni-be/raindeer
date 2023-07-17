@@ -6,15 +6,15 @@ import sys
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
-sys.path.append(f"{parent_dir}/src")
+sys.path.append(f"{parent_dir}/raindeer")
 
 # BECAUSE RUNNING IN DIFFERENT PATH,... EVEN IF PYCODESTYLE DOES NOT LIKE IT
 # LEAVE IT AS IT IS!
-from src.argument_preprocessing import arg_test_year, check_if_year
-from src.argument_preprocessing import arg_test_month, check_if_month
-from src.utilities import yaml_reader
-from src.argument_preprocessing import arg_test_weather
-from src.argument_preprocessing import arg_test_bundesland
+from raindeer.argument_preprocessing import arg_test_year, check_if_year
+from raindeer.argument_preprocessing import arg_test_month, check_if_month
+from raindeer.utilities import yaml_reader
+from raindeer.argument_preprocessing import arg_test_weather
+from raindeer.argument_preprocessing import arg_test_bundesland
 
 
 class TestArg(unittest.TestCase):
@@ -44,7 +44,7 @@ class TestArg(unittest.TestCase):
             check_if_year(year)
         # check_if_year should raise an AssertionError
 
-    @patch('src.utilities.yaml_reader')
+    @patch('raindeer.utilities.yaml_reader')
     def test_arg_test_month(self, mock_yaml_reader):
         print("\n Testing Argument Tests - arg_test_month [3/5]")
 
@@ -64,7 +64,7 @@ class TestArg(unittest.TestCase):
         self.assertEqual(args.month, ['january', 'february', 'march',
                                       'may', 'july'])
 
-    @patch('src.utilities.yaml_reader')
+    @patch('raindeer.utilities.yaml_reader')
     def test_arg_test_weather(self, mock_yaml_reader):
         print("\n Testing Argument Tests arg_test_weather [4/5]")
 

@@ -6,14 +6,14 @@ import sys
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
-sys.path.append(f"{parent_dir}/src")
+sys.path.append(f"{parent_dir}/raindeer")
 
-from src.data_helper import txt_renamer
+from raindeer.data_helper import txt_renamer
 
 
 class TestTxtRenamer(unittest.TestCase):
     @patch('os.listdir')
-    @patch('src.data_helper.rename_function')
+    @patch('raindeer.data_helper.rename_function')
     def test_txt_renamer(self, mock_rename_function, mock_listdir):
         print("\n Testing TXT renamer [1/1]")
 

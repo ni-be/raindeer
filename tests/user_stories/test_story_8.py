@@ -10,10 +10,10 @@ import numpy as np
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
-sys.path.append(f"{parent_dir}/src")
+sys.path.append(f"{parent_dir}/raindeer")
 
-from src.user_stories import linear_regression
-from src.user_stories import predict_temperature_next_year
+from raindeer.user_stories import linear_regression
+from raindeer.user_stories import predict_temperature_next_year
 
 
 class TestUserStory8(unittest.TestCase):

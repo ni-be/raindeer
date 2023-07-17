@@ -7,9 +7,9 @@ import sys
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
-sys.path.append(f"{parent_dir}/src")
+sys.path.append(f"{parent_dir}/raindeer")
 
-from src.user_stories import plot_between_years
+from raindeer.user_stories import plot_between_years
 
 
 class TestPlotBetweenYears(unittest.TestCase):

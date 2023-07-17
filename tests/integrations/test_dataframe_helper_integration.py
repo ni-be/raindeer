@@ -1,5 +1,5 @@
 import unittest
-from src.dataframe_helper import dataframe_helper
+from raindeer.dataframe_helper import dataframe_helper
 import pandas as pd
 
 

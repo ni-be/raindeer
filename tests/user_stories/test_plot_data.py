@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from src.user_stories import plot_data
+from raindeer.user_stories import plot_data
 
 
 class TestPlotData(unittest.TestCase):

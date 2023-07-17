@@ -6,14 +6,14 @@ import os
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
-sys.path.append(f"{parent_dir}/src")
+sys.path.append(f"{parent_dir}/raindeer")
 
-from src.data_helper import create_url_download_list
+from raindeer.data_helper import create_url_download_list
 
 
 class TestURLDownloadList(unittest.TestCase):
 
-    @patch('src.utilities.yaml_reader')
+    @patch('raindeer.utilities.yaml_reader')
     def test_create_url_download_list(self, mock_yaml_reader):
         print("\n Testing Create URL download list [1/1]")
 

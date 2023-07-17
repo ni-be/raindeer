@@ -6,18 +6,18 @@ from unittest.mock import patch, MagicMock
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
-sys.path.append(f"{parent_dir}/src")
+sys.path.append(f"{parent_dir}/raindeer")
 
-from src.dwd_downloader import dwd_downloader
-from src.dwd_downloader import input_checker
-from src.dwd_downloader import url_checker_handler
-from src.dwd_downloader import data_writer
+from raindeer.dwd_downloader import dwd_downloader
+from raindeer.dwd_downloader import input_checker
+from raindeer.dwd_downloader import url_checker_handler
+from raindeer.dwd_downloader import data_writer
 
 
 class TestDwdDownloader(unittest.TestCase):
 
-    @patch('src.dwd_downloader.requests.get')
-    @patch('src.dwd_downloader.data_writer')
+    @patch('raindeer.dwd_downloader.requests.get')
+    @patch('raindeer.dwd_downloader.data_writer')
     def test_single_url(self, mock_data_writer, mock_get):
         print("\n Testing DWD Downloader - single URL [1/3]")
         # Test that the function can handle a single URL
@@ -33,8 +33,8 @@ class TestDwdDownloader(unittest.TestCase):
                                             'regional_averages_tm_year.txt',
                                             'Test content')
 
-    @patch('src.dwd_downloader.requests.get')
-    @patch('src.dwd_downloader.data_writer')
+    @patch('raindeer.dwd_downloader.requests.get')
+    @patch('raindeer.dwd_downloader.data_writer')
     def test_list_of_urls(self, mock_data_writer, mock_get):
         print("\n Testing DWD Downloader - URL list [2/3]")
         urls = ['https://opendata.dwd.de/climate_environment/CDC/'
@@ -52,8 +52,8 @@ class TestDwdDownloader(unittest.TestCase):
         dwd_downloader(urls)
         assert mock_data_writer.call_count == 3
 
-    @patch('src.dwd_downloader.requests.get')
-    @patch('src.dwd_downloader.data_writer')
+    @patch('raindeer.dwd_downloader.requests.get')
+    @patch('raindeer.dwd_downloader.data_writer')
     def test_invalid_url(self, mock_data_writer, mock_get):
         print("\n Testing DWD Downloader - Invalid URL [3/3]")
         mock_get.return_value.status_code = 404
