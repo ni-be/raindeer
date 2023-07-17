@@ -6,30 +6,30 @@
 
 As a researcher, I want to be able to look at specific time periods in the data without much hassle.
 
-As a researcher, I want to receive results as a text (file) so that I can easily copy (import) it to other systems.
-
 As a researcher, I want to generate a plot of temperature, precipitation, and sunshine over time so that I can see how they correlate.
+
+As a researcher, I want to plot/print the temperature, precipitation, and sunshine duration of a federal state in a certain time frame so that I can better understand the correlations between these weather phenomenons. 
+
+As a researcher, I want to plot/print the yearly mean temperature, precipitation, or sunshine duration of different federal states so that I can have a more general understanding of the differences in climate between them.
+
+As a researcher, I want to be able to save resulting plots and images so that I can easily use them in, for example, research papers. 
+
+As an expert researcher, I want to be able to customize a lot so that the result fits my specific research question.
+
+As a researcher, I want to be able to view patterns in the weather conditions such as reoccurring events and their frequency.
 
 
 **Should**:
 
+As a researcher, I want to receive results as a text (file) so that I can easily copy (import) it to other systems.
+
 As a climate researcher, I want to automatically download data from the German Meteorological Service so that I do not waste time doing this by hand.
-
-As a researcher, I want to be able to view patterns in the weather conditions such as reoccurring events and their frequency.
-
-As an expert researcher, I want to be able to customize a lot so that the result fits my specific research question.
 
 As a researcher from the US, I want to be able to get values in the United States customary system so that I intuitively know their significance.
 
 As an expert climate researcher, I want to make a forecast of the temperature / precipitation / sunshine duration so that I know what the weather will be linke in the future.
 
-As a researcher, I want to be able to save resulting plots and images so that I can easily use them in, for example, research papers. 
-
 As a researcher, I want to plot/print the temperature, precipitation, or sunshine duration of different federal states in a certain time frame so that I can be better compare them and understand their differences. 
-
-As a researcher, I want to plot/print the temperature, precipitation, and sunshine duration of a federal state in a certain time frame so that I can better understand the correlations between these weather phenomenons. 
-
-As a researcher, I want to plot/print the yearly mean temperature, precipitation, or sunshine duration of different federal states so that I can have a more general understanding of the differences in climate between them.
 
 
 **Could**:
