@@ -2,12 +2,12 @@ import unittest
 import sys
 import os
 import pandas as pd
+from raindeer.dataframe_helper import write_csv
+
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
 sys.path.append(f"{parent_dir}/raindeer")
-
-from raindeer.dataframe_helper import write_csv
 
 
 class TestWriteCsv(unittest.TestCase):
