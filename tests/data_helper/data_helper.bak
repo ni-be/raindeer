@@ -1,0 +1,39 @@
+import unittest
+from unittest.mock import patch
+import sys
+import os
+
+root_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(os.path.dirname(root_dir))
+
+sys.path.append(f"{parent_dir}/src")
+
+from src.data_helper import data_helper
+
+class TestHelperFunction(unittest.TestCase):
+
+    @patch('src.data_helper.txt_renamer')
+    def test_data_helper_single_monthly(self, mock_renamer):
+        print("\n Testing Data_helper - single monthly [1/3]")
+        # when we call txt_renamer, it won't actually run but will trigger mock_renamer
+        output = data_helper("dataset1", ["monthly"], "r")
+        # assuming root_data is /root and dataset1 is in monthly_data_type
+        self.assertIn("/root/monthly/dataset1", output)
+
+    @patch('src.data_helper.txt_renamer')
+    def test_data_helper_single_annual(self, mock_renamer):
+        print("\n Testing Data_helper - Annual string [3/3]")
+        output = data_helper("dataset1", ["annual"], "w")
+        # assuming root_data is /root
+        self.assertIn("/root/annual/dataset1", output)
+
+    @patch('src.data_helper.txt_renamer')
+    def test_data_helper_multiple_data_annual_monthly(self, mock_renamer):        
+        print("\n Testing Data_helper - inteval list [3/3]")
+        output = data_helper(["dataset1", "dataset2"], 
+                             ["annual", "monthly"], "wlci")
+        # assuming root_data is /root and both datasets are in monthly_data_type
+        self.assertIn("/root/monthly/dataset1", output)
+
+if __name__ == "__main__":
+    unittest.main()

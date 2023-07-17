@@ -17,6 +17,18 @@ def data_helper(conv_data, interval, option):
     Returns:
         list: List of paths.
     """
+    assert isinstance(interval, list),\
+        "interval must be a list"
+    assert option in ["w", "r", "wlci"],\
+        "option must be 'w', 'r', or 'wlci'"
+    if isinstance(conv_data, list):
+        for data in conv_data:
+            assert isinstance(data, str),\
+                "Each item in conv_data list must be a string"
+    else:
+        assert isinstance(conv_data, str),\
+            "conv_data must be a string or a list of strings"
+
     root_data = yaml_reader("root_data")
     mon_type = yaml_reader("monthly_data_type")
     data_path = []
