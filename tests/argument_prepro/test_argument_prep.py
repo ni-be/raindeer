@@ -4,18 +4,33 @@ from unittest.mock import MagicMock
 import os
 import sys
 
+root_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(os.path.dirname(root_dir))
+sys.path.append(f"{parent_dir}/raindeer")
+
+# Have to put them here otherwise test fail
 from raindeer.argument_preprocessing import arg_test_year, check_if_year
 from raindeer.argument_preprocessing import arg_test_month, check_if_month
 from raindeer.utilities import yaml_reader
 from raindeer.argument_preprocessing import arg_test_weather
 from raindeer.argument_preprocessing import arg_test_bundesland
-
-root_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(os.path.dirname(root_dir))
-sys.path.append(f"{parent_dir}/raindeer")
-
+from raindeer.argument_preprocessing import arg_preprocess
 
 class TestArg(unittest.TestCase):
+    def test_arg_preprocess_invalid_args(self):
+        invalid_args = [None, 123, 'abc']
+        for args in invalid_args:
+            with self.assertRaises(Exception):
+                arg_preprocess(args)
+    #STIL WIP
+    # def test_arg_preprocess_valid_args(self):
+    #     valid_args = ['2013', 'July', 'sunny', 'Berlin']
+    #     expected_output = ""
+    #     # define the expected output here
+    #     result = arg_preprocess(args=valid_args)  
+    #     # Pass valid_args as the argument to arg_preprocess
+    #     self.assertEqual(result, expected_output)
+    
     def test_arg_test_year(self):
         print("\n Testing Argument Tests - arg_test_year  [1/5]")
         # Create a mock object for args

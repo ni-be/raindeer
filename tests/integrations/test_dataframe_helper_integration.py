@@ -74,15 +74,15 @@ class Testdataframe_helper(unittest.TestCase):
         for result_df, expected_df in zip(result, expected_output):
             pd.testing.assert_frame_equal(result_df, expected_df)
         
-    def test_dataframe_helper_valid_inputs_annual_wcli(self):
+    def test_dataframe_helper_valid_inputs_monthly_r(self):
         """
         Test normal behavior with valid inputs
         """
         # define your test data
-        data = ['frost_days', 'precipitation']
-        interval = ['annual', 'monthly']
+        data = ['precipitation']
+        interval = ['monthly']
         month_range = ['1', '2', '3']
-        option = 'wcli'
+        option = 'r'
 
         # call the function with the test data
         result = dataframe_helper(data, interval, month_range, option)
