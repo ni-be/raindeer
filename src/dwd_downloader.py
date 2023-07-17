@@ -34,7 +34,13 @@ def dwd_downloader(url_list):
                 monthly_url = data.format(f"0{n}")
                 filename = monthly_url.split('/')[-1]
                 path = f"{root_data}/{time_dir}/{sub_dir}/{filename}"
-                url_checker_handler(path, monthly_url)
+                url_checker_handler(path, data)
+            case "monthly":
+                for n in months:
+                    monthly_url = data.format(f"0{n}")
+                    filename = monthly_url.split('/')[-1]
+                    path = f"{root_data}/{time_dir}/{sub_dir}/{filename}"
+                    url_checker_handler(path, monthly_url)
 
 
 def input_checker(input):
