@@ -5,6 +5,7 @@ relating to the climate
 Offering the CLI entry point!
 """
 
+import logging
 import argparse
 import argument_preprocessing as argpre
 import user_stories
@@ -54,6 +55,7 @@ def main(data):
             >>> main("data/annual/air_temperature_mean/
                 regional_averages_tm_year.txt")
         """
+        logging.info('Selected mode: forecast')
         # Works with the following command: python src/raindeer.py
         # "data/annual/air_temperature_mean/regional_averages_tm_year.txt"
         # --mode=forecast -b='Deutschland'
@@ -73,6 +75,7 @@ def main(data):
             >>> args.bundesland = ['Baden-Wuerttemberg']
             >>> main("data/annual")
         """
+        logging.info('Selected mode: plot-params')
         # Works with the following command: python src/raindeer.py
         # "data/annual" --mode=plot-params -b='Baden-Wuerttemberg'
         time = args.year
@@ -89,6 +92,7 @@ def main(data):
             >>> args.weather = ['precipitation']
             >>> main("data/annual")
         """
+        logging.info('Selected mode: fourier')
         # Works with the following command: python python src/raindeer.py
         # 'precipitation' --mode fourier -b 'hessen' 'deutschland'
         if args.month:
@@ -116,6 +120,7 @@ def main(data):
             >>> args.complexity = ['january']
             >>> main("data/annual")
         """
+        logging.info('Selected mode: between-years')
         # Works with the following command: python src/raindeer.py
         # 'precipitation' --mode between-years -m january  -b 'deutschland'
         # -w 'precipitation' -y 2000..2001
@@ -146,6 +151,7 @@ def main(data):
             >>> args.data_set = ['precipitation']
             >>> main("data/annual")
         """
+        logging.info('Selected mode: dataframe_helper')
         # Works with raindeer.py --mode dataframe_helper -dt precipitation
         # -i annual -m january february
         # should also work with -dt precipitation hot_days summer_days
@@ -160,12 +166,15 @@ def main(data):
         print("done")
 
     else:
-        print(str(args.mode) + " is not a valid mode")
+        logging.error(str(args.mode) + ' is not a valid mode!')
+        print(str(args.mode) + ' is not a valid mode!')
 
 
 # CLI entry point
 # more options should be added here later.
 if __name__ == "__main__":
+    logging.basicConfig(filename='raindeer.log', level=logging.INFO)
+    logging.info('Reading command-line arguments.')
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('infile', help='file to process',
@@ -194,7 +203,7 @@ if __name__ == "__main__":
     parser.add_argument('--interval', '-i', help='interval: monthly and'
                                                  ' or annual',
                         type=str, nargs="+", default=None)
-    parser.add_argument('--data_set', '-ds', help='Data Type: precipiation',
+    parser.add_argument('--data_set', '-ds', help='Data Type: precipitation',
                         type=str, nargs="+", default=None)
 
     args = parser.parse_args()
@@ -208,6 +217,8 @@ if __name__ == "__main__":
 
     elif args.mode:
         main(args.mode)
+
     else:
-        print("No url or file provided")
+        logging.error('No URL or file provided.')
+        print('No URL or file provided.')
         parser.print_help()

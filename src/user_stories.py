@@ -1,7 +1,7 @@
 """
 Implementation of the user stories.
 """
-
+import logging
 from typing import List
 import os
 import numpy as np
@@ -47,6 +47,8 @@ def fourier_analysis(data, interval, columns, case):
     df_test = pd.DataFrame([0])
     assert type(df) == type(df_test)
     assert case in ['rain', 'sun', 'temp']
+
+    logging.info('Performing Fourier analysis')
 
     # Define values for plot title and axis
     if case == 'rain':
@@ -107,6 +109,7 @@ def linear_regression(x_data: np.ndarray, y_data: np.ndarray, x_pred: int,
     mean_x = np.mean(x_data)
     mean_y = np.mean(y_data)
 
+    logging.info('Performing forecast using linear regression.')
     b_1 = sum((x_data - mean_x) * (y_data - mean_y)) / sum(
         (x_data - mean_x) ** 2)
     b_0 = mean_y - b_1 * mean_x
@@ -181,7 +184,10 @@ def plot_between_years(data, interval, yearsmonths, state, case, mode):
     cut_values = []
     cut_years = []
 
+    logging.info('Plotting data between certain years.')
+
     if mode == 'simple':
+        logging.info('Mode: simple')
         if case == 'rain':
             variable = ['Precipitation', 'mm']
 
@@ -210,7 +216,9 @@ def plot_between_years(data, interval, yearsmonths, state, case, mode):
         plt.grid(True)
         plt.show()
         utilities.plot_save(plt, "user_stories", "between_years")
+
     if mode == 'custom':
+        logging.info('Mode: custom')
         try:
             num_plots = int(input("Enter the number of plots: "))
             num_cols = int(input("Enter the number of columns: "))
@@ -345,6 +353,8 @@ def plot_weather_parameters_annual(
 
     # time_df = df[df['Jahr'].astype(int).isin(range(time[0], time[1]+1))]
     # test_temperature_mean = time_df['brandenburg/berlin']
+
+    logging.info('Plotting annual weather parameters')
 
     temperature_mean = utilities.load_dataset(
         data + "/air_temperature_mean/air_temperature_mean_year.txt"

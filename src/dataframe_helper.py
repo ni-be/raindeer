@@ -4,6 +4,7 @@ be return and can directly be used.
 """
 
 import pandas as pd
+import logging
 from data_helper import data_helper
 from dwd_downloader import input_checker
 from utilities import yaml_reader
@@ -55,7 +56,7 @@ def dataframe_helper(data, interval, month_range, option):
                                               'sunshine_duration',
                                               'tropical_nights_tminGE20']:
         raise ValueError("Data parameter is wrong! Please check the "
-                         "documenation.")
+                         "documentation.")
     if isinstance(interval, str) and interval not in ['monthly', 'annual']:
         raise ValueError("Interval parameter must be either 'monthly' or "
                          "'annual'")
@@ -65,6 +66,7 @@ def dataframe_helper(data, interval, month_range, option):
     conv_data = input_checker(data)
     data_list = data_helper(conv_data, interval_list, option)
     df_ret = []
+    logging.info('Creating a dataframe from the provided data')
     for dlist in data_list:
         # dlist_dt = dlist.split('/')[-1]
         interv = dlist.split('/')[-2]
@@ -121,9 +123,11 @@ def dataframe_creator(data, interval, month_range, option):
                 filename.append(f"{data}/{ending}_{months}.txt")
         df = merge_files_to_dataframe(filename, 3)
         if option == "w" or option == "wcli":
+            logging.info(f"Adding {filename} adding to csv writer")
             print(f"Adding {filename} adding to csv writer")
             write_csv(df, data, ending)
     else:
+        logging.error("An error has occurred in the Dataframe_creator")
         print("An error has occurred in the Dataframe_creator")
     return df
 
@@ -139,6 +143,7 @@ def merge_files_to_dataframe(filenames, skip_rows):
     Returns:
         DataFrame: A dataframe merged from the txt files.
     """
+    logging.info('Mergeing txt files into a single dataframe')
     data = []
     for filename in filenames:
         with open(filename, 'r') as file:
@@ -171,4 +176,5 @@ def write_csv(df, data, ending):
     """
     df.to_csv(f"{data}/{ending}_combined_data.csv",
               index=False, header=True)
+    logging.info(print(f"Writing dataframe to a csv"))
     print(f"Wrote Dataframe as {data}/{ending}_combined_data.csv")

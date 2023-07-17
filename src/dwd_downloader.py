@@ -2,6 +2,7 @@
 DOWNLOADER for DWD data from the internet.
 """
 import requests
+import logging
 from pathlib import Path
 from utilities import yaml_reader
 
@@ -14,6 +15,7 @@ def dwd_downloader(url_list):
         url_list (list or string): Paths in a specific format.
 
      """
+    logging.info('Downloading data from the specified URLs.')
     root_data = yaml_reader("root_data")
     months = yaml_reader("months")
     # convert url_list or month into lists if necessary
@@ -88,6 +90,7 @@ def url_checker_handler(path, url):
         data_writer(path, content)
     else:
         errorfile = url.split('/')[-1]
+        logging.error(f"Error downloading file: {errorfile}.")
         print(f"Error downloading file: {errorfile}.")
 
 
@@ -102,4 +105,5 @@ def data_writer(path, content):
     output_file = Path(path)
     output_file.parent.mkdir(exist_ok=True, parents=True)
     output_file.write_text(content)
+    logging.info(f"Downloaded '{path}' STATUS OK.")
     print(f"Downloaded '{path}' STATUS OK.")

@@ -1,6 +1,7 @@
 """Functions to do the background tasks to work efficiently with data
 provided by the DWD """
 import os
+import logging
 from dwd_downloader import dwd_downloader
 from utilities import yaml_reader
 
@@ -36,6 +37,7 @@ def data_helper(conv_data, interval, option):
             print(f"{interval} seems not to be annual or monthly")
     dwd_downloader(local_check(data_path, option))
     txt_renamer(data_path)
+    logging.info('Data path: ' + str(data_path))
     print(data_path)
     return data_path
 
@@ -119,10 +121,12 @@ def local_check(directory, option):
     download_list = []
     for dir in directory:
         if not os.path.exists(dir):
+            logging.info(f"{dir} does not yet exists, will commence download!")
             print(f"{dir} does not yet exists, will commence download!")
             download_list.append(dir)
         else:
             if option == "wcli":
+                logging.info(f"{dir} does exist")
                 print(f"{dir} does exist")
     download_url_list = create_url_download_list(download_list)
     return download_url_list
