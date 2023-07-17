@@ -345,7 +345,7 @@ def plot_weather_parameters_annual(
     """
     # TODO for unittest the path needs to be relative not ../ see above
     #  root_dir and parent_dir. if not relative this will not run if run
-    #  from different directory e.g not src or for unittests.
+    #  from different directory e.g not raindeer or for unittests.
 
     assert all(
         time[i] <= time[i + 1] for i in range(len(time) - 1)

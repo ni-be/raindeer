@@ -1,4 +1,4 @@
-src
+raindeer
 ===
 
 .. toctree::

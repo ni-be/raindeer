@@ -5,9 +5,9 @@ from unittest import mock
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
-sys.path.append(f"{parent_dir}/src")
+sys.path.append(f"{parent_dir}/raindeer")
 
-from src.data_helper import local_check
+from raindeer.data_helper import local_check
 
 
 class TestLocalCheck(unittest.TestCase):

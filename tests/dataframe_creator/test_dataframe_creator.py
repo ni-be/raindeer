@@ -5,9 +5,9 @@ import pandas as pd
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
-sys.path.append(f"{parent_dir}/src")
+sys.path.append(f"{parent_dir}/raindeer")
 
-from src.dataframe_helper import dataframe_creator
+from raindeer.dataframe_helper import dataframe_creator
 
 
 class TestDataframeCreator(unittest.TestCase):

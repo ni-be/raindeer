@@ -1,7 +1,7 @@
 import os
 import sys
 from recommonmark.transform import AutoStructify
-sys.path.insert(0, os.path.abspath('../src'))
+sys.path.insert(0, os.path.abspath('../raindeer'))
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:
