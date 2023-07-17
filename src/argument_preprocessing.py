@@ -2,12 +2,14 @@
 This module preprocesses and validates input arguments related to
 weather data.
 """
+import logging
 from utilities import yaml_reader
 
 
 def arg_preprocess(args):
     """transforms input arguments
        and handels many errors"""
+    logging.info('Testing if arguments are valid.')
     arg_test_year(args)
     arg_test_month(args)
     arg_test_weather(args)

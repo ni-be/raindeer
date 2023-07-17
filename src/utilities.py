@@ -2,6 +2,7 @@
 Contains utility functions used for various functionalities.
 """
 import os
+import logging
 import yaml
 import pandas as pd
 
@@ -21,6 +22,7 @@ def load_dataset(dataset: str) -> pd.core.frame.DataFrame:
     """
 
     data = pd.read_csv(dataset, sep=";", header=1, index_col=0)
+    logging.info('Loading the data')
     print(data)
     return data
 
@@ -71,7 +73,9 @@ def plot_save(plt, sub_dir, filename):
         # If the directory does not exist, create it
         os.makedirs(directory)
     try:
+        logging.info('Saving the provided plot to the specified directory.')
         plt.savefig(f"{PARENT_DIR}/results/{sub_dir}/plots/{filename}.png")
+        logging.info(f"Successfully saved.")
         print(f"Successfully saved: /results/{sub_dir}/plots/{filename}.png")
 
     except Exception as e:
