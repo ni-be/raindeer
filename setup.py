@@ -1,11 +1,11 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 setup(
     name='Raindeer',
     version='1.0.0',
     author='Nikolas Bertrand, Julian Bruns, Josephine Funken, Timo Wedding',
-    packages=['Raindeer'],
+    packages=find_packages(),
     install_requires=[
         'pandas~=2.0.3',
         'matplotlib~=3.7.1',

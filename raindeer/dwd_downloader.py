@@ -4,7 +4,7 @@ DOWNLOADER for DWD data from the internet.
 import requests
 import logging
 from pathlib import Path
-from utilities import yaml_reader
+from raindeer.utilities import yaml_reader
 
 
 def dwd_downloader(url_list):

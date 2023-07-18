@@ -2,8 +2,8 @@
 provided by the DWD """
 import os
 import logging
-from dwd_downloader import dwd_downloader
-from utilities import yaml_reader
+from raindeer.dwd_downloader import dwd_downloader
+from raindeer.utilities import yaml_reader
 
 
 def data_helper(conv_data, interval, option):
