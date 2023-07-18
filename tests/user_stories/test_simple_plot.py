@@ -8,12 +8,19 @@ parent_dir = os.path.dirname(os.path.dirname(root_dir))
 sys.path.append(f"{parent_dir}/raindeer")
 
 
+<<<<<<< HEAD
+||||||| 44100c0
+
+
+=======
+
+print()
+>>>>>>> simplePlotTest
 class TestSimplePlot(unittest.TestCase):
     def test_simple_plot1(self):
         print("\n Testing simple_plot function")
-        os.system(r"python raindeer\raindeer.py data\annual --mode=simple-plot --outfile results/user_stories/plots/simple_plot_temp.png -y 2000..2020 -b Brandenburg thueringen -m January..March -w precipitation")
-        self.assertTrue(os.path.isfile(
-            r"results/user_stories/plots/simple_plot_temp.png"))
+        os.system(r"""python raindeer/raindeer.py data/annual --outfile "results/user_stories/plots/simple_plot_temp.png" --mode=simple-plot -y 1981..2022 -b "brandenburg" "hessen" -w "precipitation" "sun" """)
+        self.assertTrue(os.path.isfile(r"results/user_stories/plots/simple_plot_temp.png"))
         os.remove(r"results/user_stories/plots/simple_plot_temp.png")
 
 if __name__ == '__main__':
