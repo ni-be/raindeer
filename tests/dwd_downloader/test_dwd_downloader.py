@@ -17,6 +17,23 @@ class TestDwdDownloader(unittest.TestCase):
 
     @patch('raindeer.dwd_downloader.requests.get')
     @patch('raindeer.dwd_downloader.data_writer')
+    def test_single_url_monthly(self, mock_data_writer, mock_get):
+        print("\n Testing DWD Downloader - single URL monthly [1/3]")
+        # Test that the function can handle a single URL
+        url = str('https://opendata.dwd.de/climate_environment/CDC'
+                  '/regional_averages_DE/monthly/air_temperature_mean/'
+                  'regional_averages_tm_01.txt')
+        mock_get.return_value.status_code = 200
+        mock_get.return_value.text = 'Test content'
+        dwd_downloader(url)
+        # Check that data_writer was called with the correct arguments
+        mock_data_writer.assert_called_with(f'{parent_dir}/'
+                                            'data/monthly/air_temperature_mean/'
+                                            'regional_averages_tm_01.txt',
+                                            'Test content')
+
+    @patch('raindeer.dwd_downloader.requests.get')
+    @patch('raindeer.dwd_downloader.data_writer')
     def test_single_url(self, mock_data_writer, mock_get):
         print("\n Testing DWD Downloader - single URL [1/3]")
         # Test that the function can handle a single URL

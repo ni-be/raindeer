@@ -98,6 +98,7 @@ class Testdataframe_helper(unittest.TestCase):
         """
         Test normal behavior with valid inputs
         """
+        print("\n Testing Dataframe Helper Integrity 3/3")
         # define your test data
         data = ['precipitation']
         interval = ['monthly', 'annual']
