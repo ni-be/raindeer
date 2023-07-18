@@ -7,15 +7,6 @@ root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 sys.path.append(f"{parent_dir}/raindeer")
 
-
-<<<<<<< HEAD
-||||||| 44100c0
-
-
-=======
-
-print()
->>>>>>> simplePlotTest
 class TestSimplePlot(unittest.TestCase):
     def test_simple_plot1(self):
         print("\n Testing simple_plot function")

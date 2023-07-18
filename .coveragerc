@@ -1,0 +1,3 @@
+[run]
+source = raindeer
+omit = __init__.py, test_*
