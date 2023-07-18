@@ -1,138 +1,109 @@
-# RAINDEER
+# Raindeer
 
-Analysis of precipitation in Germany. 
+Analysis of weather data in Germany. 
 
-This project is done as part of the Research Software Engineering course Group Project. 
+This project is done as part of the _Research Software Engineering_ course 
+group project in summer 2023. 
 
-* [Problem Description](#problem-description)
-* [How to get started and Requirements](#how-to-get-started-requirements)
-* [Running the Program](#running-the-program)
-  * [CLI](#cli)
+* [Problem description](#problem-description)
+* [How to get started](#how-to-get-started)
+* [Running the program](#running-the-program)
+* [Configuration and QoL](#configuration-and-qol)
+* [Jupyter Notebook](#jupyter-notebook)
+* [Module usage](#module-usage)
+* [Command-line interface](#command-line-interface)
 * [Dataset](#dataset)
-* [Contributing](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CONTRIBUTING.md)
-* [Code of Conduct](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CONDUCT.md)
-* [Licencse](https://gitup.uni-potsdam.de/jubruns/raindeer/main/LICENSE) 
-* [Citation](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CITATION.cff)
+* [How to get involved](#how-to-get-involved)
 
 
 
-## Problem Description
+## Problem description
 
-### Research questions:
-This project was created on the basis of answering the following research questions. 
-From these multiple [USER_STORIES](#User-Stories) were created.
+### Research questions
+This project was created on the basis of answering the following research questions:
 
-1)  What is the temperature trend in germany?
+1) What is the temperature trend in germany?
 2) Are there correlations between different weather parameters?
 3) What will the average temperature be next year in germany?
 4) Are there patterns in the weather data?
 5) How can we make the weather data from the online database usable?
 
-## How to get Started
+From these, multiple user stories were created:
 
+### User-Stories:
+1. As a researcher, I want to generate a plot of temperature, precipitation, and sunshine over time so that I can see how they correlate.
+2. As a researcher, I want to plot the temperature, precipitation, and sunshine duration of a federal state in a certain time frame so that I can better understand the correlations between these weather phenomenons.
+3. As a researcher, I want to plot the yearly mean temperature, precipitation, or sunshine duration of different federal states so that I can have a more general understanding of the differences in climate between them.
+4. As a researcher, I want to be able to save resulting plots and images so that I can easily use them in, for example, research papers.
+5. As an expert researcher, I want to be able to customize a lot so that the result fits my specific research question.
+6. As a researcher, I want to be able to view patterns in the weather conditions such as reoccurring events and their frequency.
+7. As a climate researcher, I want to automatically download data from the German Meteorological Service so that I do not waste time doing this by hand.
+8. As an expert climate researcher, I want to make a forecast of the temperature / precipitation / sunshine duration so that I know what the weather will be like in the future.
+9. ...
 
+[Here](https://gitup.uni-potsdam.de/jubruns/raindeer/-/blob/main/docs/requirements.md) you can find a full list of all user stories. Some of which are not yet implemented.
 
-## Running the Program
-
-### CLI
-
-
-# RAINDEER
-
-Tool to analyse data from the German weather service (DWD)
-
-
-This project is done as part of the Research Software Engineering course Group Project. 
-
-* [Problem Description](#problem-description)
-* [How to get started and Requirements](#how-to-get-started-requirements)
-* [Running the Program](#running-the-program)
-  * [CLI](#cli)
-* [Dataset](#dataset)
-* [Contributing](https://gitup.uni-potsdam.de/jubruns/raindeer/-/blob/main/CONTRIBUTING.md)
-* [Code of Conduct](https://gitup.uni-potsdam.de/jubruns/raindeer/-/blob/main/code_of_conduct.md)
-* [Licencse](https://gitup.uni-potsdam.de/jubruns/raindeer/main/LICENSE) 
-* [Citation](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CITATION.cff)
-
-
-
-# Problem Description
-
-As part of the Project the following user stories are implemented:
-
-## User-Stories:
-1) Download tool for datasets from the Deutschen Wetter Dienst / German weather service
-2) Automaticaly create dataframes and if needed download the data.
-3) Fourier Analysis - a tool to look for patterns in the data via frequency analysis
-4) Between Years - creates simple or advanced plots between two given months of any year
-5) Predict temperature - Does a linear regression analysis of the temperature data to predict the temperature in germany for the next year.
-6) Plot annual weather - Does a multiplot of all three weather parameters 
-7) TODO Joul USER STORY 1-3 
-8) TODO vert FARMING ... if TIME. 
-9)  
-10)
-
-# How to get Started
-To install all necessary packages, run: 
-```
-pip install -r requirements.txt
+## How to get started
+After downloading this package, install it by running the following command in its root directory:
+```BASH
+$ pip install -e .
 ```
 
-## Running the Program
-The programm has 2 interfaces / access points, you can access some functionality through the CLI. 
-And you can directly access the modules through importing in for example Jupyter Notebook. 
+## Running the program
+The programm has two interfaces / access points. You can access some functionality through the [command-line interface](#command-line-interface).
+In addition, you can directly access the modules through importing it, e.g. to a Jupyter Notebook. 
 
 ## Configuration and QoL
 
-There is a config.yaml file in the root directory of the project.
-You can access each list using the utilities.yaml_reader[STR_OPTION].
-For more [more information](#yaml_reader)
+There is a `config.yaml` file in the root directory of the project.
+You can access each list using `utilities:yaml_reader(OPTION)`.
+
+[More information](#yaml_reader)
 
 ## Jupyter Notebook
 
-Start the jupyter notebook from the commandline with ``jupyter notebook``. This will open a homepage in your browser containing all files in your current working directory. From here select ``raindeer.ipynb`` and open it. Inside the notebook is the computational narrative for this software. It explains all the modules and usecases as well as answering some interesting questions using the data.
+Start the jupyter notebook from the command-line with 
+```BASH
+$ jupyter notebook
+```
+This will open a homepage in your browser containing all files in your current working directory. From here, select ``raindeer.ipynb`` and open it. Inside the notebook is the computational narrative for this software. It explains all the modules and use-cases as well as answering some interesting research questions using the data.
 
 ## Module usage
 
-### yaml_reader
-For QoL purposes you can use the yaml_reader.
-The yaml_reader accesses the config.yaml file in the root directory to allow easy changes to the dataset sources and headers for the dataframe. 
+### `yaml_reader`
+For QoL purposes, you can use the `yaml_reader`.
+The `yaml_reader` accesses the `config.yaml` file in the root directory to allow easy changes to the dataset sources and headers for the dataframe. 
 
 ```Python
-   utilities.yaml_reader(STR_OPTON)
+utilities.yaml_reader(OPTION)
 ```
 
-string OPTION:
-Returns a string:
-root_dir = project root directory 
-base_url = base url, not changing part of the download links
+Args:
+- OPTION (str) : Data point in config.yaml that is to be read.
 
-Returns a list:
-url = urls to each dataset
-headers = headers for the dataframes
-months =  months 1-12
-month_names = january - december
-monthly_data_types = dataset that have both monthly and annual data
-interval = possible intervals - annual, monthly
 
-### plot_save
+### `plot_save`
 
 Another utility that allows easy saving of plots into the results folder.
 
 ```Python
-utlities.plot_save(plt, "sub_dir", "filename")
-
+utilities.plot_save(PLT, "SUB_DIR", "FILENAME")
 ```
-This function will save plots as follows (raindeer/results/SUB_DIR/plots/FILENAME.png)
+Args:
+- PLT (matplotlib.pyplot) : The configured matplotlib plot to be saved. 
+- SUB_DIR (str) : The subdirectory the plot is going to be saved in.
+- FILENAME (str) : The name of the file the plot is going to be saved in.
 
-### Dataframe_helper
-To work with data from the DWD you can use the dataframe helper.
+This function will save plots as follows:
+`raindeer/results/SUB_DIR/plots/FILENAME.png`.
+
+### `dataframe_helper`
+To work with data from Deutscher Wetterdienst (DWD), you can use the dataframe helper.
 
 ```Python
+import raindeer.dataframe_helper as dfh
 
-import dataframe_helper as dfh
-
-df_list = dfh_dataframe_helper(data, interval, month, "option")
+df_list = dfh_dataframe_helper(DATA, INTERVAL, MONTH, OPTION)
 
 # example 1: 
 dataframe_helper("precipitation", "monthly", "1", "r")
@@ -145,12 +116,9 @@ dataframe_helper(["precipitation"], ["monthly", "annual"], ["01","02","03"], "r"
 
 # if you need all months from 1-12 you can also use the utilities.yaml_reader['months']
 ```
-Data can be either a string of a single data set or it can be a list
+DATA can be either a string of a single data set or a list
 
 Possible datasets are (July 2023): 
-
-- dataset : monthly and or annual datasets available
-
 - air_temperature_mean: monthly, annual
 - precipitation: monthly, annual
 - sunshine_duration: monthly, annual
@@ -162,73 +130,77 @@ Possible datasets are (July 2023):
 - tropical_nights: annual
 - summer_days: annual
 
-For the INTERVAL as shown in the above examples use monthly and or annual. 
+For the INTERVAL use monthly and or annual (as shown in the above examples). 
 
-Month can be a single month or a list of months, in case you need only annual data you may set month to 0 as shown in example 2
+MONTH can be a single month or a list of months. In case you need only annual data, you may set month to 0 as shown in example 2.
 
-Finally, the option at the end can have 3 different string values:
-r : returns only a list of dataframes
-w : returns a list of dataframes as well as saves a csv of combined dataframes. This is useful if you load the monthly datasets which are unfortunately initialy provided in 12 .txt files.
+Finally, the OPTION at the end can have 3 different string values:
+- 'r' : returns only a list of dataframes
+- 'w' : returns a list of dataframes as well as saves a csv of combined dataframes. This is useful if you load the monthly datasets which are unfortunately initially provided in 12 .txt files.
+- 'wcli' : is mainly used automatically when accessing the dataframe_helper from the command-line. This can help to download all the needed data quickly. 
 
-wcli : is mainly used automatically when accessing the dataframe_helper from the commandline. this can help to download quickly all the needed data. 
+## Command-line interface
 
-## CLI 
-
-### Dataframe_helper - Downloader
+### `dataframe_helper` - Downloader
 ```BASH
-$ main.py --mode dataframe_helper --data_set DATA_SET --interval INTERVAL --month MONTHS
+$ raindeer --mode dataframe_helper --data_set DATA_SET --interval INTERVAL --month MONTHS
 ```
-DATA_SET, INTERVAL and MONTHS are the same values as above only the OPTION is not included. 
-
-TODO add an ALL condition so that all datasets are downloaded. 
-TODO URL minus BASE_URL
-
-
-### TODO OTHER USER STORIES
+DATA_SET, INTERVAL and MONTHS are the same values as above only the OPTION is not included.
 
 ### Forecast
 ```BASH
-$ main.py "data/annual/air_temperature_mean/regional_averages_tm_year.txt" --mode=forecast -b='Deutschland'
+$ raindeer "data/annual/air_temperature_mean/regional_averages_tm_year.txt" --mode forecast -b=BUNDESLAND -f=YEAR
 ```
-This function doesn't need any additional input as it will use the historical data for linear regression
+
+Args:
+- `--bundesland`, `-b` : German federal state the forecast is to be made for.
+- `--forecast`, `-f` : The year that is to be forecast.
 
 ### Fourier
 ```BASH
-$ main.py WEATHER --mode fourier -b BUNDESLAND
+$ raindeer WEATHER --mode fourier -b BUNDESLAND
 ```
-arguments:
-``weather``: type of weather to analyse between "precipitacion", "air_temperature_mean" and "sunshine"
-``interval``: can be set to "annual" or "monthly" to switch between the datasets
-``bundesland``: can also be accsessed via ``-b`` and takes a german state or multiple states
+
+Args:
+- `WEATHER` : type of weather to analyse between 
+  - "precipitation", 
+  - "air_temperature_mean" and 
+  - "sunshine".
+- `--interval`, `-i` : can be set to "annual" or "monthly" to switch between the datasets.
+- `--bundesland`, `b` : Takes one or more German federal states.
 
 ### Plot weather parameters annual
 ```BASH
-$ main.py "data/annual" --mode=plot-params -b=BUNDESLAND
+$ raindeer "data/annual" --mode plot-params -b BUNDESLAND -y YEARS
 ````
-arguments:
-``bundesland``: can also be accsessed via ``-b`` and takes a german state or multiple states
-``year``:  takes a list of years to be plotted like `"START..END"` or with ``+`` for only certain years, can also be accessed with ``-y``
+
+Args:
+- ``--bundesland``, `-b` : Takes one or more German federal states.
+- ``--year``, `-y`:  Takes a lis.bt of years to be plotted like `"START..END"` or with ``+`` for only certain years
 
 ### Customizable plotting
 ```BASH
-$ main.py WEATHER --mode between-years -m MONTH  -b BUNDESLAND -w WEATHER -y START..END
-````
-arguments:
-``bundesland``: can also be accsessed via ``-b`` and takes a german state
-``weather``: type of weather to analyse between "precipitacion", "air_temperature_mean" and "sunshine"
-``month``: takes one or multiple months with ``+``to be plotted, can also be accessed with ``-m``
-``complexity``: can be set to "simple" or "custom", if "custom" is chosen the user can freely control a vast range of parameters of the plot. This will be asked by the software as user input in the commandline.
+$ raindeer WEATHER --mode between-years -m MONTH  -b BUNDESLAND -w WEATHER -y START..END
+```
 
-## Datasets
+Args:
+- ``--bundesland``, `-b` : Takes a german federal state.
+- ``--weather``, `-w` : Type of weather to analyse between 
+  - "precipitation", 
+  - "air_temperature_mean" and 
+  - "sunshine".
+- ``--month``, `-m` : Takes one or multiple months with ``+``to be plotted.
+-  ``--complexity``, `-c` : can be set to "simple" or "custom". If "custom" is chosen, the user can freely control a vast range of parameters of the plot. This will be asked by the software as user input in the command-line.
 
-### TODO DATASET DESCRIPTION
-
-
-## Getting Involved
-
-[Contributing](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CONTRIBUTING.md)
-[Code of Conduct](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CONDUCT.md)
+## Dataset
 
 
-[Licencse](https://gitup.uni-potsdam.de/jubruns/raindeer/main/LICENSE) 
-[Citation](https://gitup.uni-potsdam.de/jubruns/raindeer/main/CITATION.cff)
+## How to get involved
+
+[Contributing](https://gitup.uni-potsdam.de/jubruns/raindeer/-/blob/main/CONTRIBUTING.md)
+
+[Code of Conduct](https://gitup.uni-potsdam.de/jubruns/raindeer/-/blob/main/CONDUCT.md#contributor-covenant-code-of-conduct)
+
+[License](https://gitup.uni-potsdam.de/jubruns/raindeer/-/blob/main/LICENSE.txt) 
+
+[Citation](https://gitup.uni-potsdam.de/jubruns/raindeer/-/blob/main/CITATION.cff)
