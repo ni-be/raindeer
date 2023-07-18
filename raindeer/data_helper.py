@@ -170,8 +170,6 @@ def create_url_download_list(input):
     urls = yaml_reader("urls")
     if not isinstance(urls, list):
         raise TypeError("URLS must be a list")
-    if not isinstance(urls, list):
-        raise TypeError("URLS must be a list")
 
     indices_list = []
     url_list = []

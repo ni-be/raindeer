@@ -175,6 +175,7 @@ def plot_between_years(data, interval, yearsmonths, state, case, mode):
 
     """
     months = utilities.yaml_reader('months')
+    df = []
     if isinstance(data, str) and isinstance(interval, (str, list)):
         df_list = dataframe_helper(data, interval, months, 'r')
     df = df_list[0]

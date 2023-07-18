@@ -93,6 +93,27 @@ class Testdataframe_helper(unittest.TestCase):
         # assert that the result is as expected, row by row
         for result_df, expected_df in zip(result, expected_output):
             pd.testing.assert_frame_equal(result_df, expected_df)    
-        
+    
+    def test_dataframe_helper_valid_inputs_am(self):
+        """
+        Test normal behavior with valid inputs
+        """
+        # define your test data
+        data = ['precipitation']
+        interval = ['monthly', 'annual']
+        month_range = ['1', '2', '3']
+        option = 'r'
+
+        # call the function with the test data
+        result = dataframe_helper(data, interval, month_range, option)
+
+        # define your expected output
+        expected_output = pd.DataFrame()  
+
+        # assert that the result is as expected, row by row
+        for result_df, expected_df in zip(result, expected_output):
+            pd.testing.assert_frame_equal(result_df, expected_df)
+
+   
 if __name__ == '__main__':
     unittest.main()

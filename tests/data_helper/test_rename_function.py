@@ -42,7 +42,7 @@ class TestRenameFunction(unittest.TestCase):
         # Test that the function raises the correct exceptions
         with self.assertRaises(TypeError):
             rename_function(filename, None, self.ending, path)
-            rename_function(filename, self.data_type, None, path)
+            rename_function(filename, self.data_type, int(0), path)
             rename_function(filename, self.data_type, self.ending, None)
 
         with self.assertRaises(ValueError):

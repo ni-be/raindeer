@@ -36,10 +36,10 @@ class TestURLDownloadList(unittest.TestCase):
     @patch('raindeer.utilities.yaml_reader')
     def test_not_list(self, mock_yaml_reader):
         # define the mock behavior of yaml_reader
-        mock_yaml_reader.return_value = ['https://opendata.dwd.de/'
+        mock_yaml_reader.return_value = {'https://opendata.dwd.de/'
                                          'climate_environment/CDC/'
                                          'regional_averages_DE/annual/'
-                                         'precipitation']
+                                         'precipitation'}
         with self.assertRaises(TypeError):
             create_url_download_list(int(8))
 
