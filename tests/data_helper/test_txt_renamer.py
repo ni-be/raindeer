@@ -1,14 +1,12 @@
 import unittest
-from unittest.mock import patch, Mock
-# from unittest.mock import MagicMock
+from unittest.mock import patch #, Mock
 import os
 import sys
+from raindeer.data_helper import txt_renamer
+
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
-
 sys.path.append(f"{parent_dir}/raindeer")
-
-from raindeer.data_helper import txt_renamer
 
 
 class TestTxtRenamer(unittest.TestCase):

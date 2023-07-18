@@ -5,13 +5,11 @@ USER STORY TESTS: 3
 import unittest
 import os
 import sys
+from raindeer.user_stories import plot_weather_parameters_annual
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
-
 sys.path.append(f"{parent_dir}/raindeer")
-
-from raindeer.user_stories import plot_weather_parameters_annual
 
 
 class TestUserStory3(unittest.TestCase):

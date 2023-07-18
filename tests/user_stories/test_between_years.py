@@ -1,15 +1,12 @@
-import pandas as pd
 import unittest
 from unittest.mock import patch
 import os
 import sys
+from raindeer.user_stories import plot_between_years
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
-
 sys.path.append(f"{parent_dir}/raindeer")
-
-from raindeer.user_stories import plot_between_years
 
 
 class TestPlotBetweenYears(unittest.TestCase):
@@ -30,3 +27,4 @@ class TestPlotBetweenYears(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+

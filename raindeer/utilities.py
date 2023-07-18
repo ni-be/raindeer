@@ -75,7 +75,7 @@ def plot_save(plt, sub_dir, filename):
     try:
         logging.info('Saving the provided plot to the specified directory.')
         plt.savefig(f"{PARENT_DIR}/results/{sub_dir}/plots/{filename}.png")
-        logging.info(f"Successfully saved.")
+        logging.info("Successfully saved.")
         print(f"Successfully saved: /results/{sub_dir}/plots/{filename}.png")
 
     except Exception as e:

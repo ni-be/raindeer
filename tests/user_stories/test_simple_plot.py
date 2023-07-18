@@ -8,8 +8,6 @@ parent_dir = os.path.dirname(os.path.dirname(root_dir))
 sys.path.append(f"{parent_dir}/raindeer")
 
 
-
-
 class TestSimplePlot(unittest.TestCase):
     def test_simple_plot1(self):
         print("\n Testing simple_plot function")
@@ -20,4 +18,3 @@ class TestSimplePlot(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

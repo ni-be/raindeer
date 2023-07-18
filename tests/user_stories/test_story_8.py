@@ -6,14 +6,12 @@ import unittest
 import os
 import sys
 import numpy as np
+from raindeer.user_stories import linear_regression
+from raindeer.user_stories import predict_temperature_next_year
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
-
 sys.path.append(f"{parent_dir}/raindeer")
-
-from raindeer.user_stories import linear_regression
-from raindeer.user_stories import predict_temperature_next_year
 
 
 class TestUserStory8(unittest.TestCase):

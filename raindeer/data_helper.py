@@ -11,12 +11,18 @@ def data_helper(conv_data, interval, option):
     Retrieve all the urls and local paths for each data set.
 
     Args:
-        conv_data (str or list): Dataset from DWD.
-        interval (list): 'annual' and/or 'monthly'.
-        option (str): 'w', 'r', 'wlci'.
+        conv_data (str or list): The Dataset(s) from DWD. If a list is
+            provided, each item must be a string representing a dataset.
+        interval (list): 'annual' and/or 'monthly'. The interval must only
+            contain these values and cannot be empty.
+        option (str): Must be either 'w', 'r', or 'wlci'.
 
     Returns:
-        list: List of paths.
+        list: Paths that the function has computed. Each element is a string.
+
+    Raises:
+        AssertionError: If any of the above `Args:` conditions is not met,
+            an AssertionError is raised with an informative error message.
     """
     assert isinstance(interval, list),\
         "interval must be a list"
@@ -50,7 +56,6 @@ def data_helper(conv_data, interval, option):
     dwd_downloader(local_check(data_path, option))
     txt_renamer(data_path)
     logging.info('Data path: ' + str(data_path))
-    print(data_path)
     return data_path
 
 
@@ -163,8 +168,6 @@ def create_url_download_list(input):
         raise TypeError("All elements in input must be strings")
 
     urls = yaml_reader("urls")
-    if not isinstance(urls, list):
-        raise TypeError("URLS must be a list")
     if not isinstance(urls, list):
         raise TypeError("URLS must be a list")
 

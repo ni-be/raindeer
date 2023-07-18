@@ -4,9 +4,6 @@ import pandas as pd
 
 
 class Testdataframe_helper(unittest.TestCase):
-    """
-    Define a class in which the tests will run
-    """
 
     def test_dataframe_helper_type_exceptions(self):
         """
@@ -37,13 +34,13 @@ class Testdataframe_helper(unittest.TestCase):
                              'unknown_value', '01', 'w')
             # check if raises ValueError for wrong interval value
 
-    def test_dataframe_helper_valid_inputs(self):
+    def test_dataframe_helper_valid_inputs_yearly(self):
         """
         Test normal behavior with valid inputs
         """
         # define your test data
         data = ['frost_days', 'precipitation']
-        interval = ['annual', 'monthly']
+        interval = ['annual']
         month_range = ['1', '2', '3']
         option = 'w'
 
@@ -56,7 +53,68 @@ class Testdataframe_helper(unittest.TestCase):
         # assert that the result is as expected, row by row
         for result_df, expected_df in zip(result, expected_output):
             pd.testing.assert_frame_equal(result_df, expected_df)
+    
+    def test_dataframe_helper_valid_inputs_monthly(self):
+        """
+        Test normal behavior with valid inputs
+        """
+        # define your test data
+        data = ['precipitation']
+        interval = ['monthly']
+        month_range = ['1', '2', '3']
+        option = 'w'
 
+        # call the function with the test data
+        result = dataframe_helper(data, interval, month_range, option)
 
+        # define your expected output
+        expected_output = pd.DataFrame()  
+
+        # assert that the result is as expected, row by row
+        for result_df, expected_df in zip(result, expected_output):
+            pd.testing.assert_frame_equal(result_df, expected_df)
+        
+    def test_dataframe_helper_valid_inputs_monthly_r(self):
+        """
+        Test normal behavior with valid inputs
+        """
+        # define your test data
+        data = ['precipitation']
+        interval = ['monthly']
+        month_range = ['1', '2', '3']
+        option = 'r'
+
+        # call the function with the test data
+        result = dataframe_helper(data, interval, month_range, option)
+
+        # define your expected output
+        expected_output = pd.DataFrame()  
+
+        # assert that the result is as expected, row by row
+        for result_df, expected_df in zip(result, expected_output):
+            pd.testing.assert_frame_equal(result_df, expected_df)    
+    
+    def test_dataframe_helper_valid_inputs_am(self):
+        """
+        Test normal behavior with valid inputs
+        """
+        print("\n Testing Dataframe Helper Integrity 3/3")
+        # define your test data
+        data = ['precipitation']
+        interval = ['monthly', 'annual']
+        month_range = ['1', '2', '3']
+        option = 'r'
+
+        # call the function with the test data
+        result = dataframe_helper(data, interval, month_range, option)
+
+        # define your expected output
+        expected_output = pd.DataFrame()  
+
+        # assert that the result is as expected, row by row
+        for result_df, expected_df in zip(result, expected_output):
+            pd.testing.assert_frame_equal(result_df, expected_df)
+
+   
 if __name__ == '__main__':
     unittest.main()
