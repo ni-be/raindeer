@@ -56,7 +56,7 @@ def main(data):
                 regional_averages_tm_year.txt")
         """
         logging.info('Selected mode: forecast')
-        # Works with the following command: python raindeer/raindeer.py
+        # Works with the following command: python raindeer/main.py
         # "data/annual/air_temperature_mean/regional_averages_tm_year.txt"
         # --mode=forecast -b='Deutschland'
         time = args.year
@@ -76,7 +76,7 @@ def main(data):
             >>> main("data/annual")
         """
         logging.info('Selected mode: plot-params')
-        # Works with the following command: python raindeer/raindeer.py
+        # Works with the following command: python raindeer/main.py
         # "data/annual" --mode=plot-params -b='Baden-Wuerttemberg'
         time = args.year
         place = args.bundesland[0].title()
@@ -93,7 +93,7 @@ def main(data):
             >>> main("data/annual")
         """
         logging.info('Selected mode: fourier')
-        # Works with the following command: python python raindeer/raindeer.py
+        # Works with the following command: python python raindeer/main.py
         # 'precipitation' --mode fourier -b 'hessen' 'deutschland'
         if args.month:
             interval = "monthly"
@@ -121,7 +121,7 @@ def main(data):
             >>> main("data/annual")
         """
         logging.info('Selected mode: between-years')
-        # Works with the following command: python raindeer/raindeer.py
+        # Works with the following command: python raindeer/main.py
         # 'precipitation' --mode between-years -m january  -b 'deutschland'
         # -w 'precipitation' -y 2000..2001
         if args.month:
@@ -152,7 +152,7 @@ def main(data):
             >>> main("data/annual")
         """
         logging.info('Selected mode: dataframe_helper')
-        # Works with raindeer.py --mode dataframe_helper -dt precipitation
+        # Works with main.py --mode dataframe_helper -dt precipitation
         # -i annual -m january february
         # should also work with -dt precipitation hot_days summer_days
         # -i annual monthly
@@ -166,7 +166,7 @@ def main(data):
         print("done")
 
     elif args.mode == "simple-plot":
-        # Works with the following command: python src/raindeer.py
+        # Works with the following command: python src/main.py
         # "data/annual" --mode=simple-plot -y 2000 -m "January"
         # -b "Brandenburg" -w "precipitation"
         user_stories.simple_plot(data, args, month_to_number)

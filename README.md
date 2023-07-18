@@ -176,7 +176,7 @@ wcli : is mainly used automatically when accessing the dataframe_helper from the
 
 ### Dataframe_helper - Downloader
 ```BASH
-$ raindeer.py --mode dataframe_helper --data_set DATA_SET --interval INTERVAL --month MONTHS
+$ main.py --mode dataframe_helper --data_set DATA_SET --interval INTERVAL --month MONTHS
 ```
 DATA_SET, INTERVAL and MONTHS are the same values as above only the OPTION is not included. 
 
@@ -188,13 +188,13 @@ TODO URL minus BASE_URL
 
 ### Forecast
 ```BASH
-$ raindeer.py "data/annual/air_temperature_mean/regional_averages_tm_year.txt" --mode=forecast -b='Deutschland'
+$ main.py "data/annual/air_temperature_mean/regional_averages_tm_year.txt" --mode=forecast -b='Deutschland'
 ```
 This function doesn't need any additional input as it will use the historical data for linear regression
 
 ### Fourier
 ```BASH
-$ raindeer.py WEATHER --mode fourier -b BUNDESLAND
+$ main.py WEATHER --mode fourier -b BUNDESLAND
 ```
 arguments:
 ``weather``: type of weather to analyse between "precipitacion", "air_temperature_mean" and "sunshine"
@@ -203,7 +203,7 @@ arguments:
 
 ### Plot weather parameters annual
 ```BASH
-$ raindeer.py "data/annual" --mode=plot-params -b=BUNDESLAND
+$ main.py "data/annual" --mode=plot-params -b=BUNDESLAND
 ````
 arguments:
 ``bundesland``: can also be accsessed via ``-b`` and takes a german state or multiple states
@@ -211,7 +211,7 @@ arguments:
 
 ### Customizable plotting
 ```BASH
-$ raindeer.py WEATHER --mode between-years -m MONTH  -b BUNDESLAND -w WEATHER -y START..END
+$ main.py WEATHER --mode between-years -m MONTH  -b BUNDESLAND -w WEATHER -y START..END
 ````
 arguments:
 ``bundesland``: can also be accsessed via ``-b`` and takes a german state
