@@ -80,4 +80,3 @@ def plot_save(plt, sub_dir, filename):
 
     except Exception as e:
         print(f"An error occurred: {e}")
-        raise e
