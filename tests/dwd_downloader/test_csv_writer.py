@@ -17,6 +17,7 @@ class TestDataWriter(unittest.TestCase):
         logging.getLogger().removeHandler(logging.StreamHandler())
 
     def test_data_writer(self):
+        print("Testing DWD Downloader - Data Writer [1/1]")
         # Define test input
         path = "google.com"
         content = "test"

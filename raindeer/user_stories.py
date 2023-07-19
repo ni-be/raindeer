@@ -344,22 +344,10 @@ def plot_weather_parameters_annual(
     Note:
         This function expects the 'time' list to be sorted in ascending order.
     """
-    # TODO for unittest the path needs to be relative not ../ see above
-    #  root_dir and parent_dir. if not relative this will not run if run
-    #  from different directory e.g not raindeer or for unittests.
-
+   
     assert all(
         time[i] <= time[i + 1] for i in range(len(time) - 1)
     ), "List of years should be sorted"
-
-    # PROPOSED SOLUTION using dataframe helper
-    # df = dataframe_helper('air_temperature_mean', 'annual', '00', True)
-    # temp_df = df[df.loc[0]]
-    # df = df.set_index('Jahr')
-    # time_df = df[df.index.astype(float).isin(range(time[0], time[1]+1))]
-
-    # time_df = df[df['Jahr'].astype(int).isin(range(time[0], time[1]+1))]
-    # test_temperature_mean = time_df['brandenburg/berlin']
 
     logging.info('Plotting annual weather parameters')
 

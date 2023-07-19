@@ -21,7 +21,7 @@ class TestLocalCheck(unittest.TestCase):
     def test_local_check_nonexistent_path(self,
                                           mock_create_url_download_list,
                                           mock_exists):
-        print("\n Testing Local Check Test: nonexistent path [1/2]")
+        print("Testing Local Check Test: nonexistent path [1/2]")
 
         mock_exists.side_effect = lambda path: path not in self.directory
         mock_create_url_download_list.return_value = self.download_url_list
@@ -39,7 +39,7 @@ class TestLocalCheck(unittest.TestCase):
     def test_local_check_existing_path(self, mock_create_url_download_list,
                                        mock_exists):
 
-        print("\n Testing Local Check Test: exisiting path [2/2]")
+        print("Testing Local Check Test: exisiting path [2/2]")
 
         mock_exists.side_effect = lambda path: path in self.directory
         mock_create_url_download_list.return_value = []

@@ -12,7 +12,7 @@ class TestURLDownloadList(unittest.TestCase):
 
     @patch('raindeer.utilities.yaml_reader')
     def test_create_url_download_list(self, mock_yaml_reader):
-        print("\n Testing Create URL download list [1/1]")
+        print("Testing Create URL download list - valid  [1/4]")
 
         # define the mock behavior of yaml_reader
         mock_yaml_reader.return_value = ['https://opendata.dwd.de/'
@@ -35,6 +35,7 @@ class TestURLDownloadList(unittest.TestCase):
 
     @patch('raindeer.utilities.yaml_reader')
     def test_not_list(self, mock_yaml_reader):
+        print("Testing Create URL download list - not list [2/4]")
         # define the mock behavior of yaml_reader
         mock_yaml_reader.return_value = {'https://opendata.dwd.de/'
                                          'climate_environment/CDC/'
@@ -45,6 +46,7 @@ class TestURLDownloadList(unittest.TestCase):
 
     @patch('raindeer.utilities.yaml_reader')
     def test_element_not_str(self, mock_yaml_reader):
+        print("Testing Create URL download list - Url not str [3/4]")
         # define the mock behavior of yaml_reader
         mock_yaml_reader.return_value = ['https://opendata.dwd.de/'
                                          'climate_environment/CDC/'
@@ -53,8 +55,9 @@ class TestURLDownloadList(unittest.TestCase):
         with self.assertRaises(TypeError):
             create_url_download_list([1, 2, 3])
 
-    @patch('raindeer.utilities.yaml_reader')
+    @patch('raindeer.utilities.yaml_reader')  
     def test_yaml_not_list(self, mock_yaml_reader):
+        print("Testing Create URL download list - yaml reader [4/4]")
         # define the mock behavior of yaml_reader
         mock_yaml_reader.return_value = "abc"
         with self.assertRaises(TypeError):

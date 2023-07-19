@@ -5,6 +5,7 @@ from raindeer.utilities import yaml_reader
 
 class YamlReaderTestCase(unittest.TestCase):
     def test_value_error(self):
+        print("Testing Yaml Reader Value Error [1/1]")
         with patch('builtins.open', mock_open()) as mock_file:
             # Create a mock file-like object using io.StringIO
             file_content = """

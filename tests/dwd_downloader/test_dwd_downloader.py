@@ -18,7 +18,7 @@ class TestDwdDownloader(unittest.TestCase):
     @patch('raindeer.dwd_downloader.requests.get')
     @patch('raindeer.dwd_downloader.data_writer')
     def test_single_url_monthly(self, mock_data_writer, mock_get):
-        print("\n Testing DWD Downloader - single URL monthly [1/3]")
+        print("Testing DWD Downloader - single URL monthly [1/4]")
         # Test that the function can handle a single URL
         url = str('https://opendata.dwd.de/climate_environment/CDC'
                   '/regional_averages_DE/monthly/air_temperature_mean/'
@@ -35,7 +35,7 @@ class TestDwdDownloader(unittest.TestCase):
     @patch('raindeer.dwd_downloader.requests.get')
     @patch('raindeer.dwd_downloader.data_writer')
     def test_single_url(self, mock_data_writer, mock_get):
-        print("\n Testing DWD Downloader - single URL [1/3]")
+        print("Testing DWD Downloader - single URL [2/4]")
         # Test that the function can handle a single URL
         url = str('https://opendata.dwd.de/climate_environment/CDC'
                   '/regional_averages_DE/annual/air_temperature_mean/'
@@ -52,7 +52,7 @@ class TestDwdDownloader(unittest.TestCase):
     @patch('raindeer.dwd_downloader.requests.get')
     @patch('raindeer.dwd_downloader.data_writer')
     def test_list_of_urls(self, mock_data_writer, mock_get):
-        print("\n Testing DWD Downloader - URL list [2/3]")
+        print("Testing DWD Downloader - URL list [3/4]")
         urls = ['https://opendata.dwd.de/climate_environment/CDC/'
                 'regional_averages_DE/annual/air_temperature_mean/'
                 'regional_averages_tm_year.txt',
@@ -71,7 +71,7 @@ class TestDwdDownloader(unittest.TestCase):
     @patch('raindeer.dwd_downloader.requests.get')
     @patch('raindeer.dwd_downloader.data_writer')
     def test_invalid_url(self, mock_data_writer, mock_get):
-        print("\n Testing DWD Downloader - Invalid URL [3/3]")
+        print("Testing DWD Downloader - Invalid URL [4/4]")
         mock_get.return_value.status_code = 404
         with self.assertRaises(Exception):
             dwd_downloader("invalid url")

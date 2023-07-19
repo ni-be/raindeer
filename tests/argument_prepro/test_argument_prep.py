@@ -18,6 +18,7 @@ from raindeer.argument_preprocessing import arg_preprocess
 
 class TestArg(unittest.TestCase):
     def test_arg_preprocess_invalid_args(self):
+        print("Testing Argument Test - invalid arg [6/6]")
         invalid_args = [None, 123, 'abc']
         for args in invalid_args:
             with self.assertRaises(Exception):
@@ -32,7 +33,7 @@ class TestArg(unittest.TestCase):
     #     self.assertEqual(result, expected_output)
     
     def test_arg_test_year(self):
-        print("\n Testing Argument Tests - arg_test_year  [1/5]")
+        print("Testing Argument Tests - arg_test_year  [1/6]")
         # Create a mock object for args
         args = Mock()
         args.year = ['2000..2005', '2007', '2009']
@@ -45,7 +46,7 @@ class TestArg(unittest.TestCase):
                          [2000, 2001, 2002, 2003, 2004, 2005, 2007, 2009])
 
     def test_check_if_year(self):
-        print("\n Testing Argument Tests - test check year [2/5]")
+        print("Testing Argument Tests - test check year [2/6]")
         # Test with a valid year
         year = '2000'
         self.assertIsNone(check_if_year(year))
@@ -59,7 +60,7 @@ class TestArg(unittest.TestCase):
 
     @patch('raindeer.utilities.yaml_reader')
     def test_arg_test_month(self, mock_yaml_reader):
-        print("\n Testing Argument Tests - arg_test_month [3/5]")
+        print("Testing Argument Tests - arg_test_month [3/6]")
 
         # Mock the yaml_reader function to return a list of month names
         mock_yaml_reader.return_value = ['january', 'february', 'march',
@@ -79,7 +80,7 @@ class TestArg(unittest.TestCase):
 
     @patch('raindeer.utilities.yaml_reader')
     def test_arg_test_weather(self, mock_yaml_reader):
-        print("\n Testing Argument Tests arg_test_weather [4/5]")
+        print("Testing Argument Tests arg_test_weather [4/6]")
 
         # Mock the yaml_reader function to return weather options
         mock_yaml_reader.return_value = ['air_temperature_mean',
@@ -101,7 +102,7 @@ class TestArg(unittest.TestCase):
         # mock_yaml_reader.assert_called_once_with('monthly_data_type')
 
     def test_arg_test_bundesland(self):
-        print("\n Testing Argument Tests arg_test_bundesland [5/5]")
+        print("Testing Argument Tests arg_test_bundesland [5/6]")
         # Mock the args object
         args = MagicMock()
         args.bundesland = ["Berlin", "Hamburg", "all"]
