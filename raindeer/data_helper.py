@@ -51,8 +51,9 @@ def data_helper(conv_data, interval, option):
         elif data not in mon_type and interval[0] == "monthly" \
                 and len(interval) == 1:
             print("Sorry, this data type does not have monthly data!")
+            logging.error(f"{data}: no monthly avail.")
         else:
-            print(f"{interval} seems not to be annual or monthly")
+            print(f"for {data} no monthly data available")
     dwd_downloader(local_check(data_path, option))
     txt_renamer(data_path)
     logging.info('Data path: ' + str(data_path))
@@ -86,7 +87,12 @@ def txt_renamer(path):
                         f"Interval needs to be monthly or annual, "
                         f"{interval_type} does not exists"
                     )
+                    logging.error( 
+                        f"Interval needs to be monthly or annual, "
+                        f"{interval_type} does not exists"
+                    )
             else:
+                logging.error(f"File {filename} doesn't end with .txt/.csv")
                 raise ValueError(
                     f"The file {filename} does not end with .txt /.csv")
 
@@ -119,6 +125,9 @@ def rename_function(filename, data_type, ending, path):
     new_name = str(data_type + ending)
     new_file = os.path.join(path, new_name)
     try:
+        if os.path.exists(new_file):
+            # Remove the existing file before renaming
+            os.remove(new_file)
         os.rename(old_filename, new_file)
     except FileNotFoundError:
         print(f"{old_filename} does not exist")
@@ -138,13 +147,13 @@ def local_check(directory, option):
     download_list = []
     for dir in directory:
         if not os.path.exists(dir):
-            logging.info(f"{dir} does not yet exists, will commence download!")
-            print(f"{dir} does not yet exists, will commence download!")
+            logging.info(f"{dir}: not yet exists, will commence download!")
+            #print(f"{dir} does not yet exists, will commence download!")
             download_list.append(dir)
         else:
             if option == "wcli":
                 logging.info(f"{dir} does exist")
-                print(f"{dir} does exist")
+                #print(f"{dir} does exist")
     download_url_list = create_url_download_list(download_list)
     return download_url_list
 

@@ -11,7 +11,7 @@ sys.path.append(f"{parent_dir}/raindeer")
 
 class TestPlotBetweenYears(unittest.TestCase):
     def test_between_years(self):
-        print("\n Testing User Story - between years [1/2]")
+        print("Testing User Story - between years [1/2]")
 
         # Test plot_between_years for behavior if non-valid dates are given
         with self.assertRaises(TypeError):
@@ -20,7 +20,7 @@ class TestPlotBetweenYears(unittest.TestCase):
 
     @patch("matplotlib.pyplot.show")
     def test_between_years_simple(self, mock_show):
-        print("\n Testing User Story - between years [2/2]")
+        print("Testing User Story - between years [2/2]")
         plot_between_years('precipitation', 'monthly', [198101, 202101],
                            'deutschland', 'temp', 'simple')
 

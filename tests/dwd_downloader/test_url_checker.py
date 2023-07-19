@@ -8,6 +8,7 @@ import urllib.response
 class UrlCheckerHandlerTestCase(unittest.TestCase):
     @patch('urllib.request.urlopen')
     def test_invalid_url(self, mock_urlopen):
+        print("Testing URL Checker - Invalid URL [1/1]")
         mock_urlopen.return_value = Mock(spec=urllib.response.addinfourl)
         mock_urlopen.return_value.status = 404
 

@@ -23,7 +23,6 @@ def load_dataset(dataset: str) -> pd.core.frame.DataFrame:
 
     data = pd.read_csv(dataset, sep=";", header=1, index_col=0)
     logging.info('Loading the data')
-    print(data)
     return data
 
 

@@ -13,7 +13,7 @@ class TestTxtRenamer(unittest.TestCase):
     @patch('os.listdir')
     @patch('raindeer.data_helper.rename_function')
     def test_txt_renamer(self, mock_rename_function, mock_listdir):
-        print("\n Testing TXT renamer [1/1]")
+        print("Testing TXT renamer [1/1]")
 
         # Mock the os.listdir function to return a list of filenames
         mock_listdir.return_value = ['precipitation.txt',

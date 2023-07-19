@@ -12,7 +12,7 @@ sys.path.append(f"{parent_dir}/raindeer")
 class TestFourierAnalysis(unittest.TestCase):
     @patch("matplotlib.pyplot.show")
     def test_fourier_analysis(self, mock_show):
-        print("\n Testing Fourier Analysis [1/1]")
+        print("Testing Fourier Analysis [1/1]")
         fourier_analysis('precipitation', 'annual',
                          ['bayern', 'hessen'], 'sun')
 

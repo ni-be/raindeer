@@ -11,7 +11,7 @@ sys.path.append(f"{parent_dir}/raindeer")
 
 class TestDataframeCreator(unittest.TestCase):
     def test_dataframe_creator(self):
-        print("\n Testing Dataframe Creator [1/1]")
+        print("Testing Dataframe Creator [1/1]")
         # Test with annual data
         data = f"{parent_dir}/data/annual/precipitation"
         df = dataframe_creator(data, 'annual', '0', False)

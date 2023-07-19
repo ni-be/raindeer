@@ -83,7 +83,6 @@ def url_checker_handler(path, url):
         path (str): Path to local file.
         url (str): DWD URL.
     """
-    print(path)
     response = requests.get(url)
     if response.status_code == 200 and url.endswith('.txt'):
         content = response.text
@@ -91,7 +90,7 @@ def url_checker_handler(path, url):
     else:
         errorfile = url.split('/')[-1]
         logging.error(f"Error downloading file: {errorfile}.")
-        print(f"Error downloading file: {errorfile}.")
+        #print(f"Error downloading file: {errorfile}.")
 
 
 def data_writer(path, content):
@@ -106,4 +105,4 @@ def data_writer(path, content):
     output_file.parent.mkdir(exist_ok=True, parents=True)
     output_file.write_text(content)
     logging.info(f"Downloaded '{path}' STATUS OK.")
-    print(f"Downloaded '{path}' STATUS OK.")
+    #print(f"Downloaded '{path}' STATUS OK.")
