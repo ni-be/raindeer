@@ -125,6 +125,9 @@ def rename_function(filename, data_type, ending, path):
     new_name = str(data_type + ending)
     new_file = os.path.join(path, new_name)
     try:
+        if os.path.exists(new_file):
+            # Remove the existing file before renaming
+            os.remove(new_file)
         os.rename(old_filename, new_file)
     except FileNotFoundError:
         print(f"{old_filename} does not exist")
