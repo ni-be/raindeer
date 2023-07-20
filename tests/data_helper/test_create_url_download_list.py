@@ -8,6 +8,7 @@ root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 sys.path.append(f"{parent_dir}/raindeer")
 
+
 class TestURLDownloadList(unittest.TestCase):
 
     @patch('raindeer.utilities.yaml_reader')
@@ -55,13 +56,13 @@ class TestURLDownloadList(unittest.TestCase):
         with self.assertRaises(TypeError):
             create_url_download_list([1, 2, 3])
 
-    @patch('raindeer.utilities.yaml_reader')  
+    @patch('raindeer.utilities.yaml_reader')
     def test_yaml_not_list(self, mock_yaml_reader):
         print("Testing Create URL download list - yaml reader [4/4]")
         # define the mock behavior of yaml_reader
         mock_yaml_reader.return_value = "abc"
         with self.assertRaises(TypeError):
-            create_url_download_list({1:"abc"})
+            create_url_download_list({1: "abc"})
 
 
 if __name__ == '__main__':

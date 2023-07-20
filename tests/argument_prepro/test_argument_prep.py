@@ -16,6 +16,7 @@ from raindeer.argument_preprocessing import arg_test_weather
 from raindeer.argument_preprocessing import arg_test_bundesland
 from raindeer.argument_preprocessing import arg_preprocess
 
+
 class TestArg(unittest.TestCase):
     def test_arg_preprocess_invalid_args(self):
         print("Testing Argument Test - invalid arg [6/6]")
@@ -23,15 +24,15 @@ class TestArg(unittest.TestCase):
         for args in invalid_args:
             with self.assertRaises(Exception):
                 arg_preprocess(args)
-    #STIL WIP
+    # STIL WIP
     # def test_arg_preprocess_valid_args(self):
     #     valid_args = ['2013', 'July', 'sunny', 'Berlin']
     #     expected_output = ""
     #     # define the expected output here
-    #     result = arg_preprocess(args=valid_args)  
+    #     result = arg_preprocess(args=valid_args)
     #     # Pass valid_args as the argument to arg_preprocess
     #     self.assertEqual(result, expected_output)
-    
+
     def test_arg_test_year(self):
         print("Testing Argument Tests - arg_test_year  [1/6]")
         # Create a mock object for args

@@ -175,7 +175,7 @@ def main(data):
         user_stories.simple_plot(data, args, month_to_number)
 
     elif args.mode == "download-all":
-        dfh.dataframe_helper(utils.yaml_reader('all_data_types'), 
+        dfh.dataframe_helper(utils.yaml_reader('all_data_types'),
                              utils.yaml_reader('interval'),
                              utils.yaml_reader('months'),
                              "allDL")
@@ -220,7 +220,8 @@ if __name__ == "__main__":
                         type=str, nargs="+", default=None)
     parser.add_argument('--data_set', '-ds', help='Data Type: precipitation',
                         type=str, nargs="+", default=None)
-    parser.add_argument('--download-all', '-dla', help='Download all Data', default=None)
+    parser.add_argument(
+        '--download-all', '-dla', help='Download all Data', default=None)
 
     args = parser.parse_args()
     if args.url:

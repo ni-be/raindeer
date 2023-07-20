@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch #, Mock
+from unittest.mock import patch  # , Mock
 import os
 import sys
 from raindeer.data_helper import txt_renamer

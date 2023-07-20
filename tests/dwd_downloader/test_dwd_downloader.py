@@ -1,7 +1,7 @@
 import unittest
 import sys
 import os
-from unittest.mock import patch #, MagicMock
+from unittest.mock import patch  # , MagicMock
 from raindeer.dwd_downloader import dwd_downloader
 from raindeer.dwd_downloader import input_checker
 from raindeer.dwd_downloader import url_checker_handler
@@ -28,7 +28,8 @@ class TestDwdDownloader(unittest.TestCase):
         dwd_downloader(url)
         # Check that data_writer was called with the correct arguments
         mock_data_writer.assert_called_with(f'{parent_dir}/'
-                                            'data/monthly/air_temperature_mean/'
+                                            'data/monthly/'
+                                            'air_temperature_mean/'
                                             'regional_averages_tm_01.txt',
                                             'Test content')
 
