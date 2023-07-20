@@ -31,13 +31,15 @@ def dwd_downloader(url_list):
             filename = data.split('/')[-1]
             path = f"{root_data}/{time_dir}/{sub_dir}/{filename}"
             url_checker_handler(path, data)
-        #elif time_dir == "monthly":
-        else:
+        elif time_dir == "monthly":
             for n in months:
-                monthly_url = data.format(f"0{n}")
+                if len(n) == 1:
+                    monthly_url = data.format(f"0{n}")
+                else:
+                    monthly_url = data.format(f"{n}")
                 filename = monthly_url.split('/')[-1]
                 path = f"{root_data}/{time_dir}/{sub_dir}/{filename}"
-                url_checker_handler(path, data)
+                url_checker_handler(path, monthly_url)
 
 
 def input_checker(input):
@@ -105,4 +107,4 @@ def data_writer(path, content):
     output_file.parent.mkdir(exist_ok=True, parents=True)
     output_file.write_text(content)
     logging.info(f"Downloaded '{path}' STATUS OK.")
-    #print(f"Downloaded '{path}' STATUS OK.")
+    print(f"Downloaded '{path}' STATUS OK.")

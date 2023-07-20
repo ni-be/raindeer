@@ -26,8 +26,8 @@ def data_helper(conv_data, interval, option):
     """
     assert isinstance(interval, list),\
         "interval must be a list"
-    assert option in ["w", "r", "wlci"],\
-        "option must be 'w', 'r', or 'wlci'"
+    assert option in ["w", "r", "wlci", "dld"],\
+        "option must be 'w', 'r', or 'wlci' 'dld'"
     if isinstance(conv_data, list):
         for data in conv_data:
             assert isinstance(data, str),\
@@ -38,24 +38,19 @@ def data_helper(conv_data, interval, option):
 
     root_data = yaml_reader("root_data")
     mon_type = yaml_reader("monthly_data_type")
+    all_type = yaml_reader("all_data_types")
     data_path = []
+    print(conv_data)
     for data in conv_data:
-        if data in mon_type and len(interval) == 2:
+        if data in mon_type:
             data_path.append(f"{root_data}/monthly/{data}")
             data_path.append(f"{root_data}/annual/{data}")
-        elif data in mon_type and len(interval) == 1 and \
-                interval[0] == "monthly":
-            data_path.append(f"{root_data}/monthly/{data}")
-        elif len(interval) == 1 and interval[0] == "annual":
+        elif data not in mon_type and data in all_type:
             data_path.append(f"{root_data}/annual/{data}")
-        elif data not in mon_type and interval[0] == "monthly" \
-                and len(interval) == 1:
-            print("Sorry, this data type does not have monthly data!")
-            logging.error(f"{data}: no monthly avail.")
         else:
-            print(f"for {data} no monthly data available")
+            print(f"for {data} no data available")
     dwd_downloader(local_check(data_path, option))
-    txt_renamer(data_path)
+    #txt_renamer(data_path)
     logging.info('Data path: ' + str(data_path))
     return data_path
 
@@ -149,6 +144,8 @@ def local_check(directory, option):
         if not os.path.exists(dir):
             logging.info(f"{dir}: not yet exists, will commence download!")
             #print(f"{dir} does not yet exists, will commence download!")
+            download_list.append(dir)
+        elif option =="dld":
             download_list.append(dir)
         else:
             if option == "wcli":

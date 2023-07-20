@@ -69,6 +69,18 @@ monthly_data_type:
   - "precipitation"
   - "sunshine_duration"
 
+all_data_types:
+  - "air_temperature_mean"
+  - "precipitation"
+  - "sunshine_duration"
+  - "frost_days"
+  - "hot_days"
+  - "ice_days"
+  - "precipGE10mm"
+  - "precipGE20mm"
+  - "tropical_nights"
+  - "summer_days"
+
 interval:
   - "annual"
   - "monthly"
