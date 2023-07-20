@@ -26,8 +26,8 @@ def data_helper(conv_data, interval, option):
     """
     assert isinstance(interval, list),\
         "interval must be a list"
-    assert option in ["w", "r", "wlci"],\
-        "option must be 'w', 'r', or 'wlci'"
+    assert option in ["w", "r", "wlci", "allDL"],\
+        "option must be 'w', 'r', or 'wlci', allDL"
     if isinstance(conv_data, list):
         for data in conv_data:
             assert isinstance(data, str),\
@@ -38,22 +38,25 @@ def data_helper(conv_data, interval, option):
 
     root_data = yaml_reader("root_data")
     mon_type = yaml_reader("monthly_data_type")
+    all_data_types = yaml_reader("all_data_types")
     data_path = []
     for data in conv_data:
-        if data in mon_type and len(interval) == 2:
-            data_path.append(f"{root_data}/monthly/{data}")
-            data_path.append(f"{root_data}/annual/{data}")
-        elif data in mon_type and len(interval) == 1 and \
-                interval[0] == "monthly":
-            data_path.append(f"{root_data}/monthly/{data}")
-        elif len(interval) == 1 and interval[0] == "annual":
-            data_path.append(f"{root_data}/annual/{data}")
-        elif data not in mon_type and interval[0] == "monthly" \
-                and len(interval) == 1:
-            print("Sorry, this data type does not have monthly data!")
-            logging.error(f"{data}: no monthly avail.")
+        # if data in mon_type and f"{root_data}/monthly/{data}" not in data_path:
+        #     data_path.append(f"{root_data}/monthly/{data}")
+        #     data_path.append(f"{root_data}/annual/{data}")
+        # elif data in all_data_types and data not in mon_type:
+            
+        #     data_path.append(f"{root_data}/annual/{data}")
+        if data in mon_type:
+            if f"{root_data}/monthly/{data}" not in data_path:
+                data_path.append(f"{root_data}/monthly/{data}")
+            if f"{root_data}/annual/{data}" not in data_path:
+                data_path.append(f"{root_data}/annual/{data}")
+        elif data in all_data_types and data not in mon_type:
+            if f"{root_data}/annual/{data}" not in data_path:
+                data_path.append(f"{root_data}/annual/{data}")
         else:
-            print(f"for {data} no monthly data available")
+            print(f"for {data} no data available")
     dwd_downloader(local_check(data_path, option))
     txt_renamer(data_path)
     logging.info('Data path: ' + str(data_path))
@@ -72,7 +75,6 @@ def txt_renamer(path):
     for pathx in path:
         data_type = pathx.split('/')[-1]
         assert isinstance(data_type, str), "data_type must be a string"
-
         interval_type = pathx.split('/')[-2]
         for filename in os.listdir(pathx):
             if filename.endswith((".txt", ".csv")):
@@ -125,9 +127,9 @@ def rename_function(filename, data_type, ending, path):
     new_name = str(data_type + ending)
     new_file = os.path.join(path, new_name)
     try:
-        if os.path.exists(new_file):
+        #if os.path.exists(new_file):
             # Remove the existing file before renaming
-            os.remove(new_file)
+        #    os.remove(new_file)
         os.rename(old_filename, new_file)
     except FileNotFoundError:
         print(f"{old_filename} does not exist")
@@ -139,23 +141,27 @@ def local_check(directory, option):
 
     Args:
         directory (list): List of datatype sets including path.
-        option (str): Action mode, 'w', 'r', 'wlci'.
+        option (str): Action mode, 'w', 'r', 'wlci', allDL.
 
     Returns:
         list: Download URLs.
     """
     download_list = []
     for dir in directory:
-        if not os.path.exists(dir):
+        if not os.path.exists(dir) and option != "allDL":
             logging.info(f"{dir}: not yet exists, will commence download!")
             # print(f"{dir} does not yet exists, will commence download!")
+            download_list.append(dir)
+        elif option == "allDL":
             download_list.append(dir)
         else:
             if option == "wcli":
                 logging.info(f"{dir} does exist")
                 # print(f"{dir} does exist")
     download_url_list = create_url_download_list(download_list)
-    return download_url_list
+    unique_list = []
+    [unique_list.append(x) for x in download_url_list if x not in unique_list]
+    return unique_list
 
 
 def create_url_download_list(input):
