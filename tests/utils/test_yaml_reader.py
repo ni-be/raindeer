@@ -3,6 +3,7 @@ import io
 from unittest.mock import mock_open, patch
 from raindeer.utilities import yaml_reader
 
+
 class YamlReaderTestCase(unittest.TestCase):
     def test_value_error(self):
         print("Testing Yaml Reader Value Error [1/1]")
@@ -12,10 +13,12 @@ class YamlReaderTestCase(unittest.TestCase):
             option1: value1
             option2: value2
             """
-            mock_file.return_value.__enter__.return_value = io.StringIO(file_content)
-            
+            mock_file.return_value.__enter__.return_value = io.StringIO(
+                file_content)
+
             with self.assertRaises(ValueError):
                 yaml_reader('invalid_option')
+
 
 if __name__ == '__main__':
     unittest.main()

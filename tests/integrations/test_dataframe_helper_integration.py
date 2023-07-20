@@ -30,7 +30,7 @@ class Testdataframe_helper(unittest.TestCase):
             dataframe_helper('unknown_value', 'monthly', '01', 'w')
             # check if raises ValueError for wrong data value
         with self.assertRaises(ValueError):
-            dataframe_helper('air_temperature_mean', \
+            dataframe_helper('air_temperature_mean',
                              'unknown_value', '01', 'w')
             # check if raises ValueError for wrong interval value
 
@@ -48,12 +48,12 @@ class Testdataframe_helper(unittest.TestCase):
         result = dataframe_helper(data, interval, month_range, option)
 
         # define your expected output
-        expected_output = pd.DataFrame()  
+        expected_output = pd.DataFrame()
 
         # assert that the result is as expected, row by row
         for result_df, expected_df in zip(result, expected_output):
             pd.testing.assert_frame_equal(result_df, expected_df)
-    
+
     def test_dataframe_helper_valid_inputs_monthly(self):
         """
         Test normal behavior with valid inputs
@@ -68,12 +68,12 @@ class Testdataframe_helper(unittest.TestCase):
         result = dataframe_helper(data, interval, month_range, option)
 
         # define your expected output
-        expected_output = pd.DataFrame()  
+        expected_output = pd.DataFrame()
 
         # assert that the result is as expected, row by row
         for result_df, expected_df in zip(result, expected_output):
             pd.testing.assert_frame_equal(result_df, expected_df)
-        
+
     def test_dataframe_helper_valid_inputs_monthly_r(self):
         """
         Test normal behavior with valid inputs
@@ -88,12 +88,12 @@ class Testdataframe_helper(unittest.TestCase):
         result = dataframe_helper(data, interval, month_range, option)
 
         # define your expected output
-        expected_output = pd.DataFrame()  
+        expected_output = pd.DataFrame()
 
         # assert that the result is as expected, row by row
         for result_df, expected_df in zip(result, expected_output):
-            pd.testing.assert_frame_equal(result_df, expected_df)    
-    
+            pd.testing.assert_frame_equal(result_df, expected_df)
+
     def test_dataframe_helper_valid_inputs_am(self):
         """
         Test normal behavior with valid inputs
@@ -109,12 +109,12 @@ class Testdataframe_helper(unittest.TestCase):
         result = dataframe_helper(data, interval, month_range, option)
 
         # define your expected output
-        expected_output = pd.DataFrame()  
+        expected_output = pd.DataFrame()
 
         # assert that the result is as expected, row by row
         for result_df, expected_df in zip(result, expected_output):
             pd.testing.assert_frame_equal(result_df, expected_df)
 
-   
+
 if __name__ == '__main__':
     unittest.main()

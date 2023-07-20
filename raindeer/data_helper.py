@@ -41,11 +41,12 @@ def data_helper(conv_data, interval, option):
     all_data_types = yaml_reader("all_data_types")
     data_path = []
     for data in conv_data:
-        # if data in mon_type and f"{root_data}/monthly/{data}" not in data_path:
+        # if data in mon_type and f"{root_data}"\
+        # "/monthly/{data}" not in data_path:
         #     data_path.append(f"{root_data}/monthly/{data}")
         #     data_path.append(f"{root_data}/annual/{data}")
         # elif data in all_data_types and data not in mon_type:
-            
+
         #     data_path.append(f"{root_data}/annual/{data}")
         if data in mon_type:
             if f"{root_data}/monthly/{data}" not in data_path:
@@ -127,9 +128,9 @@ def rename_function(filename, data_type, ending, path):
     new_name = str(data_type + ending)
     new_file = os.path.join(path, new_name)
     try:
-        #if os.path.exists(new_file):
-            # Remove the existing file before renaming
-        #    os.remove(new_file)
+        # if os.path.exists(new_file):
+        #     Remove the existing file before renaming
+        #     os.remove(new_file)
         os.rename(old_filename, new_file)
     except FileNotFoundError:
         print(f"{old_filename} does not exist")

@@ -5,6 +5,7 @@ from io import StringIO
 
 from raindeer.dwd_downloader import data_writer
 
+
 class TestDataWriter(unittest.TestCase):
     def setUp(self):
         # Configure logging to capture the messages
@@ -35,6 +36,7 @@ class TestDataWriter(unittest.TestCase):
         print("Logged message:", log_message)
         expected_message = f"Downloaded '{path}' STATUS OK."
         self.assertNotEqual(log_message, expected_message)
+
 
 if __name__ == '__main__':
     unittest.main()
