@@ -192,7 +192,11 @@ Args:
 - ``--month``, `-m` : Takes one or multiple months with ``+``to be plotted.
 -  ``--complexity``, `-c` : can be set to "simple" or "custom". If "custom" is chosen, the user can freely control a vast range of parameters of the plot. This will be asked by the software as user input in the command-line.
 
-## Dataset
+## Authors
+- Nikolas Bertrand (backend developer)
+- Julian Bruns (backend developer)
+- Josephine Funken (backend developer / tester)
+- Timo Wedding (backend developer / “client” developer)
 
 
 ## How to get involved
