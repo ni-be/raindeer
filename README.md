@@ -48,6 +48,17 @@ After downloading this package, install it by running the following command in i
 ```BASH
 $ pip install -e .
 ```
+In addition you may get started with running the following little helper: 
+```BASH
+$ chmod +x ./little_helper.sh
+$ bash ./little_helper.sh 
+```
+This script will install raindeer, download all the data, run unittests using coverage and will run tokei if installed. THIS SCRIPT WAS SOLOLY CREATED to make our life easier when testing and for the examiner. 
+
+The results from past runs can be found here:
+
+[Results](https://gitup.uni-potsdam.de/jubruns/raindeer/-/blob/main/results/results.md)
+
 
 ## Running the program
 The programm has two interfaces / access points. You can access some functionality through the [command-line interface](#command-line-interface).
