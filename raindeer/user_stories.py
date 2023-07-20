@@ -205,11 +205,12 @@ def plot_between_years(data, interval, yearsmonths, state, case, mode):
         try:
             for yearmonth, value in zip(df_sorted["Jahr;Monat"],
                                         df_sorted[state]):
-                if yearsmonths[0] < yearmonth < yearsmonths[1]:
-                    cut_years.append(yearmonth)
-                    cut_values.append(value)
 
-        except TypeError:
+                if int(yearsmonths[0]) < int(yearmonth) < int(yearsmonths[1]):
+                    cut_years.append(int(yearmonth))
+                    cut_values.append(float(value))
+
+        except ValueError:
             print('A value in the time data is not a number value')
 
         # Plot the results
