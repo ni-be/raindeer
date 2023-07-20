@@ -87,7 +87,7 @@ def txt_renamer(path):
                         f"Interval needs to be monthly or annual, "
                         f"{interval_type} does not exists"
                     )
-                    logging.error( 
+                    logging.error(
                         f"Interval needs to be monthly or annual, "
                         f"{interval_type} does not exists"
                     )
@@ -148,12 +148,12 @@ def local_check(directory, option):
     for dir in directory:
         if not os.path.exists(dir):
             logging.info(f"{dir}: not yet exists, will commence download!")
-            #print(f"{dir} does not yet exists, will commence download!")
+            # print(f"{dir} does not yet exists, will commence download!")
             download_list.append(dir)
         else:
             if option == "wcli":
                 logging.info(f"{dir} does exist")
-                #print(f"{dir} does exist")
+                # print(f"{dir} does exist")
     download_url_list = create_url_download_list(download_list)
     return download_url_list
 

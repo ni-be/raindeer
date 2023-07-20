@@ -345,7 +345,7 @@ def plot_weather_parameters_annual(
     Note:
         This function expects the 'time' list to be sorted in ascending order.
     """
-   
+
     assert all(
         time[i] <= time[i + 1] for i in range(len(time) - 1)
     ), "List of years should be sorted"
@@ -403,13 +403,13 @@ def simple_plot(data, _args, mtn):
         A dictionary mapping month names to their corresponding numbers.
 
     Outputs:
-    This function plots the data based on specified parameters. 
-    Each plot represents a different weather phenomena like sun-duration 
-    or precipitation. These plots can be saved to a specified output 
+    This function plots the data based on specified parameters.
+    Each plot represents a different weather phenomena like sun-duration
+    or precipitation. These plots can be saved to a specified output
     file, or they will be displayed instantly.
 
-    The plot demonstrates the observations in the specified year(s) and 
-    Bundesländer, across the chosen month (or annually), for the selected 
+    The plot demonstrates the observations in the specified year(s) and
+    Bundesländer, across the chosen month (or annually), for the selected
     weather phenomena.
     """
 
