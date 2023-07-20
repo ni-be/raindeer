@@ -1,4 +1,4 @@
-Zeitreihen fuer Gebietsmittel fuer Bundeslaender und Kombinationen von Bundeslaender, erstellt am: 20230602
+Zeitreihen fuer Gebietsmittel fuer Bundeslaender und Kombinationen von Bundeslaender, erstellt am: 20230702
 Jahr;Monat;Brandenburg/Berlin;Brandenburg;Baden-Wuerttemberg;Bayern;Hessen;Mecklenburg-Vorpommern;Niedersachsen;Niedersachsen/Hamburg/Bremen;Nordrhein-Westfalen;Rheinland-Pfalz;Schleswig-Holstein;Saarland;Sachsen;Sachsen-Anhalt;Thueringen/Sachsen-Anhalt;Thueringen;Deutschland;
 1881;10;    70.4;    70.4;    69.8;    69.2;    73.1;    74.8;    84.2;    84.4;    70.6;    69.1;   116.6;    71.2;    72.1;    74.0;    74.0;    74.0;    74.9;
 1882;10;    38.3;    38.3;   102.9;    85.1;    74.4;    28.5;    39.3;    39.4;    58.6;    87.1;    67.8;    93.6;    64.3;    37.1;    46.8;    59.1;    64.3;

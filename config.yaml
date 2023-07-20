@@ -11,7 +11,6 @@ urls:
   - "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/annual/ice_days/regional_averages_txcs_year.txt"
   - "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/annual/hot_days/regional_averages_txbs_year.txt"
   - "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/annual/frost_days/regional_averages_tnas_year.txt"
-  - "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/annual/air_temperature_mean/regional_averages_tm_year.txt"
   - "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/monthly/air_temperature_mean/regional_averages_tm_{}.txt"
   - "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/monthly/precipitation/regional_averages_rr_{}.txt"
   - "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/monthly/sunshine_duration/regional_averages_sd_{}.txt"
@@ -69,6 +68,18 @@ monthly_data_type:
   - "precipitation"
   - "sunshine_duration"
 
+all_data_types:
+  - "air_temperature_mean"
+  - "precipitation"
+  - "sunshine_duration"
+  - "hot_days"
+  - "ice_days"
+  - "summer_days"
+  - "tropical_nights_tminGE20"
+  - "precipGE20mm_days"
+  - "precipGE10mm_days"
+  - "frost_days"
+  
 interval:
   - "annual"
   - "monthly"
