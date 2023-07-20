@@ -18,8 +18,10 @@ class CLITestCase(unittest.TestCase):
         # Add assertions for the expected output or behavior
         # Additional assertions for DataFrame output
         first_line = result.stdout.strip().split('\n')[0]
-        expected_first_line = 'inputfile:  '
-        'data/annual/air_temperature_mean/air_temperature_mean_year.txt'
+        efl = "inputfile:  "\
+              "data/annual/air_temperature_mean/"\
+              "air_temperature_mean_year.txt"
+        expected_first_line = efl
         self.assertEqual(first_line, expected_first_line)
 
     def test_plot_params_mode(self):

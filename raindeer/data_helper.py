@@ -49,9 +49,11 @@ def data_helper(conv_data, interval, option):
 
         #     data_path.append(f"{root_data}/annual/{data}")
         if data in mon_type:
-            if f"{root_data}/monthly/{data}" not in data_path:
+            if f"{root_data}/monthly/{data}" not in data_path and\
+                    "monthly" in interval:
                 data_path.append(f"{root_data}/monthly/{data}")
-            if f"{root_data}/annual/{data}" not in data_path:
+            if f"{root_data}/annual/{data}" not in data_path and\
+                    "annual" in interval:
                 data_path.append(f"{root_data}/annual/{data}")
         elif data in all_data_types and data not in mon_type:
             if f"{root_data}/annual/{data}" not in data_path:

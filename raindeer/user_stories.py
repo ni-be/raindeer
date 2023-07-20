@@ -412,13 +412,19 @@ def simple_plot(data, _args, mtn):
     Bundesländer, across the chosen month (or annually), for the selected
     weather phenomena.
     """
-
+    month = []
+    month2 = []
     # handle input data
     if _args.month:
         interval = "monthly"
+        for n in _args.month:
+            month.append(n)
+        for m in month:
+            month2.append(mtn[m])
         index_str = "Jahr;Monat"
     else:
         interval = "annual"
+        month2 = "1"
         index_str = "Jahr"
 
     # transform _args.month from word-strings to number-string
@@ -429,26 +435,33 @@ def simple_plot(data, _args, mtn):
             i += 1
     else:
         _args.month = "0"
-    df_list = dataframe_helper(_args.weather, interval, _args.month, "r")
-
+    df_list = dataframe_helper(_args.weather, interval, month2, "r")
     # Adding "Jahr;Monat" or "Jahr" to the dataframe
     _args.bundesland.insert(0, index_str)
 
     # Iterate through each entry in the df_list
-    # Each entry represent a different "weather phneomenom"
-    # Like sun-duration or precipitation
     for i in range(0, len(df_list)):
-        # Use only the required subset of Year-rows and Bundesland-Comumns
-        df_list[i] = df_list[i][_args.bundesland]
+        # Check if all elements in _args.bundesland exist as
+        # column names in df_list[i]
+        if set(_args.bundesland).issubset(df_list[i].columns):
+            # Use only the required subset of Year-rows and Bundesland-Columns
+            df_list[i] = df_list[i][_args.bundesland]
+        else:
+            print(f"Column(s)"
+                  "{set(_args.bundesland) - set(df_list[i].columns)}"
+                  " not found in dataframe.")
+            continue  # Skip to next iteration if columns not found
+
         drop = []
         for row in range(0, len(df_list[i])):
-            if not int(df_list[i].iloc[row][index_str][0:4]) in _args.year:
+            if not int(df_list[i].loc[row, index_str][0:4]) in _args.year:
                 drop.append(row)
             else:
                 if interval == "monthly":
-                    df_list[i].iloc[row][index_str] = df_list[i].iloc[
-                        row][index_str][0:4] + "," + df_list[i].iloc[
-                            row][index_str][4:6]
+                    # Avoiding chain indexing using .loc
+                    df_list[i].loc[row, index_str] = \
+                        df_list[i].loc[row, index_str][0:4] \
+                        + "," + df_list[i].loc[row, index_str][4:6]
 
         df_list[i].drop(labels=drop, inplace=True)
         df_list[i].reset_index(inplace=True, drop=True)

@@ -11,10 +11,13 @@ sys.path.append(f"{parent_dir}/raindeer")
 class TestSimplePlot(unittest.TestCase):
     def test_simple_plot1(self):
         print("Testing simple_plot function [1/1]")
-        os.system(r"""python raindeer/main.py data/annual
-                  --outfile "results/user_stories/plots/simple_plot_temp.png"
-                  --mode=simple-plot -y 1981..2022 -b "brandenburg" "hessen"
-                  -w "precipitation" "sun" """)
+        command = (
+                   'python raindeer/main.py precipitation -m january'
+                   ' --outfile "results/user_stories/plots/'
+                   'simple_plot_temp.png"'
+                   ' --mode=simple-plot -y 1981..2022 -b "brandenburg" '
+                   '"hessen" -w "precipitation" "sun"')
+        os.system(command)
         self.assertTrue(os.path.isfile(
             r"results/user_stories/plots/simple_plot_temp.png"))
         os.remove(r"results/user_stories/plots/simple_plot_temp.png")
