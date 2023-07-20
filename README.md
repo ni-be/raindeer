@@ -141,6 +141,13 @@ Finally, the OPTION at the end can have 3 different string values:
 
 ## Command-line interface
 
+### `download all` - quick downloader
+```BASH
+$ raindeer --mode download-all 
+  
+```
+Will download all data-sets
+
 ### `dataframe_helper` - Downloader
 ```BASH
 $ raindeer --mode dataframe_helper --data_set DATA_SET --interval INTERVAL --month MONTHS
