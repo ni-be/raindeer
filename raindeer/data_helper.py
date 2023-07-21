@@ -130,9 +130,6 @@ def rename_function(filename, data_type, ending, path):
     new_name = str(data_type + ending)
     new_file = os.path.join(path, new_name)
     try:
-        # if os.path.exists(new_file):
-        #     Remove the existing file before renaming
-        #     os.remove(new_file)
         os.rename(old_filename, new_file)
     except FileNotFoundError:
         print(f"{old_filename} does not exist")
@@ -149,22 +146,6 @@ def local_check(directory, option):
     Returns:
         list: Download URLs.
     """
-    # download_list = []
-    # for dir in directory:
-    #     if not os.path.exists(dir) and option != "allDL":
-    #         logging.info(f"{dir}: not yet exists, will commence download!")
-    #         # print(f"{dir} does not yet exists, will commence download!")
-    #         download_list.append(dir)
-    #     elif option == "allDL":
-    #         download_list.append(dir)
-    #     else:
-    #         if option == "wcli":
-    #             logging.info(f"{dir} does exist")
-    #             # print(f"{dir} does exist")
-    # download_url_list = create_url_download_list(download_list)
-    # unique_list = []
-    # [unique_list.append(x) for x in download_url_list if x not in unique_list]
-    # return unique_list
     download_list = []
     for dir in directory:
         # If directory does not exist and option is not 'allDL'
