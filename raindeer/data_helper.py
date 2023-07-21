@@ -26,8 +26,8 @@ def data_helper(conv_data, interval, option):
     """
     assert isinstance(interval, list),\
         "interval must be a list"
-    assert option in ["w", "r", "wlci", "allDL"],\
-        "option must be 'w', 'r', or 'wlci', allDL"
+    assert option in ["w", "r", "wlci", "dl"],\
+        "option must be 'w', 'r', or 'wlci', dl"
     if isinstance(conv_data, list):
         for data in conv_data:
             assert isinstance(data, str),\
@@ -168,15 +168,15 @@ def local_check(directory, option):
     download_list = []
     for dir in directory:
         # If directory does not exist and option is not 'allDL'
-        if not os.path.exists(dir) and option != "allDL":
+        if not os.path.exists(dir) and option != "dl":
             logging.info(f"{dir}: not yet exists, will commence download!")
             download_list.append(dir)
         # If the directory is empty, set option to 'allDL'
         elif os.path.exists(dir) and not os.listdir(dir):
-            option = "allDL"
+            option = "dl"
             download_list.append(dir)
         # If option is 'allDL'
-        elif option == "allDL":
+        elif option == "dl":
             download_list.append(dir)
         # If directory exists and option is 'wcli'
         else:

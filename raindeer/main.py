@@ -178,7 +178,7 @@ def main(data):
         dfh.dataframe_helper(utils.yaml_reader('all_data_types'),
                              utils.yaml_reader('interval'),
                              utils.yaml_reader('months'),
-                             "allDL")
+                             "dl")
 
     else:
         logging.error(str(args.mode) + ' is not a valid mode!')

@@ -149,6 +149,9 @@ Finally, the OPTION at the end can have 3 different string values:
 - 'r' : returns only a list of dataframes
 - 'w' : returns a list of dataframes as well as saves a csv of combined dataframes. This is useful if you load the monthly datasets which are unfortunately initially provided in 12 .txt files.
 - 'wcli' : is mainly used automatically when accessing the dataframe_helper from the command-line. This can help to download all the needed data quickly. 
+- 'dl' : download data / redownload data
+
+An auto update was not included because data might change online. 
 
 ## Command-line interface
 

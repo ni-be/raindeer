@@ -23,6 +23,7 @@ def dataframe_helper(data, interval, month_range, option):
         month_range (str, list, or int): Nonths used DF. Annual '0' enough
 
         option (str): Operation mode 'w' = read + write csv , 'r' read only
+                        or 'dl' to download all data or redownload all data
 
     Raises:
         TypeError: If the data types of the parameters are not as expected.
