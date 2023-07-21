@@ -266,18 +266,18 @@ Name                                                      Stmts   Miss  Cover
 -----------------------------------------------------------------------------
 raindeer/__init__.py                                          0      0   100%
 raindeer/argument_preprocessing.py                           76      6    92%
-raindeer/data_helper.py                                     101     39    61%
-raindeer/dataframe_helper.py                                 74     14    81%
-raindeer/dwd_downloader.py                                   52     17    67%
-raindeer/main.py                                             93     85     9%
-raindeer/user_stories.py                                    225    107    52%
+raindeer/data_helper.py                                     101     13    87%
+raindeer/dataframe_helper.py                                 74      2    97%
+raindeer/dwd_downloader.py                                   52      2    96%
+raindeer/main.py                                             93     83    11%
+raindeer/user_stories.py                                    225    103    54%
 raindeer/utilities.py                                        33      3    91%
 tests/__init__.py                                             0      0   100%
 tests/argument_prepro/__init__.py                             0      0   100%
 tests/argument_prepro/test_argument_prep.py                  70      3    96%
 tests/data_helper/__init__.py                                 0      0   100%
 tests/data_helper/test_create_url_download_list.py           37      1    97%
-tests/data_helper/test_local_check.py                        36     13    64%
+tests/data_helper/test_local_check.py                        36      1    97%
 tests/data_helper/test_rename_function.py                    41      3    93%
 tests/data_helper/test_txt_renamer.py                        24      1    96%
 tests/dataframe_creator/__init__.py                           0      0   100%
@@ -304,15 +304,14 @@ tests/user_stories/test_story_8.py                           27      1    96%
 tests/utils/__init__.py                                       0      0   100%
 tests/utils/test_yaml_reader.py                              14      1    93%
 -----------------------------------------------------------------------------
-TOTAL                                                      1286    320    75%
-No data to report.
+TOTAL                                                      1286    249    81%
 ===============================================================================
  Language            Files        Lines         Code     Comments       Blanks
 ===============================================================================
  Batch                   1           35           26            1            8
  Makefile                1           20            9            7            4
- Python                 42         2704         2061          237          406
- ReStructuredText        3          263          179            0           84
+ Python                 41         2664         2060          203          401
+ ReStructuredText        3          189          134            0           55
  Shell                   1           22           19            2            1
  Plain Text             48         5268            0         5264            4
  YAML                    1           85           78            0            7
@@ -322,57 +321,10 @@ No data to report.
  |- Python               1           24           21            0            3
  (Total)                            106           21           56           29
 -------------------------------------------------------------------------------
- Markdown                7          735            0          604          131
+ Markdown                7          734            0          603          131
  |- BASH                 1           10           10            0            0
  |- Python               1           16            7            4            5
- (Total)                            761           17          608          136
+ (Total)                            760           17          607          136
 ===============================================================================
- Total                 105         9132         2372         6115          645
-===============================================================================
-===============================================================================
- Language            Files        Lines         Code     Comments       Blanks
-===============================================================================
- Batch                   1           35           26            1            8
- Makefile                1           20            9            7            4
- Python                 42         2705         2062          237          406
- ReStructuredText        3          263          179            0           84
- Shell                   1           22           19            2            1
- Plain Text             48         5269            0         5265            4
- YAML                    1           85           78            0            7
--------------------------------------------------------------------------------
- Jupyter Notebooks       1            0            0            0            0
- |- Markdown             1           82            0           56           26
- |- Python               1           24           21            0            3
- (Total)                            106           21           56           29
--------------------------------------------------------------------------------
- Markdown                7          758            0          627          131
- |- BASH                 1           10           10            0            0
- |- Python               1           16            7            4            5
- (Total)                            784           17          631          136
-===============================================================================
- Total                 105         9157         2373         6139          645
-===============================================================================
-No data to report.
-===============================================================================
- Language            Files        Lines         Code     Comments       Blanks
-===============================================================================
- Batch                   1           35           26            1            8
- Makefile                1           20            9            7            4
- Python                 42         2706         2063          237          406
- ReStructuredText        3          263          179            0           84
- Shell                   1           22           19            2            1
- Plain Text             48         5270            0         5266            4
- YAML                    1           85           78            0            7
--------------------------------------------------------------------------------
- Jupyter Notebooks       1            0            0            0            0
- |- Markdown             1           82            0           56           26
- |- Python               1           24           21            0            3
- (Total)                            106           21           56           29
--------------------------------------------------------------------------------
- Markdown                7          782            0          651          131
- |- BASH                 1           10           10            0            0
- |- Python               1           16            7            4            5
- (Total)                            808           17          655          136
-===============================================================================
- Total                 105         9183         2374         6164          645
+ Total                 104         9017         2326         6080          611
 ===============================================================================

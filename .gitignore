@@ -69,7 +69,8 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/_build/
+# Since part of the task is to create documentation this should not be ignored
+#docs/_build/
 
 # PyBuilder
 .pybuilder/
@@ -233,5 +234,6 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 results/user_stories/plots/between_years_BACKUP_18183.png
 
-
+.coverage
+.coveragerc
 google.com
