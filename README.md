@@ -53,7 +53,7 @@ In addition you may get started with running the following little helper:
 $ chmod +x ./little_helper.sh
 $ bash ./little_helper.sh 
 ```
-This script will install raindeer, download all the data, run unittests using coverage and will run tokei if installed. THIS SCRIPT WAS SOLOLY CREATED to make our life easier when testing and for the examiner. 
+This script will install raindeer, download all the data, run unittests using coverage and will run tokei if installed. THIS SCRIPT WAS SOLELY CREATED to make our life easier when testing and for the examiner. 
 
 The results from past runs can be found here:
 
@@ -183,7 +183,6 @@ An auto update was not included because data might change online.
 ### `download all` - quick downloader
 ```BASH
 $ raindeer --mode download-all 
-  
 ```
 Will download all data-sets
 
@@ -195,7 +194,7 @@ DATA_SET, INTERVAL and MONTHS are the same values as above only the OPTION is no
 
 ### Forecast
 ```BASH
-$ raindeer "data/annual/air_temperature_mean/regional_averages_tm_year.txt" --mode forecast -b=BUNDESLAND -f=YEAR
+$ raindeer "data/annual/air_temperature_mean/air_temperature_mean_year.txt" --mode forecast -b=BUNDESLAND -f=YEAR
 ```
 
 Args:
