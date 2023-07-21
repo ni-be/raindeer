@@ -14,4 +14,4 @@ setup(
         'requests~=2.31.0'],
     entry_points={
         'console_scripts': [
-            'raindeer = raindeer.raindeer:main']})
+            'raindeer = raindeer.main:main']})
