@@ -39,7 +39,6 @@ def fourier_analysis(data, interval, columns, case):
     Raises:
         AssertionError: If the input data is neither a pandas DataFrame nor a
         string, or if `case` is not one of ['rain', 'sun', 'temp'].
-
     """
     if isinstance(data, str) and all(isinstance(i, str) for i in interval):
         df_list = dataframe_helper(data, interval,
@@ -387,20 +386,14 @@ def simple_plot(data, _args, mtn):
     Month, Bundesländer (regions in Germany), and weather phenomenon.
 
     Parameters:
-    data: pandas DataFrame --
-        The original dataset.
-    -args: argparse.Namespace --
-        A Namespace object from argparse. The attributes are:
-            month: String --
-                The specified month.
-            year: Integer --
-                The specified year.
-            weather: List of String --
-                The specified weather phenomenon identifiers.
-            bundesland: List of String --
-                The specified Bundesländer (regions in Germany).
-    mtn: Dictionary --
-        A dictionary mapping month names to their corresponding numbers.
+    data (pandas DataFrame): The original dataset.
+    -args (argparse.Namespace): A Namespace object from argparse. 
+    The attributes are:
+        - month (str): The specified month.
+        - year (int): The specified year.
+        - weather (List[str]): The specified weather phenomenon identifiers.
+        - bundesland (List[str]): The specified Bundesländer (german states).
+    mtn (Dict): A dictionary mapping month names to the corresponding numbers.
 
     Outputs:
     This function plots the data based on specified parameters.

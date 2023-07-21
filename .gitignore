@@ -69,7 +69,8 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/_build/
+# Since part of the task is to create documentation this should not be ignored
+#docs/_build/
 
 # PyBuilder
 .pybuilder/

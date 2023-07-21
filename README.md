@@ -72,6 +72,19 @@ It is advised to either use the script above to start UNITTEST or follow the fol
 $ python -m unittest
 ```
 
+## READ THE DOCS
+
+In case no docs/build directory is present do the following:
+```bash
+  $ cd docs
+  $ make html
+```
+
+After that the Read The Docs documentation should be available under docs/build/html/index.html. You could open this using:
+```bash
+  $ firefox docs/build/html/index.html
+```
+
 ## Running the program
 The programm has two interfaces / access points. You can access some functionality through the [command-line interface](#command-line-interface).
 In addition, you can directly access the modules through importing it, e.g. to a Jupyter Notebook. 
@@ -87,7 +100,7 @@ You can access each list using `utilities:yaml_reader(OPTION)`.
 
 Start the jupyter notebook from the command-line with 
 ```BASH
-$ jupyter notebook
+  $ jupyter notebook
 ```
 This will open a homepage in your browser containing all files in your current working directory. From here, select ``raindeer.ipynb`` and open it. Inside the notebook is the computational narrative for this software. It explains all the modules and use-cases as well as answering some interesting research questions using the data.
 
@@ -98,7 +111,7 @@ For QoL purposes, you can use the `yaml_reader`.
 The `yaml_reader` accesses the `config.yaml` file in the root directory to allow easy changes to the dataset sources and headers for the dataframe. 
 
 ```Python
-utilities.yaml_reader(OPTION)
+  utilities.yaml_reader(OPTION)
 ```
 
 Args:
@@ -110,7 +123,7 @@ Args:
 Another utility that allows easy saving of plots into the results folder.
 
 ```Python
-utilities.plot_save(PLT, "SUB_DIR", "FILENAME")
+  utilities.plot_save(PLT, "SUB_DIR", "FILENAME")
 ```
 Args:
 - PLT (matplotlib.pyplot) : The configured matplotlib plot to be saved. 

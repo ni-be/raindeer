@@ -63,6 +63,42 @@ After downloading this package, install it by running the following command in i
 
    $ pip install -e .
 
+
+In addition you may get started with running the following little helper: 
+
+
+.. code-block:: bash
+   
+   $ chmod +x ./little_helper.sh
+   
+   $ bash ./little_helper.sh 
+
+
+This script will install raindeer, download all the data, run unittests using coverage and will run tokei if installed. THIS SCRIPT WAS SOLOLY CREATED to make our life easier when testing and for the examiner. 
+
+The results from past runs can be found here:
+
+[Results](https://gitup.uni-potsdam.de/jubruns/raindeer/-/blob/main/results/results.md)
+
+## UNITTESTS
+
+It is advised to either use the script above to start UNITTEST or follow the following steps manually
+
+1. install Raindeer
+2. download all the data -> 
+
+.. code-block:: bash
+
+  $ raindeer --mode download all
+
+
+3. Then run Unittests. with 
+
+.. code-block:: bash
+
+   $ python -m unittest
+
+
 Running the Program
 -------------------
 
