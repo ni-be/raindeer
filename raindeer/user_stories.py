@@ -14,7 +14,7 @@ import raindeer.utilities as utilities
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
-if utilities.yaml_reader('show_plots') == 1: 
+if utilities.yaml_reader('show_plots') == 1:
     show_plots = True
 else:
     show_plots = False
@@ -390,7 +390,7 @@ def simple_plot(data, _args, mtn):
 
     Parameters:
     data (pandas DataFrame): The original dataset.
-    -args (argparse.Namespace): A Namespace object from argparse. 
+    -args (argparse.Namespace): A Namespace object from argparse.
     The attributes are:
         - month (str): The specified month.
         - year (int): The specified year.
