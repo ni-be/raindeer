@@ -21,7 +21,6 @@ def dwd_downloader(url_list):
     # convert url_list or month into lists if necessary
     url_list = input_checker(url_list)
     # iterate over the url_list
-    path_list = []
     for data in url_list:
         # Get directory from url
         time_dir = data.split('/')[-3]
