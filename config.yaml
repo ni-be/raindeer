@@ -1,3 +1,7 @@
+# UNITTEST SHOW PLOTS 1 - TRUE 0 == FALSE
+
+show_plots: 0
+
 base_url: "https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/"
 
 urls:

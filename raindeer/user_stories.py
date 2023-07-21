@@ -14,7 +14,10 @@ import raindeer.utilities as utilities
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
-show_plots = True
+if utilities.yaml_reader('show_plots') == 1: 
+    show_plots = True
+else:
+    show_plots = False
 
 
 def fourier_analysis(data, interval, columns, case):
@@ -484,4 +487,5 @@ def simple_plot(data, _args, mtn):
             print("Could not save. Wrong outputfile")
 
     # show the graph
-    plt.show()
+    if show_plots:
+        plt.show()

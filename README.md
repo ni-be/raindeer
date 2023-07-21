@@ -71,6 +71,10 @@ It is advised to either use the script above to start UNITTEST or follow the fol
 ```BASH
 $ python -m unittest
 ```
+## PLOTS
+
+If you want to run the codes and auto open plots using systemtools such as XDG-OPEN then you need to set the show-plots option in 
+config.yaml to True (1). Otherwise The functions won't generate popups with plots. 
 
 ## READ THE DOCS
 

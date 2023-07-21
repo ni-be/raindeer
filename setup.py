@@ -12,7 +12,6 @@ setup(
         'numpy~=1.25.0',
         'PyYAML~=6.0',
         'requests~=2.31.0',
-        'tokei~=12.1.2',
         'coverage~=7.2.7'],
     entry_points={
         'console_scripts': [
