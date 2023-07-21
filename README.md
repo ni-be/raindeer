@@ -59,6 +59,18 @@ The results from past runs can be found here:
 
 [Results](https://gitup.uni-potsdam.de/jubruns/raindeer/-/blob/main/results/results.md)
 
+## UNITTESTS
+
+It is advised to either use the script above to start UNITTEST or follow the following steps manually
+1. install Raindeer
+2. download all the data -> 
+```BASH
+  $ raindeer --mode download all
+```
+3. Then run Unittests. with 
+```BASH
+$ python -m unittest
+```
 
 ## Running the program
 The programm has two interfaces / access points. You can access some functionality through the [command-line interface](#command-line-interface).

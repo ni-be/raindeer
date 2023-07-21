@@ -233,5 +233,6 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 results/user_stories/plots/between_years_BACKUP_18183.png
 
-
+.coverage
+.coveragerc
 google.com
