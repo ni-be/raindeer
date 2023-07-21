@@ -14,7 +14,7 @@ import raindeer.utilities as utilities
 root_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(os.path.dirname(root_dir))
 
-show_plots = False
+show_plots = True
 
 
 def fourier_analysis(data, interval, columns, case):
