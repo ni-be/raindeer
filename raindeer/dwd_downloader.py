@@ -21,7 +21,6 @@ def dwd_downloader(url_list):
     # convert url_list or month into lists if necessary
     url_list = input_checker(url_list)
     # iterate over the url_list
-    path_list = []
     for data in url_list:
         # Get directory from url
         time_dir = data.split('/')[-3]
@@ -105,7 +104,16 @@ def data_writer(path, content):
         content: Content of the downloaded file.
     """
     output_file = Path(path)
-    output_file.parent.mkdir(exist_ok=True, parents=True)
-    output_file.write_text(content)
-    logging.info(f"Downloaded '{path}' STATUS OK.")
-    print(f"Downloaded '{path}' STATUS OK.")
+    if not output_file.exists():
+        output_file.parent.mkdir(exist_ok=True, parents=True)
+        output_file.write_text(content)
+        logging.info(f"Downloaded '{path}' STATUS OK.")
+        print(f"Downloaded '{path}' STATUS OK.")
+    else:
+        logging.info(f"File '{path}' already exists.")
+        print(f"File '{path}' already exists.")
+    # output_file = Path(path)
+    # output_file.parent.mkdir(exist_ok=True, parents=True)
+    # output_file.write_text(content)
+    # logging.info(f"Downloaded '{path}' STATUS OK.")
+    # print(f"Downloaded '{path}' STATUS OK.")

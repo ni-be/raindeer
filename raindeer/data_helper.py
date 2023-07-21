@@ -26,8 +26,8 @@ def data_helper(conv_data, interval, option):
     """
     assert isinstance(interval, list),\
         "interval must be a list"
-    assert option in ["w", "r", "wlci", "allDL"],\
-        "option must be 'w', 'r', or 'wlci', allDL"
+    assert option in ["w", "r", "wlci", "dl"],\
+        "option must be 'w', 'r', or 'wlci', dl"
     if isinstance(conv_data, list):
         for data in conv_data:
             assert isinstance(data, str),\
@@ -149,18 +149,39 @@ def local_check(directory, option):
     Returns:
         list: Download URLs.
     """
+    # download_list = []
+    # for dir in directory:
+    #     if not os.path.exists(dir) and option != "allDL":
+    #         logging.info(f"{dir}: not yet exists, will commence download!")
+    #         # print(f"{dir} does not yet exists, will commence download!")
+    #         download_list.append(dir)
+    #     elif option == "allDL":
+    #         download_list.append(dir)
+    #     else:
+    #         if option == "wcli":
+    #             logging.info(f"{dir} does exist")
+    #             # print(f"{dir} does exist")
+    # download_url_list = create_url_download_list(download_list)
+    # unique_list = []
+    # [unique_list.append(x) for x in download_url_list if x not in unique_list]
+    # return unique_list
     download_list = []
     for dir in directory:
-        if not os.path.exists(dir) and option != "allDL":
+        # If directory does not exist and option is not 'allDL'
+        if not os.path.exists(dir) and option != "dl":
             logging.info(f"{dir}: not yet exists, will commence download!")
-            # print(f"{dir} does not yet exists, will commence download!")
             download_list.append(dir)
-        elif option == "allDL":
+        # If the directory is empty, set option to 'allDL'
+        elif os.path.exists(dir) and not os.listdir(dir):
+            option = "dl"
             download_list.append(dir)
+        # If option is 'allDL'
+        elif option == "dl":
+            download_list.append(dir)
+        # If directory exists and option is 'wcli'
         else:
             if option == "wcli":
                 logging.info(f"{dir} does exist")
-                # print(f"{dir} does exist")
     download_url_list = create_url_download_list(download_list)
     unique_list = []
     [unique_list.append(x) for x in download_url_list if x not in unique_list]
