@@ -44,14 +44,6 @@ raindeer.main module
    :undoc-members:
    :show-inheritance:
 
-raindeer.tryout module
-----------------------
-
-.. automodule:: raindeer.tryout
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 raindeer.user\_stories module
 -----------------------------
 
