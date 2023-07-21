@@ -177,5 +177,5 @@ def write_csv(df, data, ending):
     """
     df.to_csv(f"{data}/{ending}_combined_data.csv",
               index=False, header=True)
-    logging.info(print(f"Writing dataframe to a csv"))
+    logging.info(print("Writing dataframe to a csv"))
     print(f"Wrote Dataframe as {data}/{ending}_combined_data.csv")

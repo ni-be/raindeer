@@ -112,8 +112,3 @@ def data_writer(path, content):
     else:
         logging.info(f"File '{path}' already exists.")
         print(f"File '{path}' already exists.")
-    # output_file = Path(path)
-    # output_file.parent.mkdir(exist_ok=True, parents=True)
-    # output_file.write_text(content)
-    # logging.info(f"Downloaded '{path}' STATUS OK.")
-    # print(f"Downloaded '{path}' STATUS OK.")
