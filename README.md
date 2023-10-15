@@ -2,7 +2,7 @@
 
 Analysis of weather data in Germany. 
 
-This project is done as part of the _Research Software Engineering_ course 
+This project is done as part of the Research Software Engineering course 
 group project in summer 2023. 
 
 * [Problem description](#problem-description)
